@@ -1,0 +1,706 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:media="http://search.yahoo.com/mrss/">
+<channel>
+<title>Devil-Torrents.pl - Darmowe Torrenty</title>
+<description>Ostatnio dodane torrenty</description>
+<link>http://devil-torrents.pl</link>
+<lastBuildDate>Tue, 19 Sep 2017 11:46:17 +0200</lastBuildDate>
+<generator>Devil-Torrents.pl Generator</generator>
+<image>
+<title>Devil-Torrents.pl - Darmowe Torrenty</title>
+<link>http://devil-torrents.pl</link>
+<url>http://devil-torrents.pl/images/logo-rss.png</url>
+<height>150</height>
+<width>120</width>
+</image>
+<language>pl</language>
+
+
+<item>
+			<title>Noce w Rodanthe - Nights in Rodanthe (2008) [DVDRip] [XviD] [Lektor PL] ( Seedów: 1 Peerów: 1 )</title>
+			<link>http://devil-torrents.pl/torrent/103208</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103208.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103208.jpg" align="left"><br>...( Info )...<br>
+<br>
+Oryginalny tytuł: Nights in Rodanthe<br>
+Polski tytuł: Noce w Rodanthe<br>
+Produkcja: Australia, USA<br>
+Data premiery: 31 października 2008 (Polska) 26 września 2008 (świat)<br>
+Reżyseria: George C. Wolfe<br>
+Scenariusz: Ann Peacoc<br>
+...( Opis )...<br>
+W filmie Nights w Rodanthe Diane Lane wciela się w rolę Adrienne Willis, która chcąc zerwać z pełnym chaosu życiem, znajduje schronienie w nadmorskim miasteczku Rodanthe na jednej z wysp u wybrzeża Karoliny Północnej, gdzie ma zająć się przez weekend gospodą znajomej. Ma nadzieję, że znajdzie tu spokój, którego tak bardzo jej potrzeba, by przemyśleć konflikty rozgrywające się w jej otoczeniu – z niewiernym mężem, który prosi ją o powrót do domu, i z córką, która podważa każdą jej decyzję. Niedługo po przybyciu Adrienne do Rodanthe, gdy w wiadomościach pojawiają się prognozy potężnego sztormu, w gospodzie pojawia się gość – dr Paul Flanner ]]></description>
+			<author>marss</author>
+			<guid>http://devil-torrents.pl/torrent/103208</guid>
+			<pubDate>Tue, 19 Sep 2017 11:18:56</pubDate>
+        </item><item>
+			<title>Cienie - La mécanique de l'ombre *2016* [BDRip] [XviD-KiT] [Lektor PL] [zibi6248] ( Seedów: 37 Peerów: 210 )</title>
+			<link>http://devil-torrents.pl/torrent/103207</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103207.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103207.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Belgia, Francja<br>
+Gatunek: Thriller, Akcja<br>
+Premiera: 24 marca 2017 (Polska), 25 sierpnia 2016 (świat)<br>
+Reżyseria: Thomas Kruithof<br>
+Scenariusz: Yann Gozlan, Thomas Kruithof<br>
+https://www.youtube.com/watch?v=bNELifUksCs<br>
+<br>
+...( Opis )...<br>
+<br>
+Duval (François Cluzet), alkoholik będący na odwyku, bezskutecznie poszukuje pracy po przeżyciu załamania nerwowego. Pewnego dnia do mężczyzny zwraca się tajemnicza organizacja szpiegowska z propozycją stenografowania prywatnych rozmów telefonicznych. Duval przyjmuje ofertę. Odsłuchanie kasety numer 6 przerywa monotonię wykonywanego zajęcia. Bohater zostaje wplątany w polityczną intrygę na najwyższym szczeblu państwowym. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ François Cluzet .... Duval<br>
+★ Denis Podalydès .... Clément<br>
+★ Sami Bouajila .... Labarthe<br>
+★ Simon Abkarian .... Gerfaut<br>
+★ Alba Rohrwacher .... Sara<br>
+★ Philippe Résimont .... De Gr]]></description>
+			<author>zibi6248</author>
+			<guid>http://devil-torrents.pl/torrent/103207</guid>
+			<pubDate>Tue, 19 Sep 2017 11:03:25</pubDate>
+        </item><item>
+			<title>TERMINATOR - THE TERMINATOR *1984* [AC3] [DVDRIP] [XVID-GR4PE] [LEKTOR PL] ( Seedów: 24 Peerów: 54 )</title>
+			<link>http://devil-torrents.pl/torrent/103206</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103206.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103206.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: USA, Wielka Brytania<br>
+Gatunek: Akcja, Sci-Fi<br>
+Premiera: 26 października 1984 (świat)<br>
+Reżyseria: James Cameron<br>
+Scenariusz: James Cameron, Gale Anne Hurd<br>
+<br>
+...( Opis )...<br>
+<br>
+Rok 2029. Spustoszonym nuklearną wojną światem rządzą roboty, rodzaj ludzki zszedł do podziemia, a Los Angeles to jedno wielkie gruzowisko. Jednak ludzie przygotowują się do buntu przeciw wszechwładnym maszynom-tyranom. Ich wysłannik (Michael Biehn) wraca do Los Angeles roku 1984. Musi za wszelką cenę uniemożliwić niezniszczalnemu cyborgowi z XXI wieku, terminatorowi (Arnold Schwarzenegger), zamordowanie Sary Connor (Linda Hamilton), przyszłej matki lidera rewolucji. Uzbrojony po zęby i pozbawiony jakichkolwiek uczuć terminator urządza krwawe polowanie na dziewczynę.<br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Arnold Schwarzenegger .... Terminator<br>
+★ Michael Biehn .... Kyle Reese<br>
+★ Linda Hamilton .... Sar]]></description>
+			<author>marss</author>
+			<guid>http://devil-torrents.pl/torrent/103206</guid>
+			<pubDate>Tue, 19 Sep 2017 10:22:54</pubDate>
+        </item><item>
+			<title>Interes na kółkach / Wheels on Meals (1984) [BRRip] [XviD-GR4PE] [Lektor PL] ( Seedów: 60 Peerów: 99 )</title>
+			<link>http://devil-torrents.pl/torrent/103205</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103205.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103205.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Hiszpania, Hongkong<br>
+Gatunek: Komedia, Sztuki walki<br>
+Premiera: 17 sierpnia 1984 (świat)<br>
+Reżyseria: Sammo Kam-Bo Hung<br>
+Scenariusz: Edward Tang, Antonio Llorens, Gwing-Gai Lee<br>
+<br>
+...( Opis )...<br>
+<br>
+Thomas i David prowadzą interes na kółkach (objazdowa budka z chińszczyzną pełna gadżetów) w Hiszpanii. W tamtejszym szpitalu psychiatrycznym, gdzie przebywa ojciec Davida, poznają tajemniczą Sylvię, która akurat odwiedzała swoją matkę. Tymczasem znajomy Thomasa i Davida, detektyw - nieudacznik Moby dostaje zlecenie, by odnaleźć pewną dziewczynę... <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Jackie Chan .... Thomas<br>
+★ Richard Ng .... Matt<br>
+★ Herb Edelman .... Sylvia<br>
+★ Lola Forner .... David<br>
+★ Biao Yuen .... Moby<br>
+★ Sammo Kam-Bo Hung .... Człowiek Zegar<br>
+★ Ma Wu .... Śmiejący się pacjent<br>
+★ John Sham .... <br>
+<br>
+...( Dane Techniczne )...<br>
+<br>
+Format&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: AVI at 903 kb/s<br>
+Length&nbsp; ]]></description>
+			<author>Norman</author>
+			<guid>http://devil-torrents.pl/torrent/103205</guid>
+			<pubDate>Tue, 19 Sep 2017 10:13:36</pubDate>
+        </item><item>
+			<title>Przybłędy - Strays (1997) [PL.AC3.DVDRip] [XviD-GR4PE] [Lektor PL] ( Seedów: 22 Peerów: 139 )</title>
+			<link>http://devil-torrents.pl/torrent/103200</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103200.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103200.jpg" align="left"><br>...( Info )...<br>
+<br>
+Reżyseria: Vin Diesel <br>
+Scenariusz: Vin Diesel <br>
+Gatunek: Dramat <br>
+Kraj: USA <br>
+Rok produkcji: 1997 <br>
+Czas trwania: 96 min. <br>
+<br>
+http://www.filmweb.pl/film/Przybłędy-1997-111320 <br>
+<br>
+...( Opis )...<br>
+<br>
+Rick (Vin Diesel) jest znudzony monotonią swojego życia. Dilerka, używki, imprezy z napakowanymi testosteronem kolesiami, wciąż nowe „towary” wyrywane na jedną noc. Chociaż sam zbudował dystans, który skutecznie ukrywa wrażliwość oraz pozwala uniknąć jakiejkolwiek bliskości, zaczynają mu doskwierać samotność i brak oparcia w drugim człowieku. Młoda sympatyczna blondynka Heather może być biletem do innego świata. Jednak chociaż obustronna chemia działa natychmiastowo, aby pojawiła się szansa na coś poważniejszego Rick będzie musiał zmienić swoje stare nawyki. Napady agresji, uliczny styl „macho”, wpływy kumpli, których jedyną ambicją jest jeździć szybko, palić dużo i zarywać c]]></description>
+			<author>patriota123</author>
+			<guid>http://devil-torrents.pl/torrent/103200</guid>
+			<pubDate>Tue, 19 Sep 2017 08:28:35</pubDate>
+        </item><item>
+			<title>Kod da Vinci / The Da Vinci Code (2006) [720p] [BRRip] [XviD] [AC3-LTN] [Lektor PL] ( Seedów: 13 Peerów: 0 )</title>
+			<link>http://devil-torrents.pl/torrent/103197</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103197.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103197.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Francja, USA, Wielka Brytania, Malta<br>
+Gatunek: Thriller<br>
+Premiera: 19 maja 2006 (Polska), 17 maja 2006 (świat)<br>
+Reżyseria: Ron Howard<br>
+Scenariusz: Akiva Goldsman<br>
+<br>
+...( Opis )...<br>
+<br>
+Ofiarą popełnionego w Luwrze morderstwa pada kustosz muzeum Jacques Sauniere. Wezwany przez DCPJ Robert Langdon, harwardzki wykładowca i spec od wszelkich symboli, odkrywa na miejscu szereg zakonspirowanych śladów, które mogą pomóc w ustaleniu zabójcy, ale też stanowią klucz do jeszcze większej zagadki- niezwykłej tajemnicy sięgającej swoimi korzeniami samego początku chrześcijaństwa. Langdon podejrzewa, że ofiara była członkiem tajnego stowarzyszenia - Zakonu Syjonu -&nbsp;strzegącego od 1099r. największego skarbu ludzkości - Świętego Graala. Ale pozostały tylko 24h. na rozwikłanie precyzyjnie skonstruowanej łamigłówki pozostawionej przez Sauniera, albo tajemnica na zawsze przepadni]]></description>
+			<author>topp2p</author>
+			<guid>http://devil-torrents.pl/torrent/103197</guid>
+			<pubDate>Tue, 19 Sep 2017 07:46:32</pubDate>
+        </item><item>
+			<title>Inna kobieta / The Other Woman (2014) [480p] [BRRip] [XviD] [AC3] [sav] [Lektor PL] ( Seedów: 13 Peerów: 0 )</title>
+			<link>http://devil-torrents.pl/torrent/103195</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103195.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103195.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: USA<br>
+Gatunek: Komedia<br>
+Premiera: 25 kwietnia 2014 (Polska), 1 kwietnia 2014 (świat)<br>
+Reżyseria: Nick Cassavetes<br>
+Scenariusz: Melissa Stack<br>
+<br>
+...( Opis )...<br>
+<br>
+Cameron Diaz przewodzi doborowej obsadzie w tej znakomitej komedii o miłości, pragnieniach i przeznaczeniu. Nowojorska prawniczka Carly Whitten (Diaz) twardo stąpa po ziemi. Kiedy przypadkowo odkrywa, że jej, jak sądziła, wymarzony chłopak Mark (Nikolaj Coster-Waldau), ma żonę - nie jest zachwycona. Ale to nie wszystko - ona i żona Marka, Kate (Leslie Mann) dowiadują się o jeszcze jednej kochance (Kate Upton)! Nie trzeba wiele czasu, by zdradzone kobiety zaprzyjaźniły&nbsp;się i postanowiły dać nauczkę niewiernemu. Im więcej dowiadują się na temat Marka, tym lepiej się bawią, a on wpada w coraz większe tarapaty.<br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Cameron Diaz .... Carly Whitten<br>
+★ Leslie Mann .... Kate King<br>
+★ Nikol]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103195</guid>
+			<pubDate>Tue, 19 Sep 2017 05:58:34</pubDate>
+        </item><item>
+			<title>Szatan kazał tańczyć (2016) [DVDRip] [XviD-KiT] [Lektor PL] ( Seedów: 12 Peerów: 0 )</title>
+			<link>http://devil-torrents.pl/torrent/103194</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103194.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103194.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Holandia, Polska<br>
+Gatunek: Dramat<br>
+Premiera: 5 maja 2017 (Polska), 10 marca 2017 (świat)<br>
+Reżyseria: Katarzyna Rosłaniec<br>
+Scenariusz: Katarzyna Rosłaniec<br>
+<br>
+...( Opis )...<br>
+<br>
+Karolina (Magdalena Berus) – jak wiele współczesnych 20-, 30-latek – żyje szybko, intensywnie, pragnie doświadczyć wszystkiego ze zdwojoną siłą. W odróżnieniu od większości rówieśników, nie pracuje w korporacji – jest artystką, jakiś czas temu wydała pierwszą powieść, współczesną wersję „Lolity”, która stała się międzynarodowym sukcesem. Dziewczyna wiedzie nihilistyczny tryb życia, spędzając czas na podróżach po świecie, romansach i ostrych imprezach. Ale jej życie wypełnia&nbsp;pustka, której nie są w stanie pokonać ani narkotyki, ani seks. Świat Karoliny, żyjącej w cieniu nie radzącej sobie z przemijaniem matki (Danuta Stenka) i atrakcyjniejszej siostry Matyldy (Hanna Koczewska), stopniowo]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103194</guid>
+			<pubDate>Tue, 19 Sep 2017 05:45:47</pubDate>
+        </item><item>
+			<title>Riko prawie bocian / Richard the Stork (2017) [480p] [WEB-DL] [XViD] [AC3-MX] [Dubbing PL] ( Seedów: 13 Peerów: 0 )</title>
+			<link>http://devil-torrents.pl/torrent/103186</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103186.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103186.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Belgia, Luksemburg, Niemcy, Norwegia, USA<br>
+Gatunek: Animacja<br>
+Premiera: 5 maja 2017 (Polska), 12 lutego 2017 (świat)<br>
+Reżyseria: Reza Memari<br>
+Scenariusz: Reza Memari<br>
+<br>
+...( Opis )...<br>
+<br>
+Rysio jest wróblem przygarniętym przez parę bocianów. Kiedy przybrani rodzice migrują do Afryki, bohater, przekonany, że też jest bocianem, wyrusza ich śladem w pełną przygód podróż, korzystając z wszelkich możliwych środków transportu. Towarzyszą mu nowi przyjaciele - ekscentryczna sowa i narcystyczna papuga, która marzy o karierze gwiazdy disco. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Bernard Lewandowski .... Riko<br>
+★ Magdalena Boczarska .... Olga<br>
+★ Piotr Gąsowski .... Kiki<br>
+★ Piotr Karolak .... Klaudiusz<br>
+★ Małgorzata Kożuchowska .... Jutrzenka<br>
+★ Mirosław Zbrojewicz .... Don Crowleone<br>
+★ Waldemar Barwiński .... Mewa Francesco<br>
+<br>
+...( Dane Techniczne )...<br>
+<br>
+Format&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: AVI at 2]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103186</guid>
+			<pubDate>Mon, 18 Sep 2017 22:07:22</pubDate>
+        </item><item>
+			<title>Riko prawie bocian / Richard the Stork (2017) [WEB-DL] [XviD-KiT] [Dubbing PL] ( Seedów: 22 Peerów: 0 )</title>
+			<link>http://devil-torrents.pl/torrent/103185</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103185.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103185.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Belgia, Luksemburg, Niemcy, Norwegia, USA<br>
+Gatunek: Animacja<br>
+Premiera: 5 maja 2017 (Polska), 12 lutego 2017 (świat)<br>
+Reżyseria: Reza Memari<br>
+Scenariusz: Reza Memari<br>
+<br>
+...( Opis )...<br>
+<br>
+Rysio jest wróblem przygarniętym przez parę bocianów. Kiedy przybrani rodzice migrują do Afryki, bohater, przekonany, że też jest bocianem, wyrusza ich śladem w pełną przygód podróż, korzystając z wszelkich możliwych środków transportu. Towarzyszą mu nowi przyjaciele - ekscentryczna sowa i narcystyczna papuga, która marzy o karierze gwiazdy disco. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Bernard Lewandowski .... Riko<br>
+★ Magdalena Boczarska .... Olga<br>
+★ Piotr Gąsowski .... Kiki<br>
+★ Piotr Karolak .... Klaudiusz<br>
+★ Małgorzata Kożuchowska .... Jutrzenka<br>
+★ Mirosław Zbrojewicz .... Don Crowleone<br>
+★ Waldemar Barwiński .... Mewa Francesco<br>
+<br>
+...( Dane Techniczne )...<br>
+<br>
+Format&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: AVI at 1]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103185</guid>
+			<pubDate>Mon, 18 Sep 2017 21:54:59</pubDate>
+        </item><item>
+			<title>Riko prawie bocian / Richard the Stork (2017) [720p] [WEB-DL] [x264] [AC3-MX] [Lektor PL] ( Seedów: 13 Peerów: 0 )</title>
+			<link>http://devil-torrents.pl/torrent/103181</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103181.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103181.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Belgia, Luksemburg, Niemcy, Norwegia, USA<br>
+Gatunek: Animacja<br>
+Premiera: 5 maja 2017 (Polska), 12 lutego 2017 (świat)<br>
+Reżyseria: Reza Memari<br>
+Scenariusz: Reza Memari<br>
+<br>
+...( Opis )...<br>
+<br>
+Rysio jest wróblem przygarniętym przez parę bocianów. Kiedy przybrani rodzice migrują do Afryki, bohater, przekonany, że też jest bocianem, wyrusza ich śladem w pełną przygód podróż, korzystając z wszelkich możliwych środków transportu. Towarzyszą mu nowi przyjaciele - ekscentryczna sowa i narcystyczna papuga, która marzy o karierze gwiazdy disco. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Bernard Lewandowski .... Riko<br>
+★ Magdalena Boczarska .... Olga<br>
+★ Piotr Gąsowski .... Kiki<br>
+★ Piotr Karolak .... Klaudiusz<br>
+★ Małgorzata Kożuchowska .... Jutrzenka<br>
+★ Mirosław Zbrojewicz .... Don Crowleone<br>
+★ Waldemar Barwiński .... Mewa Francesco<br>
+<br>
+...( Dane Techniczne )...<br>
+<br>
+Format&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: Matroska]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103181</guid>
+			<pubDate>Mon, 18 Sep 2017 21:16:17</pubDate>
+        </item><item>
+			<title>Wybawienie / Flaskepost fra P (2016) [720p] [BDRip] [XviD] [AC3-KRT] [Lektor PL] ( Seedów: 425 Peerów: 244 )</title>
+			<link>http://devil-torrents.pl/torrent/103180</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103180.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103180.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Dania, Niemcy, Norwegia, Szwecja<br>
+Gatunek: Dramat, Kryminał, Thriller<br>
+Premiera: 28 kwietnia 2017 (Polska), 3 marca 2016 (świat)<br>
+Reżyseria: Hans Petter Moland<br>
+Scenariusz: Nikolaj Arcel<br>
+<br>
+...( Opis )...<br>
+<br>
+Detektyw Carl i jego pomocnik Assad z Departamentu Q nie raz już udowodnili, że nie ma czegoś takiego jak sprawy, których nie da się rozwiązać. W ich ręce trafia zamknięta w butelce tajemnicza wiadomość. Tekst liczy sobie 8 lat, a całość napisana jest dziecięcym pismem przy pomocy ludzkiej krwi. Carl i Assad trafiają na trop grupy religijnych fanatyków, którzy nigdy nie zgłosili zaginięć swoich podopiecznych. Detektywi rozpoczynają śmiertelnie niebezpieczną grę z psychopatycznym mordercą, który wystawi wiarę bogobojnych rodziców na najwyższą próbę. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Nikolaj Lie Kaas .... Carl Mørck<br>
+★ Fares Fares .... Assad<br>
+★ Pål Sverre Hagen ...]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103180</guid>
+			<pubDate>Mon, 18 Sep 2017 20:49:14</pubDate>
+        </item><item>
+			<title>Wybawienie / Flaskepost fra P (2016) [480p] [BDRip] [XviD] [AC3-KRT] [Lektor PL] ( Seedów: 12 Peerów: 0 )</title>
+			<link>http://devil-torrents.pl/torrent/103179</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103179.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103179.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Dania, Niemcy, Norwegia, Szwecja<br>
+Gatunek: Dramat, Kryminał, Thriller<br>
+Premiera: 28 kwietnia 2017 (Polska), 3 marca 2016 (świat)<br>
+Reżyseria: Hans Petter Moland<br>
+Scenariusz: Nikolaj Arcel<br>
+<br>
+...( Opis )...<br>
+<br>
+Detektyw Carl i jego pomocnik Assad z Departamentu Q nie raz już udowodnili, że nie ma czegoś takiego jak sprawy, których nie da się rozwiązać. W ich ręce trafia zamknięta w butelce tajemnicza wiadomość. Tekst liczy sobie 8 lat, a całość napisana jest dziecięcym pismem przy pomocy ludzkiej krwi. Carl i Assad trafiają na trop grupy religijnych fanatyków, którzy nigdy nie zgłosili zaginięć swoich podopiecznych. Detektywi rozpoczynają śmiertelnie niebezpieczną grę z psychopatycznym mordercą, który wystawi wiarę bogobojnych rodziców na najwyższą próbę. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Nikolaj Lie Kaas .... Carl Mørck<br>
+★ Fares Fares .... Assad<br>
+★ Pål Sverre Hagen ...]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103179</guid>
+			<pubDate>Mon, 18 Sep 2017 20:37:51</pubDate>
+        </item><item>
+			<title>Riko prawie bocian - Richard the Stork - A Stork's Journey (2017) [WEB-DL] [XviD-KiT] [Dubbing PL] ( Seedów: 97 Peerów: 692 )</title>
+			<link>http://devil-torrents.pl/torrent/103176</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103176.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103176.jpg" align="left"><br>...( Info )...<br>
+<br>
+.....Pobrałeś/aś podziękuj To nic nie kosztuje a Motywuje!!!..... <br>
+<br>
+Film dostepny ONLINE <br>
+<br>
+link do filmu https://openload.co/f/4Hkli6Q3Vh8<br>
+<br>
+<br>
+<br>
+Produkcja: Belgia, Luksemburg, Niemcy, Norwegia, USA<br>
+Gatunek: Animacja<br>
+Premiera: 5 maja 2017 (Polska), 12 lutego 2017 (świat)<br>
+Reżyseria: Reza Memari<br>
+Scenariusz: Reza Memari<br>
+<br>
+...( Opis )...<br>
+<br>
+Rysio jest wróblem przygarniętym przez parę bocianów. Kiedy przybrani rodzice migrują do Afryki, bohater, przekonany, że też jest bocianem, wyrusza ich śladem w pełną przygód podróż, korzystając z wszelkich możliwych środków transportu. Towarzyszą mu nowi przyjaciele - ekscentryczna sowa i narcystyczna papuga, która marzy o karierze gwiazdy disco. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Bernard Lewandowski .... Riko<br>
+★ Magdalena Boczarska .... Olga<br>
+★ Piotr Gąsowski .... Kiki<br>
+★ Piotr Karolak .... Klaudiusz<br>
+★ Małgorzata Kożuchowska .... Jutr]]></description>
+			<author>Norman</author>
+			<guid>http://devil-torrents.pl/torrent/103176</guid>
+			<pubDate>Mon, 18 Sep 2017 18:29:22</pubDate>
+        </item><item>
+			<title>Kickboxer 2 Godziny zemsty - Kickboxer 2 The Road Back (1991) [DVDRip] .[XviD] [Lektor PL] [D.T.A 26] ( Seedów: 13 Peerów: 14 )</title>
+			<link>http://devil-torrents.pl/torrent/103174</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103174.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103174.jpg" align="left"><br>Pobrałeś/aś podziękuj To nic nie kosztuje a Motywuje!!<br>
+<br>
+...( Info )...<br>
+<br>
+produkcja:USA<br>
+reżyseria:Albert Pyun<br>
+scenariusz:David S. Goyer<br>
+premiera:1 lutego 1991 (świat) 	 <br>
+gatunek:Sztuki walki<br>
+<br>
+..( O filmie )..<br>
+<br>
+http://www.filmweb.pl/film/Kickboxer+2%3A+Godziny+zemsty-1991-94211<br>
+<br>
+...( Opis )...<br>
+<br>
+David Sloan jest bratem słynnych kickboxerów. Kurta i Erica. Prowadzi klub założony przez braci. Pewnego dnia zachłanny twórca jednej z federacji kickboxingu, składa Davidovi propozycje nie do odrzucenia, żąda aby dołączył do grona jego zawodników. Chłopak odmawia. Jednak za prezesem federacji stoi ktoś trzeci, ktoś potężniejszy i zrobi on wszystko by mieć Davida w swoich szeregach. <br>
+<br>
+...( Obsada )...<br>
+<br>
+Sasha Mitchell ....... David Sloan	<br>
+Dennis Chan ....... Xian Chow<br>
+Michel Qissi ....... Tong Po<br>
+John Diehl ....... Jack<br>
+Vince Murdocco ....... Brian Wagner<br>
+Peter Boyle ....... J]]></description>
+			<author>ADAM26</author>
+			<guid>http://devil-torrents.pl/torrent/103174</guid>
+			<pubDate>Mon, 18 Sep 2017 18:18:12</pubDate>
+        </item><item>
+			<title>Aquarius (2016) [LQ] [BRRip] [XviD-WZ] [Lektor PL] ( Seedów: 20 Peerów: 52 )</title>
+			<link>http://devil-torrents.pl/torrent/103172</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103172.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103172.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Brazylia<br>
+Gatunek: Dramat<br>
+Premiera: 30 czerwca 2017 (Polska), 17 maja 2016 (świat)<br>
+Reżyseria: Kleber Mendonça Filho<br>
+Scenariusz: Kleber Mendonça Filho<br>
+<br>
+...( Opis )...<br>
+<br>
+65-letnia wdowa Clara (Sonia Braga) jest emerytowanym krytykiem muzycznym. Jako ostatnia zamieszkuje zbudowaną w 1940 roku rezydencję Aquarius. Przysięgła opuścić to miejsce dopiero po swojej śmierci. Rozpoczyna więc walkę ze spółką, która ma inne plany zagospodarowania tego terenu. Działania te pozwalają Clarze odpocząć od codziennej rutyny i tęsknoty za bliskimi. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Sonia Braga .... Clara<br>
+★ Maeve Jinkings .... Ana Paula<br>
+★ Irandhir Santos .... Roberval<br>
+★ Humberto Carrão .... Diego<br>
+<br>
+...( Dane Techniczne )...<br>
+<br>
+Format&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: AVI at 679 kb/s<br>
+Length&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: 700 MiB for 2 h 24 min 16s 0 ms<br>
+<br>
+Video #0&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: MPEG-4 Visual at 557 kb/s<br>
+Aspect&nbsp;&nbsp;&nbsp; ]]></description>
+			<author>Norman</author>
+			<guid>http://devil-torrents.pl/torrent/103172</guid>
+			<pubDate>Mon, 18 Sep 2017 18:06:56</pubDate>
+        </item><item>
+			<title>Umysł w ogniu / Brain on Fire (2016) [480p] [WEB-DL] [XviD] [AC3-KRT] [Lektor PL] ( Seedów: 11 Peerów: 8 )</title>
+			<link>http://devil-torrents.pl/torrent/103171</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103171.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103171.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Irlandia, Kanada<br>
+Gatunek: Biograficzny, Dramat<br>
+Premiera: 14 września 2016 (świat)<br>
+Reżyseria: Gerard Barrett<br>
+Scenariusz: Gerard Barrett<br>
+<br>
+...( Opis )...<br>
+<br>
+Susannah budzi się przywiązana do szpitalnego łóżka, a jej wspomnienia ostatnich tygodni są osnute mgłą. Okazuje się, że z dnia na dzień z pogodnej, pełnej życia dziewczyny, stojącej u progu wielkiej dziennikarskiej kariery, zmieniła się w przepełnioną strachem, agresywną istotę, której ciało trawi niezwykle rzadkie schorzenie. By nie popaść w szaleństwo, Susannah, na podstawie rozmów z bliskimi i lekarzami, stara się odtworzyć historię swojej choroby i znaleźć siłę, która pozwoli jej wygrać batalię z własnym umysłem. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Chloë Grace Moretz .... Susannah Cahalan<br>
+★ Richard Armitage .... Tom Cahalan<br>
+★ Carrie-Anne Moss .... Rhona Nack<br>
+★ Jenny Slate .... Stephen<br>
+★ Thomas Mann ....]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103171</guid>
+			<pubDate>Mon, 18 Sep 2017 18:02:23</pubDate>
+        </item><item>
+			<title>Dzieciak rządzi / The Boss Baby (2017) [BDRip] [XviD-KLiO] [Dubbing PL] ( Seedów: 62 Peerów: 128 )</title>
+			<link>http://devil-torrents.pl/torrent/103170</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103170.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103170.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: USA<br>
+Gatunek: Animacja, Komedia<br>
+Premiera: 21 kwietnia 2017 (Polska), 10 marca 2017 (świat)<br>
+Reżyseria: Tom McGrath<br>
+Scenariusz: Michael McCullers<br>
+<br>
+...( Opis )...<br>
+<br>
+Pewnego dnia w życiu siedmioletniego Tima pojawia się młodszy braciszek. Tim natychmiast zdaje sobie sprawę, że ubrany w garnitur, noszący teczkę i zachowujący się jak rasowy biznesmen dzieciak jest zagrożeniem dla jego niezachwianej dotąd pozycji w rodzinnym domu. Gdy Tim postanawia odzyskać utraconą pozycję, natrafia na trop tajemnego spisku, który może zmienić równowagę sił na świecie. Przekonuje się przy tym, że kluczem do tajemnicy jest jego młodszy brat.&nbsp;Rywale muszą&nbsp;zapomnieć o dzielących ich różnicach, ocalić rodziców, przywrócić porządek na świecie i udowodnić, że więzy rodzinne są siłą, której nic nie jest w stanie pokonać.<br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Alec Baldwin .... Szef bobas<br>
+★ St]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103170</guid>
+			<pubDate>Mon, 18 Sep 2017 17:55:27</pubDate>
+        </item><item>
+			<title>Aquarius (2016) [720p] [BRRip] [XviD] [AC3-WZ] [Lektor PL] ( Seedów: 12 Peerów: 34 )</title>
+			<link>http://devil-torrents.pl/torrent/103169</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103169.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103169.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Brazylia<br>
+Gatunek: Dramat<br>
+Premiera: 30 czerwca 2017 (Polska), 17 maja 2016 (świat)<br>
+Reżyseria: Kleber Mendonça Filho<br>
+Scenariusz: Kleber Mendonça Filho<br>
+<br>
+...( Opis )...<br>
+<br>
+65-letnia wdowa Clara (Sonia Braga) jest emerytowanym krytykiem muzycznym. Jako ostatnia zamieszkuje zbudowaną w 1940 roku rezydencję Aquarius. Przysięgła opuścić to miejsce dopiero po swojej śmierci. Rozpoczyna więc walkę ze spółką, która ma inne plany zagospodarowania tego terenu. Działania te pozwalają Clarze odpocząć od codziennej rutyny i tęsknoty za bliskimi. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Sonia Braga .... Clara<br>
+★ Maeve Jinkings .... Ana Paula<br>
+★ Irandhir Santos .... Roberval<br>
+★ Humberto Carrão .... Diego<br>
+<br>
+...( Dane Techniczne )...<br>
+...( Info )...<br>
+<br>
+Produkcja: Brazylia<br>
+Gatunek: Dramat<br>
+Premiera: 30 czerwca 2017 (Polska), 17 maja 2016 (świat)<br>
+Reżyseria: Kleber Mendonça Filho<br>
+Scenar]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103169</guid>
+			<pubDate>Mon, 18 Sep 2017 17:45:09</pubDate>
+        </item><item>
+			<title>Aquarius (2016) [480p] [BRRip] [XviD] [AC3-WZ] [Lektor PL] ( Seedów: 11 Peerów: 8 )</title>
+			<link>http://devil-torrents.pl/torrent/103168</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103168.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103168.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Brazylia<br>
+Gatunek: Dramat<br>
+Premiera: 30 czerwca 2017 (Polska), 17 maja 2016 (świat)<br>
+Reżyseria: Kleber Mendonça Filho<br>
+Scenariusz: Kleber Mendonça Filho<br>
+<br>
+...( Opis )...<br>
+<br>
+65-letnia wdowa Clara (Sonia Braga) jest emerytowanym krytykiem muzycznym. Jako ostatnia zamieszkuje zbudowaną w 1940 roku rezydencję Aquarius. Przysięgła opuścić to miejsce dopiero po swojej śmierci. Rozpoczyna więc walkę ze spółką, która ma inne plany zagospodarowania tego terenu. Działania te pozwalają Clarze odpocząć od codziennej rutyny i tęsknoty za bliskimi. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Sonia Braga .... Clara<br>
+★ Maeve Jinkings .... Ana Paula<br>
+★ Irandhir Santos .... Roberval<br>
+★ Humberto Carrão .... Diego<br>
+<br>
+...( Dane Techniczne )...<br>
+...( Info )...<br>
+<br>
+Produkcja: Brazylia<br>
+Gatunek: Dramat<br>
+Premiera: 30 czerwca 2017 (Polska), 17 maja 2016 (świat)<br>
+Reżyseria: Kleber Mendonça Filho<br>
+Scenar]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103168</guid>
+			<pubDate>Mon, 18 Sep 2017 17:39:39</pubDate>
+        </item><item>
+			<title>Riko prawie bocian - Richard the Stork - A Stork's Journey *2017* [WEB-DL] [XviD-KiT] [Dubbing PL] ( Seedów: 35 Peerów: 338 )</title>
+			<link>http://devil-torrents.pl/torrent/103167</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103167.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103167.jpg" align="left"><br>==================<br>
+...::: INFO :::...<br>
+==================<br>
+Tytuł: A Stork's Journey / Richard the Stork / Riko prawie bocian<br>
+Ocena: IMDB - 6.0/10 (431), Filmweb - 5.5/10 (374)<br>
+Produkcja: Belgia, Luksemburg, Niemcy, Norwegia, USA<br>
+Gatunek: Animacja<br>
+Czas trwania: 85 min.<br>
+Premiera: 05.05.2017 - Polska, 12.02.2017 - Świat<br>
+Reżyseria: Toby Genkel, Reza Memari<br>
+Scenariusz: Reza Memari<br>
+<br>
+==================<br>
+...::: OPIS :::...<br>
+==================<br>
+Rysio jest wróblem przygarniętym przez parę bocianów. Kiedy przybrani rodzice migrują do Afryki, bohater, przekonany, że też jest bocianem, wyrusza ich śladem w pełną przygód podróż, korzystając z wszelkich możliwych środków transportu. Towarzyszą mu nowi przyjaciele - ekscentryczna sowa i narcystyczna papuga, która marzy o karierze gwiazdy disco.<br>
+<br>
+====================<br>
+...::: OBSADA :::...<br>
+====================<br>
+Bernard Lewandowski .... Riko<br>
+]]></description>
+			<author>Wilu75</author>
+			<guid>http://devil-torrents.pl/torrent/103167</guid>
+			<pubDate>Mon, 18 Sep 2017 17:38:57</pubDate>
+        </item><item>
+			<title>Szatan kazał tańczyć *2016* [DVDRip] [XviD-KiT] [Film polski] ( Seedów: 13 Peerów: 120 )</title>
+			<link>http://devil-torrents.pl/torrent/103166</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103166.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103166.jpg" align="left"><br>==================<br>
+...::: INFO :::...<br>
+==================<br>
+Tytuł: Szatan kazał tańczyć<br>
+Produkcja: Holandia, Polska<br>
+Gatunek: Dramat<br>
+Czas trwania: 93 min.<br>
+Premiera: 5 maja 2017 (Polska)&nbsp;10 marca 2017 (świat)<br>
+Reżyseria: Katarzyna Rosłaniec<br>
+Scenariusz: Katarzyna Rosłaniec<br>
+<br>
+==================<br>
+...::: OPIS :::...<br>
+==================<br>
+Karolina (Magdalena Berus) – jak wiele współczesnych 20-, 30-latek – żyje szybko, intensywnie, pragnie doświadczyć wszystkiego ze zdwojoną siłą. W odróżnieniu od większości rówieśników, nie pracuje w korporacji – jest artystką, jakiś czas temu wydała pierwszą powieść, współczesną wersję „Lolity”, która stała się międzynarodowym sukcesem. Dziewczyna wiedzie nihilistyczny tryb życia, spędzając czas na podróżach po świecie, romansach i ostrych imprezach. Ale jej życie wypełnia pustka, której nie są w stanie pokonać ani narkotyki, ani seks. Świat Karoliny, ż]]></description>
+			<author>Wilu75</author>
+			<guid>http://devil-torrents.pl/torrent/103166</guid>
+			<pubDate>Mon, 18 Sep 2017 17:37:30</pubDate>
+        </item><item>
+			<title>Wybawienie - A Conspiracy of Faith - Flaskepost fra P *2016* [BDRip] [XviD-KiT] [Lektor PL] ( Seedów: 3 Peerów: 127 )</title>
+			<link>http://devil-torrents.pl/torrent/103165</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103165.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103165.jpg" align="left"><br>==================<br>
+...::: INFO :::...<br>
+==================<br>
+Tytuł: Flaskepost fra P / A Conspiracy of Faith / Wybawienie<br>
+Ocena: IMDB - 7.0/10 (8606), Filmweb - 7.1/10 (9280)<br>
+Produkcja: Dania, Niemcy, Norwegia, Szwecja<br>
+Gatunek: Dramat, Kryminał, Thriller<br>
+Czas trwania: 111 min.<br>
+Premiera: 03.03.2016 - Świat<br>
+Reżyseria: Hans Petter Moland<br>
+Scenariusz: Nikolaj Arcel<br>
+<br>
+==================<br>
+...::: OPIS :::...<br>
+==================<br>
+Detektyw Carl i jego pomocnik Assad z Departamentu Q nie raz już udowodnili, że nie ma czegoś takiego jak sprawy, których nie da się rozwiązać. W ich ręce trafia zamknięta w butelce tajemnicza wiadomość. Tekst liczy sobie 8 lat, a całość napisana jest dziecięcym pismem przy pomocy ludzkiej krwi. Carl i Assad trafiają na trop grupy religijnych fanatyków, którzy nigdy nie zgłosili zaginięć swoich podopiecznych. Detektywi rozpoczynają śmiertelnie niebezpieczną grę z ]]></description>
+			<author>Wilu75</author>
+			<guid>http://devil-torrents.pl/torrent/103165</guid>
+			<pubDate>Mon, 18 Sep 2017 17:36:01</pubDate>
+        </item><item>
+			<title>Aquarius (2016) [BRRip] [XviD-WZ] [Lektor PL] ( Seedów: 12 Peerów: 0 )</title>
+			<link>http://devil-torrents.pl/torrent/103164</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103164.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103164.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Brazylia<br>
+Gatunek: Dramat<br>
+Premiera: 30 czerwca 2017 (Polska), 17 maja 2016 (świat)<br>
+Reżyseria: Kleber Mendonça Filho<br>
+Scenariusz: Kleber Mendonça Filho<br>
+<br>
+...( Opis )...<br>
+<br>
+65-letnia wdowa Clara (Sonia Braga) jest emerytowanym krytykiem muzycznym. Jako ostatnia zamieszkuje zbudowaną w 1940 roku rezydencję Aquarius. Przysięgła opuścić to miejsce dopiero po swojej śmierci. Rozpoczyna więc walkę ze spółką, która ma inne plany zagospodarowania tego terenu. Działania te pozwalają Clarze odpocząć od codziennej rutyny i tęsknoty za bliskimi. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Sonia Braga .... Clara<br>
+★ Maeve Jinkings .... Ana Paula<br>
+★ Irandhir Santos .... Roberval<br>
+★ Humberto Carrão .... Diego<br>
+<br>
+...( Dane Techniczne )...<br>
+<br>
+Format : AVI at 1 357 Kbps <br>
+Length : 1.37 GiB for 2h 24mn 16s 0ms <br>
+<br>
+Video #0 : MPEG-4 Visual at 1 219 Kbps <br>
+Aspect : 640 x 272 (2.353) at 24.000 fps]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103164</guid>
+			<pubDate>Mon, 18 Sep 2017 17:34:36</pubDate>
+        </item><item>
+			<title>Aquarius (2016) [LQ] [BRRip] [XviD-WZ] [Lektor PL] ( Seedów: 19 Peerów: 21 )</title>
+			<link>http://devil-torrents.pl/torrent/103163</link>
+			<media:thumbnail url="http://devil-torrents.pl/torrentimg/103163.jpg" width="128" height="170"/>
+			<description><![CDATA[<img src="http://devil-torrents.pl/torrentimg/103163.jpg" align="left"><br>...( Info )...<br>
+<br>
+Produkcja: Brazylia<br>
+Gatunek: Dramat<br>
+Premiera: 30 czerwca 2017 (Polska), 17 maja 2016 (świat)<br>
+Reżyseria: Kleber Mendonça Filho<br>
+Scenariusz: Kleber Mendonça Filho<br>
+<br>
+...( Opis )...<br>
+<br>
+65-letnia wdowa Clara (Sonia Braga) jest emerytowanym krytykiem muzycznym. Jako ostatnia zamieszkuje zbudowaną w 1940 roku rezydencję Aquarius. Przysięgła opuścić to miejsce dopiero po swojej śmierci. Rozpoczyna więc walkę ze spółką, która ma inne plany zagospodarowania tego terenu. Działania te pozwalają Clarze odpocząć od codziennej rutyny i tęsknoty za bliskimi. <br>
+<br>
+...( Obsada )...<br>
+<br>
+★ Sonia Braga .... Clara<br>
+★ Maeve Jinkings .... Ana Paula<br>
+★ Irandhir Santos .... Roberval<br>
+★ Humberto Carrão .... Diego<br>
+<br>
+...( Dane Techniczne )...<br>
+<br>
+Format : AVI at 678 Kbps <br>
+Length : 700 MiB for 2h 24mn 16s 0ms <br>
+<br>
+Video #0 : MPEG-4 Visual at 557 Kbps <br>
+Aspect : 608 x 256 (2.375) at 24.000 fps <br>
+<br>
+]]></description>
+			<author>Xsonar</author>
+			<guid>http://devil-torrents.pl/torrent/103163</guid>
+			<pubDate>Mon, 18 Sep 2017 17:28:44</pubDate>
+        </item></channel></rss>

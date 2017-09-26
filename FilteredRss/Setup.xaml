@@ -1,0 +1,44 @@
+﻿<Page
+    x:Class="FilteredRss.Setup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FilteredRss"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
+        <StackPanel Loaded="Setup_Loaded" >
+            <TextBlock x:Uid="resSettings"  Margin="0,10,0,10" HorizontalAlignment="Center" Text="Settings" FontSize="20"/>
+            <TextBox x:Uid="resFeeds" x:Name="uiFeeds" TextWrapping="Wrap" Height="200" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Header="Feeds:" PlaceholderText="(enter feeds, one feed per line)" MaxLength="3900"/>
+            <ToggleSwitch x:Uid="resFeedsRoam" x:Name="uiFeedsRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0">
+                    <TextBox x:Uid="resBlackList" x:Name="uiBlacklist" TextWrapping="Wrap" Height="200" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Header="Blacklist:" PlaceholderText="(enter word/phrases, one feed per line - case insensitive)" MaxLength="3900"/>
+                    <ToggleSwitch x:Uid="resBlackRoam" x:Name="uiBlackRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBox x:Uid="resWhiteList" x:Name="uiWhitelist" TextWrapping="Wrap" Height="200" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Header="Whitelist:" PlaceholderText="(enter word/phrases, one feed per line - case insensitive)" MaxLength="3900"/>
+                    <ToggleSwitch x:Uid="resWhiteRoam" x:Name="uiWhiteRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <ToggleSwitch x:Uid="resLinksActive" x:Name="uiLinksActive" Margin="30,0,30,0" OffContent="don't extract links" OnContent="Convert http:// to links" Header="Other settings:"/>
+                    <ToggleSwitch x:Uid="resNotifyWhite" x:Name="uiNotifyWhite" Margin="30,0,30,0" OffContent="notifications off" OnContent="Notify about whitelisted posts" />
+                    <ComboBox x:Uid="resTimeInterval" x:Name="uiInterval" Margin="30,0,30,0" Header="Timer interval">
+                        <ComboBoxItem Content="15 min"/>
+                        <ComboBoxItem Content="30 min"/>
+                        <ComboBoxItem Content="60 min"/>
+                        <ComboBoxItem Content="90 min"/>
+                    </ComboBox> 
+                </StackPanel>
+            </Grid>
+            <Button x:Uid="resSettOk" Margin="0,40,0,10" Width="100" HorizontalAlignment="Center" Content="Ok" Click="bSetupOk_Click"  />
+        </StackPanel>
+    </Grid>
+
+</Page>

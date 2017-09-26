@@ -1,0 +1,45 @@
+﻿<Page
+    x:Class="FilteredRss.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FilteredRss"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d" Loaded="MainPage_Loaded" GotFocus="Page_GotFocus">
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" SizeChanged="Form_Resized" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <HyperlinkButton x:Name="uiBLink" Grid.Row="1" Content="" HorizontalAlignment="Right" Margin="0,10,50,10" VerticalAlignment="Top"/>
+        <TextBlock x:Name="uiCount" Grid.Row="1" Text="" HorizontalAlignment="Left" Margin="50,10,0,10" VerticalAlignment="Top"/>
+
+        <Grid x:Name="uiNaViews" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition x:Name="uiNaList" Width="2*"/>
+                <ColumnDefinition x:Name="uiNaPost" Width="8*"/>
+            </Grid.ColumnDefinitions>
+            <WebView x:Name="uiPost" Grid.Column="1" HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top" />
+            <WebView x:Name="uiLista" Grid.Column="0" HorizontalAlignment="Left" Margin="10,10,10,10" VerticalAlignment="Top" />
+        </Grid>
+    </Grid>
+
+    <Page.BottomAppBar>
+        <CommandBar>
+            <CommandBar.Content>
+                <TextBlock x:Name="tbLastRead" Text=" " Margin="20,10,0,10" />
+            </CommandBar.Content>
+            <AppBarSeparator/>
+            <AppBarButton x:Uid="resRefresh" Icon="Refresh" Label="Wczytaj" Click="bReadFeed"/>
+            <AppBarToggleButton x:Uid="resClockRead" x:Name="uiClockRead" Icon="Clock" Label="Samoczytaj" />
+            <AppBarSeparator/>
+            <AppBarButton x:Uid="resDelPost" Icon="Delete" Label ="Usun post" Click="bDelOnePost_Click"  />
+            <AppBarButton x:Uid="resDelAllpost" Icon="Clear"  Label ="Usun wszystkie" Click="bDelAllPosts_Click" />
+            <AppBarSeparator/>
+            <AppBarButton x:Uid="resShowSettings" Icon="Setting" Label="Settings" Click="bSetup_Click" />
+            <AppBarButton x:Uid="resHelp" Icon="Help" Label="Info" Click="bInfo_Click"  />
+        </CommandBar>
+
+    </Page.BottomAppBar>
+</Page>
