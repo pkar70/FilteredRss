@@ -23,7 +23,10 @@ Public NotInheritable Class Setup
             "http://devil-torrents.pl/rss.php?cat=16" & vbCrLf &
             "http://devil-torrents.pl/rss.php?cat=699" & vbCrLf &
             "http://devil-torrents.pl/rss.php?cat=21" & vbCrLf &
-            "http://korwin-mikke.pl/blog/rss"
+            "http://korwin-mikke.pl/blog/rss" & vbCrLf &
+            "http://zikit.krakow.pl/feeds/rss/komunikaty/1794" & vbCrLf &
+            "http://zikit.krakow.pl/feeds/rss/komunikaty/1829" & vbCrLf &
+            "http://zikit.krakow.pl/feeds/rss/komunikaty/1787"
 
             Exit Sub
         End If

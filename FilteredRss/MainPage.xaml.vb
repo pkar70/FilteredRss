@@ -40,6 +40,16 @@ Public NotInheritable Class MainPage
             iInd = sTmp.IndexOf("""", StringComparison.Ordinal)
             If iInd > 0 Then sTmp = sTmp.Substring(0, iInd)
             sResult = sResult & "<img src='" & sTmp & "' width='" & (iWidth \ 4) - 4 & "'></td>"
+        Else
+            iInd = sTmp.IndexOf("<img src", StringComparison.Ordinal)
+            If iInd > 0 Then
+                sTmp = sTmp.Substring(iInd)
+                iInd = sTmp.IndexOf("""http:", StringComparison.Ordinal)
+                If iInd > 0 Then sTmp = sTmp.Substring(iInd + 1)
+                iInd = sTmp.IndexOf("""", StringComparison.Ordinal)
+                If iInd > 0 Then sTmp = sTmp.Substring(0, iInd)
+                sResult = sResult & "<img src='" & sTmp & "' width='" & (iWidth \ 4) - 4 & "'></td>"
+            End If
         End If
         sTmp = oNode.SelectSingleNode("title").InnerText
         sTmp = sTmp.Replace("( Seedów: ", "(S:")
