@@ -354,8 +354,15 @@ Public NotInheritable Class MainPage
         ' sResult = sResult & "<p>More: <a href='" & oNode.SelectSingleNode("link").InnerText & "'> link</a></p>"
         sResult = sResult & "</body></html>"
         uiPost.NavigateToString(sResult)
-        uiBLink.Content = oNode.SelectSingleNode("link").InnerText
-        uiBLink.NavigateUri = New Uri(oNode.SelectSingleNode("link").InnerText)
+        sResult = oNode.SelectSingleNode("link").InnerText
+        uiBLink.NavigateUri = New Uri(sResult)
+        If sResult.Length > 30 Then
+            Dim iInd, iInd1 As Integer
+            iInd = sResult.IndexOf("/", 10)
+            iInd1 = sResult.LastIndexOf("/")
+            sResult = sResult.Substring(0, iInd + 1) & "..." & sResult.Substring(iInd1)
+        End If
+        uiBLink.Content = sResult
         sLastId = oNode.SelectSingleNode("guid").InnerText
 
     End Sub
@@ -434,19 +441,22 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Sub bDelOnePost_Click(sender As Object, e As RoutedEventArgs)
-        If sLastId <> "" Then
-            Dim oNode As XmlElement = oAllItems.DocumentElement.SelectSingleNode("//item[guid='" & sLastId & "']")
-            If Not (oNode Is Nothing) Then
-                Dim oNext = oNode.NextSibling
-                Try
-                    oAllItems.DocumentElement.RemoveChild(oNode)
-                Catch ex As Exception
-                    'sLastId = sLastId + 0
-                End Try
-                If Not oNext Is Nothing Then ShowTorrentData(oNext.SelectSingleNode("guid").InnerText)
-            End If
+        If sLastId = "" Then Exit Sub
+
+        Dim oNode As XmlElement = oAllItems.DocumentElement.SelectSingleNode("//item[guid='" & sLastId & "']")
+        If oNode Is Nothing Then Exit Sub
+
+        Dim oNext = oNode.NextSibling
+        If oNext IsNot Nothing And oNext.NodeName = "#text" Then oNext = oNext.NextSibling
+        Dim sNextGuid = oNext?.SelectSingleNode("guid")?.InnerText
+
+        Try
+        oAllItems.DocumentElement.RemoveChild(oNode)
             ShowPostsList(sender)
-        End If
+        Catch ex As Exception
+            'sLastId = sLastId + 0
+        End Try
+        If sNextGuid IsNot Nothing Then ShowTorrentData(sNextGuid)
     End Sub
     Private Sub bDelAllPosts_Click(sender As Object, e As RoutedEventArgs)
         sLastId = ""
