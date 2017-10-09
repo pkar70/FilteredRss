@@ -210,4 +210,53 @@ NotInheritable Class App
         ToastNotificationManager.CreateToastNotifier().Show(oToast)
     End Sub
 
+    Public Shared Function RegExp(sTxt As String, sPattern As String) As Integer
+
+        Dim iRet = 99
+        Try
+            If Text.RegularExpressions.Regex.Match(sTxt, sPattern).Success Then
+                iRet = 1
+            Else
+                iRet = 0
+            End If
+        Catch ex As ArgumentNullException   ' input or pattern is Nothing.
+            iRet = 0
+        Catch ex As ArgumentException   ' to nie regex
+            iRet = 10
+        Catch ex As Text.RegularExpressions.RegexMatchTimeoutException ' A time-out occurred. For more 
+            iRet = 11
+        End Try
+
+        Return iRet
+
+    End Function
+
+    Public Shared Function RegExpOrInstr(sTxt As String, sPattern As String) As Boolean
+        Dim iRet As Integer
+        iRet = RegExp(sTxt, sPattern)
+        If iRet = 0 Then Return False
+        If iRet = 1 Then Return True
+        If iRet <> 10 Then Return False ' inne bledy niz "bad regexp"
+        Return sTxt.IndexOf(sPattern) > -1
+    End Function
+
+    Public Shared Function RegExpPerLine(sTxt As String, sPattern As String) As Boolean
+        Dim aLines = sTxt.Split("<br>")    ' zapewne beda "text|<|br>text|"
+        If aLines.Count < 2 Then aLines = sTxt.Split("<br/>")
+        For Each sLine In aLines
+            If App.RegExpOrInstr(sLine, sPattern) Then Return True
+        Next
+        Return False
+    End Function
+
+    Public Shared Function TestNodeMatch(sPattern As String, sT As String, sD As String) As Boolean
+        If sPattern.Length < 3 Then Return False
+
+        If sPattern.Substring(0, 2).ToLower = "t:" Then Return RegExpOrInstr(sT, sPattern.Substring(2))
+        If sPattern.Substring(0, 2).ToLower = "d:" Then Return RegExpPerLine(sD, sPattern.Substring(2))
+
+        If RegExpOrInstr(sT, sPattern) Then Return True
+        Return RegExpPerLine(sD, sPattern)
+
+    End Function
 End Class

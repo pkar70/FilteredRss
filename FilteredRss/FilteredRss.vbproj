@@ -114,6 +114,7 @@
     <Compile Include="App.xaml.vb">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GlobalSuppressions.vb" />
     <Compile Include="Info.xaml.vb">
       <DependentUpon>Info.xaml</DependentUpon>
     </Compile>
@@ -123,6 +124,9 @@
     <Compile Include="My Project\AssemblyInfo.vb" />
     <Compile Include="Setup.xaml.vb">
       <DependentUpon>Setup.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TestRegExp.xaml.vb">
+      <DependentUpon>TestRegExp.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +187,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Setup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TestRegExp.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

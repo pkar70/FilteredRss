@@ -139,7 +139,7 @@
     <value>Blacklist:</value>
   </data>
   <data name="resBlackList.PlaceholderText" xml:space="preserve">
-    <value>(enter word/phrases, one per line - case insensitive)</value>
+    <value>(enter word/phrases/regexp, one per line)</value>
   </data>
   <data name="resBlackRoam.OffContent" xml:space="preserve">
     <value>keep local</value>
@@ -151,7 +151,7 @@
     <value>Whitelist:</value>
   </data>
   <data name="resWhiteList.PlaceholderText" xml:space="preserve">
-    <value>(enter word/phrases, one per line - case insensitive)</value>
+    <value>(enter word/phrases/regexp, one per line)</value>
   </data>
   <data name="resWhiteRoam.OffContent" xml:space="preserve">
     <value>keep local</value>
@@ -197,5 +197,29 @@
   </data>
   <data name="resAboutFeed.Label" xml:space="preserve">
     <value>Feedback</value>
+  </data>
+  <data name="resSettRegExp.Label" xml:space="preserve">
+    <value>Test regexp</value>
+  </data>
+  <data name="resRegExpHdr.Text" xml:space="preserve">
+    <value>RegExp tester</value>
+  </data>
+  <data name="resTRregexp.Header" xml:space="preserve">
+    <value>RegExp:</value>
+  </data>
+  <data name="resTRregexp.PlaceholderText" xml:space="preserve">
+    <value>(enter regexp to test)</value>
+  </data>
+  <data name="resTRtext1.Header" xml:space="preserve">
+    <value>Sample texts:</value>
+  </data>
+  <data name="resTRtext1.PlaceholderText" xml:space="preserve">
+    <value>(enter some phrase)</value>
+  </data>
+  <data name="resTRtext2.PlaceholderText" xml:space="preserve">
+    <value>(enter some phrase)</value>
+  </data>
+  <data name="resTRtext3.PlaceholderText" xml:space="preserve">
+    <value>(enter some phrase)</value>
   </data>
 </root>

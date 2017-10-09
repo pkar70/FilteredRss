@@ -5,6 +5,9 @@
 .style2 {
 				text-align: center;
 }
+.style3 {
+				direction: ltr;
+}
 </style>
 </head>
 <body>
@@ -25,16 +28,22 @@ serwera, pokaże się ekran logowania - a przecież dużo informacji jest już w
 samej wiadomości RSS. Ten czytnik jest odpowiedzią właśnie na ten problem: 
 kliknięcie na liście pokazuje pełną informację z RSS, i dopiero ponowne 
 kliknięcie przenosi na stronę WWW (otwieraną w domyślnej przeglądarce http).</p>
-<p>FilteredRSS pozwala także na filtrowanie wiadomości - można wpisać listę 
+<p>FilteredRSS pozwala także, jak sama nazwa wskazuje, na filtrowanie wiadomości - można wpisać listę 
 fraz, które dyskwalifikują wiadomość. Taka wiadomość zostanie zignorowana, chyba 
 że zostanie w niej znaleziona także fraza z drugiej listy - fraz ważnych.</p>
+<p>Frazy mogą być poprzedzone znacznikiem &quot;T:&quot;, oznaczającym że test ma być 
+przeprowadzany jedynie w tytule postu, albo &quot;D:&quot; - tylko w opisie postu. Gdy nie 
+będzie żadnego z tych znaczników, weryfikowane będą wszystkie pola postu (także 
+pole GUID czy link do obrazka).</p>
+<p class="style3">Frazy, które są poprawnymi wyrażeniami regularnymi, są 
+traktowane jako takie. Aplikacja ma wbudowany tester wyrażeń regularnych, który 
+pozwala przetestować podane wyrażenie regularne z maksymalnie trzema różnymi 
+fragmentami tekstu. Angielską wersję do wyrażeń regularnych można znaleźć <a href="https://docs.microsoft.com/en-us/dotnet/standard/base-types/regular-expression-language-quick-reference">tutaj</a>.</p>
 <p>Odnalezienie w tekście wiadomości frazy ważnej może spowodować 
 pokazanie powiadomienia zwanego <em>toast</em>. Można wymusić pokazywanie 
 powiadomienia dla każdej wiadomości, wpisując jako frazę gwiazdkę (*) - wtedy 
 zostanie pokazane powiadomienie dla każdej wiadomości która przejdzie filtr fraz 
-dyskwalifikujących.<span lang="en-us"> </span>Gdy fr<span lang="en-us">a</span>za 
-zostanie poprzedzona &quot;t:&quot; będzie sprawdzana tylko w tytule wiadomości, nie w 
-całej jej treści.</p>
+dyskwalifikujących.</p>
 <p>Trzy ustawienia aplikacji: lista <em>feed</em>, lista fraz 
 zakazanych, i lista fraz ważnych, mogą być zapamiętane albo lokalnie na 
 urządzeniu, albo w chmurze. Przesłanie ustawień do chmury pozwala je 

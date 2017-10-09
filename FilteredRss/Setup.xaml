@@ -40,5 +40,13 @@
             <Button x:Uid="resSettOk" Margin="0,40,0,10" Width="100" HorizontalAlignment="Center" Content="Ok" Click="bSetupOk_Click"  />
         </StackPanel>
     </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Accept" Label="Ok" Click="bSetupOk_Click"/>
+            <AppBarSeparator/>
+            <AppBarButton x:Uid="resSettRegExp" Icon="Character" Label ="test regexp" Click="bRegExpTest_Click"  />
+        </CommandBar>
+
+    </Page.BottomAppBar>
 
 </Page>

@@ -139,7 +139,7 @@
     <value>Lista fraz do zignorowania:</value>
   </data>
   <data name="resBlackList.PlaceholderText" xml:space="preserve">
-    <value>(wprowadź słowa/frazy, każde w oddzielnej linii - wielkość liter nie ma znaczenia)</value>
+    <value>(wprowadź słowa/frazy/regexp, każde w oddzielnej linii)</value>
   </data>
   <data name="resBlackRoam.OffContent" xml:space="preserve">
     <value>zapisz lokalnie</value>
@@ -151,7 +151,7 @@
     <value>Lista ważnych fraz:</value>
   </data>
   <data name="resWhiteList.PlaceholderText" xml:space="preserve">
-    <value>(wprowadź słowa/frazy, każde w oddzielnej linii - wielkość liter nie ma znaczenia)</value>
+    <value>(wprowadź słowa/frazy/regexp, każde w oddzielnej linii)</value>
   </data>
   <data name="resWhiteRoam.OffContent" xml:space="preserve">
     <value>zapisz lokalnie</value>
@@ -197,5 +197,29 @@
   </data>
   <data name="resAboutFeed.Label" xml:space="preserve">
     <value>Feedback</value>
+  </data>
+  <data name="resSettRegExp.Label" xml:space="preserve">
+    <value>Testowanie regexp</value>
+  </data>
+  <data name="resRegExpHdr.Text" xml:space="preserve">
+    <value>Testowarka 'wyrażeń regularnych'</value>
+  </data>
+  <data name="resTRregexp.Header" xml:space="preserve">
+    <value>Wyrażenie regularne:</value>
+  </data>
+  <data name="resTRregexp.PlaceholderText" xml:space="preserve">
+    <value>(Wprowadź regexp)</value>
+  </data>
+  <data name="resTRtext1.Header" xml:space="preserve">
+    <value>Przykładowe teksty:</value>
+  </data>
+  <data name="resTRtext1.PlaceholderText" xml:space="preserve">
+    <value>(wprowadź jakąś frazę)</value>
+  </data>
+  <data name="resTRtext2.PlaceholderText" xml:space="preserve">
+    <value>(wprowadź jakąś frazę)</value>
+  </data>
+  <data name="resTRtext3.PlaceholderText" xml:space="preserve">
+    <value>(wprowadź jakąś frazę)</value>
   </data>
 </root>

@@ -8,6 +8,7 @@ Public NotInheritable Class Setup
     Inherits Page
 
     Private Async Sub bSetupOk_Click(sender As Object, e As RoutedEventArgs)
+        Dim iPkarInit As Boolean = False
 
         If uiFeeds.Text = "PKAR_init" Then
             uiFeeds.Text = "http://devil-torrents.pl/rss.php?cat=1" & vbCrLf &
@@ -27,9 +28,21 @@ Public NotInheritable Class Setup
             "http://zikit.krakow.pl/feeds/rss/komunikaty/1794" & vbCrLf &
             "http://zikit.krakow.pl/feeds/rss/komunikaty/1829" & vbCrLf &
             "http://zikit.krakow.pl/feeds/rss/komunikaty/1787"
-
-            Exit Sub
+            iPkarInit = True
         End If
+
+        If uiBlacklist.Text = "PKAR_init" Then
+            uiBlacklist.Text = "t:(?i)audiobook" & vbCrLf &
+            "t:^VA -" & vbCrLf &
+            "d:(?i)gatunek:.*(thriller|karate|sportowy|prawniczy|horror)" & vbCrLf &
+            "d:(?i)gatunek:.*(sztuki walki|reality show|teledyski)" & vbCrLf &
+            "d:(?i)gatunek:.*(gothic|techno|punk|progressive|metal|industrial|indie)" & vbCrLf &
+            "d:(?i)gatunek:.*(hard|składanki|trap|hip-hop)" & vbCrLf &
+            "d:(?i)gatunek:.*(drum n Bass|electro house|uplifting trance|vocal trance)"
+            iPkarInit = True
+        End If
+
+        If iPkarInit Then Exit Sub
 
         App.SetSettingsString("KnownFeeds", uiFeeds.Text, uiFeedsRoam.IsOn)
         App.SetSettingsString("WhiteList", uiWhitelist.Text, uiWhiteRoam.IsOn)
@@ -66,5 +79,7 @@ Public NotInheritable Class Setup
 
     End Sub
 
-
+    Private Sub bRegExpTest_Click(sender As Object, e As RoutedEventArgs)
+        Me.Frame.Navigate(GetType(TestRegExp))
+    End Sub
 End Class

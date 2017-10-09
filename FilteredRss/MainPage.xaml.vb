@@ -1,6 +1,7 @@
 ﻿' The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
 Imports System.Net.Http
+Imports System.Text.RegularExpressions
 'Imports Windows.ApplicationModel.Background
 Imports Windows.Data.Xml.Dom
 Imports Windows.Storage
@@ -107,112 +108,32 @@ Public NotInheritable Class MainPage
 
     End Function
 
-    Private Shared Function NodeToIgnorePkar(oNode As IXmlNode, sFeedUrl As String) As Boolean
-        Dim sTmp As String
-        'Dim sTitle = oNode.SelectSingleNode("title").InnerText
-
-        'If sTitle.IndexOf("audiobook") > 0 Then Return True
-
-        Dim iInd As Integer
-
-        sTmp = oNode.GetXml.ToLower
-        iInd = sTmp.IndexOf("gatunek: ", StringComparison.OrdinalIgnoreCase)
-
-        If iInd < 1 Then Return False
-
-        sTmp = sTmp.Substring(iInd)
-        iInd = sTmp.IndexOf("<", StringComparison.Ordinal)
-        If iInd > 0 Then sTmp = sTmp.Substring(0, iInd)
-        sTmp = sTmp.Trim
-
-        If sTmp.IndexOf("thriller") > 0 Then Return True
-        If sTmp.IndexOf("karate") > 0 Then Return True
-        If sTmp.IndexOf("sportowy") > 0 Then Return True
-        If sTmp.IndexOf("sztuki walki") > 0 Then Return True
-        If sTmp.IndexOf("prawniczy") > 0 Then Return True
-        If sTmp.IndexOf("reality show") > 0 Then Return True
-        If sTmp.IndexOf("teledyski") > 0 Then Return True
-        If sTmp.IndexOf("thriller") > 0 Then Return True
-        If sTmp.IndexOf("horror") > 0 Then Return True
-
-        ' devil muzyka
-        If sFeedUrl = "http://devil-torrents.pl/rss.php?cat=10" Then
-            If sTmp.IndexOf("thriller") > 0 Then Return True
-            If sTmp.IndexOf("drum n Bass") > 0 Then Return True
-            If sTmp.IndexOf("electro house") > 0 Then Return True
-            If sTmp.IndexOf("game music") > 0 Then Return True
-            If sTmp.IndexOf("gothic") > 0 Then Return True
-            If sTmp.IndexOf("hard") > 0 Then Return True
-            If sTmp.IndexOf("heavy metal") > 0 Then Return True
-            If sTmp.IndexOf("hip-hop") > 0 Then Return True
-            If sTmp.IndexOf("indie") > 0 Then Return True
-            If sTmp.IndexOf("industrial") > 0 Then Return True
-            If sTmp.IndexOf("metal") > 0 Then Return True
-            If sTmp.IndexOf("progressive") > 0 Then Return True
-            If sTmp.IndexOf("punk") > 0 Then Return True
-            If sTmp.IndexOf("rap") > 0 Then Return True
-            If sTmp.IndexOf("składanki") > 0 Then Return True
-            If sTmp.IndexOf("techno") > 0 Then Return True
-            If sTmp.IndexOf("trap") > 0 Then Return True
-            If sTmp.IndexOf("uplifting trance") > 0 Then Return True
-            If sTmp.IndexOf("vocal house") > 0 Then Return True
-            If sTmp.IndexOf("vocal trance") > 0 Then Return True
-
-        End If
-
-        Return False
-    End Function
-
     Private Shared Function NodeToIgnore(oNode As IXmlNode, sFeedUrl As String) As Boolean
-        Dim sTmp As String
         Dim sTitle = oNode.SelectSingleNode("title").InnerText
-        sTmp = oNode.GetXml.ToLower
+        Dim sTmp = oNode.GetXml
 
         Dim bIgnore = False
         Dim bWhite = False
 
         Dim sPhrases As String()
-        sPhrases = App.GetSettingsString("BlackList").ToLower.Split(vbCrLf)
+        sPhrases = App.GetSettingsString("BlackList").Split(vbCrLf)
         For Each sWord In sPhrases
-            If sWord = "pkar_rules" Then
-                bIgnore = NodeToIgnorePkar(oNode, sFeedUrl)
-            Else
-                If sWord.Length > 2 Then
-                    If sWord.Substring(0, 2) = "t:" Then
-                        If sTitle.IndexOf(sWord.Substring(2)) > 0 Then
-                            bIgnore = True
-                            Exit For
-                        End If
-                    Else
-                        If sTmp.IndexOf(sWord) > 0 Then
-                            bIgnore = True
-                            Exit For
-                        End If
-                    End If
-                End If
+            If App.TestNodeMatch(sWord, sTitle, sTmp) Then
+                bIgnore = True
+                Exit For
             End If
         Next
 
-        sPhrases = App.GetSettingsString("WhiteList").ToLower.Split(vbCrLf)
+        sPhrases = App.GetSettingsString("WhiteList").Split(vbCrLf)
         For Each sWord In sPhrases
             If sWord = "*" Then
                 bWhite = True
                 'bIgnore = False
-                'Exit For ' gdy sWord="*" wtedy nie szukaj jej w tresci
-            End If
-            If sWord.Length > 2 Then
-                If sWord.Substring(0, 2) = "t:" Then
-                    If sTitle.IndexOf(sWord.Substring(2)) > 0 Then
-                        bIgnore = False
-                        bWhite = True
-                        Exit For
-                    End If
-                Else
-                    If sTmp.IndexOf(sWord) > 0 Then
-                        bIgnore = False
-                        bWhite = True
-                        Exit For
-                    End If
+            Else
+                If App.TestNodeMatch(sWord, sTitle, sTmp) Then
+                    bIgnore = False
+                    bWhite = True
+                    Exit For
                 End If
             End If
         Next
@@ -451,7 +372,7 @@ Public NotInheritable Class MainPage
         Dim sNextGuid = oNext?.SelectSingleNode("guid")?.InnerText
 
         Try
-        oAllItems.DocumentElement.RemoveChild(oNode)
+            oAllItems.DocumentElement.RemoveChild(oNode)
             ShowPostsList(sender)
         Catch ex As Exception
             'sLastId = sLastId + 0
