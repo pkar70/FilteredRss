@@ -72,10 +72,10 @@ Public NotInheritable Class MainPage
         Dim oNodes1 As XmlNodeList = oAllItems.SelectNodes("//item")
 
 
-        If Not sender Is Nothing Then
-            'Dim iInd As Integer
+        'If Not sender Is Nothing Then
+        'Dim iInd As Integer
 
-            For Each oNode In oNodes1
+        For Each oNode In oNodes1
                 sResult = sResult & vbCrLf & "<hr>"
 
                 ' klikniecie bedzie przejmowane
@@ -86,19 +86,22 @@ Public NotInheritable Class MainPage
             Next
 
             Try
-                uiLista.NavigateToString("<html><body>" & sResult & "</body></html>")
+                ' 20171101: Dodanie <!-- FilteredRSS --> jako sygnalizacji że zawartość jest moja
+                ' bo czasem nie wiadomo czemu pokazuje stronę z devil-torrents
+                uiLista.NavigateToString("<html><body><!-- FilteredRSS -->" & sResult & "</body></html>")
             Catch ex As Exception
                 ' iInd = 11
             End Try
 
             uiCount.Text = oNodes1.Count & " items"
-        End If
+        'End If
 
         App.SetBadgeNo(oNodes1.Count)
 
         'If oNodes1.Count = 0 Then
         '    uiPost.NavigateToString("<html></html>")
         'End If
+        App.SetSettingsBool("ChangedXML", False)
     End Sub
 
     Private Shared Async Function MsgBox(sMsg As String) As Task(Of String)
@@ -149,9 +152,9 @@ Public NotInheritable Class MainPage
 
     Private Async Function AddFeedItems(sUrl As String, sender As Object) As Task(Of String)
         Dim sGuidsValueName, sGuids As String
-        Dim sTmp As String
+        Dim sTmp As String = ""
 
-        If Not sender Is Nothing Then tbLastRead.Text = sUrl
+        If sender IsNot Nothing Then tbLastRead.Text = sUrl
 
         ' pobierz aktualna liste ostatnio widzianych w feed GUIDów
         sGuidsValueName = sUrl.Replace("/", "")
@@ -160,7 +163,15 @@ Public NotInheritable Class MainPage
         sGuids = App.GetSettingsString(sGuidsValueName)
 
         Dim oHttp As New HttpClient()
-        sTmp = Await oHttp.GetStringAsync(sUrl)
+        oHttp.Timeout = TimeSpan.FromSeconds(20)
+        Dim bErr = False
+        Try
+            sTmp = Await oHttp.GetStringAsync(sUrl)
+        Catch ex As Exception
+            bErr = True
+        End Try
+        If bErr Then Return ""
+
         Dim iInd As Integer
         iInd = sTmp.IndexOf("<rss")
         sTmp = sTmp.Substring(iInd)
@@ -169,8 +180,9 @@ Public NotInheritable Class MainPage
         Try
             oFeedItems.LoadXml(sTmp)
         Catch ex As Exception
-            iInd = 11
+            bErr = True
         End Try
+        If bErr Then Return ""
 
         ' *TODO* konwersja - dodanie do kazdego Item wlasnych atrybutow
         ' feedURL, unread ?
@@ -178,6 +190,9 @@ Public NotInheritable Class MainPage
         Dim sResult As String = ""
 
         Dim oNodes1 As XmlNodeList = oFeedItems.SelectNodes("//item")
+        ' jesli rss sciagniety via http jest pusty - wracaj bez dalszego procedowania
+        If oNodes1.Count < 1 Then Return ""
+
         Dim iCurrId As Integer
         'Dim bSkip As Boolean
         Dim bSeen As Boolean
@@ -207,6 +222,9 @@ Public NotInheritable Class MainPage
             End If
         Next
 
+        ' jesli nic nie ma dodania (wszystko jest ignore), to wracaj bez zmian
+        If sResult = "" Then Return ""
+
         'mReadErrors: jesli nie wszystko moze pokazac
         ' ale to teraz chyba nie da sie zrobic, bo bSeen reaguje przy duzym odstepie GUID
 
@@ -215,6 +233,8 @@ Public NotInheritable Class MainPage
         sTmp = sTmp.Replace("</root>", "")
         sResult = "<root>" & sResult & sTmp & "</root>"
         oAllItems.LoadXml(sResult)
+
+        App.SetSettingsBool("ChangedXML", True)     ' zaznacz ze jest zmiana
 
         ' zapisz do nastepnego uruchomienia (okolo 100 torrentow)
         If sGuids.Length > 3900 Then
@@ -294,7 +314,6 @@ Public NotInheritable Class MainPage
             Case "FilteredRSStimer"
                 If App.GetSettingsBool("autoRead") Then bReadFeed(Nothing, Nothing)
             Case "FilteredRSSservCompl"
-                App.UnregisterTriggers(True)
                 Await App.RegisterTriggers()
         End Select
 
@@ -313,10 +332,20 @@ Public NotInheritable Class MainPage
     End Sub
 
 
-    Private Sub Page_GotFocus(sender As Object, e As RoutedEventArgs)
+    Private Async Sub Page_GotFocus(sender As Object, e As RoutedEventArgs)
 
         uiClockRead.IsChecked = App.GetSettingsBool("autoRead")
-        ShowPostsList(sender)
+
+        ' 20171101: jeśli w środku jest moje, to nie rób reload
+        Dim sHtml As String = ""
+
+        Try
+            sHtml = Await uiLista.InvokeScriptAsync("eval", New String() {"document.documentElement.outerHTML;"})
+        Catch ex As Exception
+            ' jesli strona jest pusta, jest Exception
+        End Try
+
+        If sHtml.IndexOf("<!-- FilteredRSS -->") < 1 Or App.GetSettingsBool("ChangedXML") Then ShowPostsList(sender)
 
         tbLastRead.Text = App.GetSettingsString("lastRead")
 
@@ -342,12 +371,15 @@ Public NotInheritable Class MainPage
 
         sTmp = "Last read: " & Date.Now().ToString
         App.SetSettingsString("lastRead", sTmp)
-        If Not sender Is Nothing Then tbLastRead.Text = sTmp
 
         If mReadErrors <> "" Then
             ' ddoaj Entry do oAllItems - read report
         End If
-        ShowPostsList(sender)
+
+        If sender IsNot Nothing Then
+            tbLastRead.Text = sTmp
+            ShowPostsList(sender)
+        End If
 
         ' specjane dla DevilTorrents; musi byc po wczytaniu wszystkich
         App.SetSettingsInt("iLastRssGuid", miLastRssGuid)
@@ -366,9 +398,11 @@ Public NotInheritable Class MainPage
 
         Dim oNode As XmlElement = oAllItems.DocumentElement.SelectSingleNode("//item[guid='" & sLastId & "']")
         If oNode Is Nothing Then Exit Sub
+        ' 20171101: ponieważ czasem seria kasowania powoduje crash - może dlatego że nie skończy poprzedniego kasowania jak zaczyna następne?
+        uiDelPost.IsEnabled = False
 
         Dim oNext = oNode.NextSibling
-        If oNext IsNot Nothing And oNext.NodeName = "#text" Then oNext = oNext.NextSibling
+        If oNext?.NodeName = "#text" Then oNext = oNext.NextSibling
         Dim sNextGuid = oNext?.SelectSingleNode("guid")?.InnerText
 
         Try
@@ -378,6 +412,8 @@ Public NotInheritable Class MainPage
             'sLastId = sLastId + 0
         End Try
         If sNextGuid IsNot Nothing Then ShowTorrentData(sNextGuid)
+        uiDelPost.IsEnabled = True
+
     End Sub
     Private Sub bDelAllPosts_Click(sender As Object, e As RoutedEventArgs)
         sLastId = ""
@@ -397,6 +433,7 @@ Public NotInheritable Class MainPage
     End Sub
 
     Public Async Sub AppSuspending()
+        ' tu kiedys było, wedle DeveloperDashboard, fail with FileNotFound (= zła nazwa) ???
         Dim sampleFile As StorageFile = Await ApplicationData.Current.LocalCacheFolder.CreateFileAsync(
             "oAllItems.xml", CreationCollisionOption.ReplaceExisting)
         Await FileIO.WriteTextAsync(sampleFile, oAllItems.GetXml)
@@ -404,11 +441,16 @@ Public NotInheritable Class MainPage
     End Sub
 
     Public Async Sub AppResuming()
+        Dim sTxt As String
+
+        ' 20171101: omijamy wczytywanie gdy zmienna nie jest wyczyszczona
+        sTxt = oAllItems.GetXml
+        If sTxt.Length > 100 Then Exit Sub
 
         Try
             Dim oFile As StorageFile
             oFile = ApplicationData.Current.LocalCacheFolder.GetFileAsync("oAllItems.xml")
-            Dim sTxt As String = Await FileIO.ReadTextAsync(oFile)
+            sTxt = Await FileIO.ReadTextAsync(oFile)
             oAllItems.LoadXml(sTxt)
         Catch ex As Exception
             ' zapewne ze filesa nie ma - ignorujemy

@@ -34,7 +34,7 @@
             <AppBarButton x:Uid="resRefresh" Icon="Refresh" Label="Wczytaj" Click="bReadFeed"/>
             <AppBarToggleButton x:Uid="resClockRead" x:Name="uiClockRead" Icon="Clock" Label="Samoczytaj" />
             <AppBarSeparator/>
-            <AppBarButton x:Uid="resDelPost" Icon="Delete" Label ="Usun post" Click="bDelOnePost_Click"  />
+            <AppBarButton x:Name="uiDelPost" x:Uid="resDelPost" Icon="Delete" Label ="Usun post" Click="bDelOnePost_Click"  />
             <AppBarButton x:Uid="resDelAllpost" Icon="Clear"  Label ="Usun wszystkie" Click="bDelAllPosts_Click" />
             <AppBarSeparator/>
             <AppBarButton x:Uid="resShowSettings" Icon="Setting" Label="Settings" Click="bSetup_Click" />

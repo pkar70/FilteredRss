@@ -149,14 +149,15 @@ NotInheritable Class App
         BadgeUpdateManager.CreateBadgeUpdaterForApplication().Update(New BadgeNotification(oXmlBadge))
     End Sub
 
-    Public Shared Sub UnregisterTriggers(Optional bAll As Boolean = False)
+    Public Shared Sub UnregisterTriggers()
 
         For Each oTask In BackgroundTaskRegistration.AllTasks
             If oTask.Value.Name = "FilteredRSStimer" Then oTask.Value.Unregister(True)
-            If bAll And oTask.Value.Name = "FilteredRSSservCompl" Then oTask.Value.Unregister(True)
+            If oTask.Value.Name = "FilteredRSSservCompl" Then oTask.Value.Unregister(True)
         Next
 
-        If bAll Then BackgroundExecutionManager.RemoveAccess()
+        ' z innego wyszlo, ze RemoveAccess z wnetrza daje Exception
+        ' If bAll Then BackgroundExecutionManager.RemoveAccess()
 
     End Sub
 
@@ -180,12 +181,7 @@ NotInheritable Class App
 
             builder.SetTrigger(New SystemTrigger(SystemTriggerType.ServicingComplete, True))
             builder.Name = "FilteredRSSservCompl"
-            Try
-                oRet = builder.Register()
-            Catch ex As Exception
-                Dim a As Integer
-                a = 0
-            End Try
+            oRet = builder.Register()
 
             ' system trigger: ServicingComplete , po aktualizacji - deregister and reregister background
         End If
