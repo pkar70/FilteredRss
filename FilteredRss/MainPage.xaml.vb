@@ -2,11 +2,15 @@
 
 Imports System.Net.Http
 Imports System.Text.RegularExpressions
+Imports Windows.ApplicationModel.Background
 'Imports Windows.ApplicationModel.Background
 Imports Windows.Data.Xml.Dom
 Imports Windows.Storage
 Imports Windows.UI.Notifications
 Imports Windows.UI.Popups
+Imports Windows.Web.Syndication
+
+
 
 ''' <summary>
 ''' An empty page that can be used on its own or navigated to within a Frame.
@@ -14,16 +18,102 @@ Imports Windows.UI.Popups
 Public NotInheritable Class MainPage
     Inherits Page
 
-    Shared oAllItems As New XmlDocument
-    Dim miLastRssGuid As Integer = 0
-    Dim sLastId As String = ""
-    Dim mReadErrors As String ' informacja o bledach wczytywania ("wiecej nowosci, sprawdz sam")
+    ' Dim miLastRssGuid As Integer = 0
+    ' Dim sLastId As String = ""
+    ' Dim mReadErrors As String ' informacja o bledach wczytywania ("wiecej nowosci, sprawdz sam")
 
 
-    Private Sub bGoToFeed(sender As Object, e As RoutedEventArgs)
-        uiPost.NavigateToString(oAllItems.DocumentElement.InnerText)
-    End Sub
-    Private Shared Function ItemHdrTable(oNode As XmlElement, iWidth As Integer, sHLevel As String) As String
+    ' podczas przerabiania na Syndication - że nieużywane?
+    'Private Sub bGoToFeed(sender As Object, e As RoutedEventArgs)
+    '    uiPost.NavigateToString(oAllItems.DocumentElement.InnerText)
+    'End Sub
+
+    'Private Shared Function ItemHdrTable(oNode As XmlElement, iWidth As Integer, sHLevel As String) As String
+    '    Dim sResult As String = "<table><tr>"
+    '    Dim sTmp As String
+    '    Dim iInd As Integer
+
+    '    sResult = sResult & "<td width=" & iWidth \ 4 & ">"
+
+    '    ' to daje Error: oNode.SelectSingleNode("//media:thumbnail/@url")
+    '    ' (bez @url takze, i bez slashy takze)
+    '    sTmp = oNode.GetXml
+    '    iInd = sTmp.IndexOf("<media:thumbnail", StringComparison.Ordinal)
+    '    If iInd > 0 Then
+    '        sTmp = sTmp.Substring(iInd)
+    '        iInd = sTmp.IndexOf("url=""http:", StringComparison.Ordinal)
+    '        If iInd > 0 Then sTmp = sTmp.Substring(iInd + 5)
+    '        iInd = sTmp.IndexOf("""", StringComparison.Ordinal)
+    '        If iInd > 0 Then sTmp = sTmp.Substring(0, iInd)
+    '        sResult = sResult & "<img src='" & sTmp & "' width='" & (iWidth \ 4) - 4 & "'></td>"
+    '    Else
+    '        iInd = sTmp.IndexOf("<img src", StringComparison.Ordinal)
+    '        If iInd > 0 Then
+    '            sTmp = sTmp.Substring(iInd)
+    '            iInd = sTmp.IndexOf("""http:", StringComparison.Ordinal)
+    '            If iInd > 0 Then sTmp = sTmp.Substring(iInd + 1)
+    '            iInd = sTmp.IndexOf("""", StringComparison.Ordinal)
+    '            If iInd > 0 Then sTmp = sTmp.Substring(0, iInd)
+    '            sResult = sResult & "<img src='" & sTmp & "' width='" & (iWidth \ 4) - 4 & "'></td>"
+    '        End If
+    '    End If
+    '    sTmp = oNode.SelectSingleNode("title").InnerText
+    '    sTmp = sTmp.Replace("( Seedów: ", "(S:")
+    '    sTmp = sTmp.Replace(" Peerów: ", "+P:")
+    '    sTmp = sTmp.Replace(" )", ")")
+    '    sResult = sResult & "<td><" & sHLevel & ">" & sTmp & "</" & sHLevel & "></td>"
+
+    '    sResult = sResult & "</tr></table>"
+
+    '    Return sResult
+
+    'End Function
+
+    'Private Sub ShowPostsListOwn(sender As Object)
+    '    ' wczytuje z sAllFeeds, przerabia to na krotka liste do lewego WebView
+
+    '    Dim sResult As String = ""
+    '    'Dim oRoot1 As XmlElement = oAllItems.DocumentElement
+    '    Dim oNodes1 As XmlNodeList = oAllItems.SelectNodes("//item")
+
+
+    '    'If Not sender Is Nothing Then
+    '    'Dim iInd As Integer
+
+    '    For Each oNode As IXmlNode In oNodes1
+    '        sResult = sResult & vbCrLf & "<hr>"
+
+    '        ' klikniecie bedzie przejmowane
+    '        If oNode.SelectSingleNode("guid") Is Nothing Then
+    '            sResult = sResult & "<a href=" & oNode.SelectSingleNode("link").InnerText & ">"
+    '        Else
+    '            sResult = sResult & "<a href=" & oNode.SelectSingleNode("guid").InnerText & ">"
+    '        End If
+
+    '        sResult = sResult & ItemHdrTable(oNode, uiLista.ActualWidth, "h5")
+    '        sResult = sResult & "</a>"
+    '    Next
+
+    '    Try
+    '        ' 20171101: Dodanie <!-- FilteredRSS --> jako sygnalizacji że zawartość jest moja
+    '        ' bo czasem nie wiadomo czemu pokazuje stronę z devil-torrents
+    '        uiLista.NavigateToString("<html><body><!-- FilteredRSS -->" & sResult & "</body></html>")
+    '    Catch ex As Exception
+    '        ' iInd = 11
+    '    End Try
+
+    '    uiCount.Text = oNodes1.Count & " items"
+    '    'End If
+
+    '    App.SetBadgeNo(oNodes1.Count)
+
+    '    'If oNodes1.Count = 0 Then
+    '    '    uiPost.NavigateToString("<html></html>")
+    '    'End If
+    '    App.SetSettingsBool("ChangedXML", False)
+    'End Sub
+
+    Private Shared Function ItemHdrTable(oNode As SyndicationItem, iWidth As Integer, sHLevel As String) As String
         Dim sResult As String = "<table><tr>"
         Dim sTmp As String
         Dim iInd As Integer
@@ -32,7 +122,7 @@ Public NotInheritable Class MainPage
 
         ' to daje Error: oNode.SelectSingleNode("//media:thumbnail/@url")
         ' (bez @url takze, i bez slashy takze)
-        sTmp = oNode.GetXml
+        sTmp = Net.WebUtility.HtmlDecode(oNode.GetXmlDocument(SyndicationFormat.Rss20).GetXml)
         iInd = sTmp.IndexOf("<media:thumbnail", StringComparison.Ordinal)
         If iInd > 0 Then
             sTmp = sTmp.Substring(iInd)
@@ -51,8 +141,9 @@ Public NotInheritable Class MainPage
                 If iInd > 0 Then sTmp = sTmp.Substring(0, iInd)
                 sResult = sResult & "<img src='" & sTmp & "' width='" & (iWidth \ 4) - 4 & "'></td>"
             End If
+            ' dla atom oldmovies: w <content> img alt=&quot;&quot; border=&quot;0&quot; src=&quot;https:/
         End If
-        sTmp = oNode.SelectSingleNode("title").InnerText
+        sTmp = oNode.Title.Text
         sTmp = sTmp.Replace("( Seedów: ", "(S:")
         sTmp = sTmp.Replace(" Peerów: ", "+P:")
         sTmp = sTmp.Replace(" )", ")")
@@ -64,39 +155,38 @@ Public NotInheritable Class MainPage
 
     End Function
 
-    Private Sub ShowPostsList(sender As Object)
+    Public Sub ShowPostsList()
         ' wczytuje z sAllFeeds, przerabia to na krotka liste do lewego WebView
 
         Dim sResult As String = ""
-        'Dim oRoot1 As XmlElement = oAllItems.DocumentElement
-        Dim oNodes1 As XmlNodeList = oAllItems.SelectNodes("//item")
 
+        For Each oNode As SyndicationItem In App.oAllItems.Items
+            sResult = sResult & vbCrLf & "<hr>"
 
-        'If Not sender Is Nothing Then
-        'Dim iInd As Integer
+            ' klikniecie bedzie przejmowane
+            ' te warunki powinny byc niepotrzebne, bo podczas wczytywania uzupelniam na link
+            'If oNode.Id Is Nothing OrElse oNode.Id = "" Then
+            '    sResult = sResult & "<a href=" & oNode.Links.Item(0).ToString & ">"
+            'Else
+            sResult = sResult & "<a href=" & oNode.Id & ">"
+            'End If
 
-        For Each oNode In oNodes1
-                sResult = sResult & vbCrLf & "<hr>"
+            sResult = sResult & ItemHdrTable(oNode, uiLista.ActualWidth, "h5")
+            sResult = sResult & "</a>"
+        Next
 
-                ' klikniecie bedzie przejmowane
-                sResult = sResult & "<a href=" & oNode.SelectSingleNode("guid").InnerText & ">"
+        Try
+            ' 20171101: Dodanie <!-- FilteredRSS --> jako sygnalizacji że zawartość jest moja
+            ' bo czasem nie wiadomo czemu pokazuje stronę z devil-torrents
+            uiLista.NavigateToString("<html><body><!-- FilteredRSS -->" & sResult & "</body></html>")
+        Catch ex As Exception
+            ' iInd = 11
+        End Try
 
-                sResult = sResult & ItemHdrTable(oNode, uiLista.ActualWidth, "h5")
-                sResult = sResult & "</a>"
-            Next
-
-            Try
-                ' 20171101: Dodanie <!-- FilteredRSS --> jako sygnalizacji że zawartość jest moja
-                ' bo czasem nie wiadomo czemu pokazuje stronę z devil-torrents
-                uiLista.NavigateToString("<html><body><!-- FilteredRSS -->" & sResult & "</body></html>")
-            Catch ex As Exception
-                ' iInd = 11
-            End Try
-
-            uiCount.Text = oNodes1.Count & " items"
+        uiCount.Text = App.oAllItems.Items.Count & " items"
         'End If
 
-        App.SetBadgeNo(oNodes1.Count)
+        App.SetBadgeNo(App.oAllItems.Items.Count)
 
         'If oNodes1.Count = 0 Then
         '    uiPost.NavigateToString("<html></html>")
@@ -104,151 +194,216 @@ Public NotInheritable Class MainPage
         App.SetSettingsBool("ChangedXML", False)
     End Sub
 
-    Private Shared Async Function MsgBox(sMsg As String) As Task(Of String)
-        Dim oMD = New MessageDialog(sMsg)
-        Await oMD.ShowAsync()
-        Return ""
+    'Private Shared Function NodeToIgnoreSyndic(oNode As SyndicationItem, sRssFeed As String) As Boolean
+    '    Dim sTitle As String = oNode.Title.Text
+    '    Dim sDesc As String = Net.WebUtility.HtmlDecode(oNode.GetXmlDocument(SyndicationFormat.Rss20).GetXml)
 
-    End Function
+    '    If oNode.PublishedDate.AddDays(App.GetSettingsInt("MaxDays", 30)) < Date.Now Then Return True
 
-    Private Shared Function NodeToIgnore(oNode As IXmlNode, sFeedUrl As String) As Boolean
-        Dim sTitle = oNode.SelectSingleNode("title").InnerText
-        Dim sTmp = oNode.GetXml
+    '    Dim bIgnore As Boolean = False
+    '    Dim bWhite As Boolean = False
 
-        Dim bIgnore = False
-        Dim bWhite = False
+    '    Dim sPhrases As String()
+    '    sPhrases = App.GetSettingsString("BlackList").Split(vbCrLf)
+    '    For Each sWord As String In sPhrases
+    '        If App.TestNodeMatch(sWord, sTitle, sDesc, sRssFeed) Then
+    '            bIgnore = True
+    '            Exit For
+    '        End If
+    '    Next
 
-        Dim sPhrases As String()
-        sPhrases = App.GetSettingsString("BlackList").Split(vbCrLf)
-        For Each sWord In sPhrases
-            If App.TestNodeMatch(sWord, sTitle, sTmp) Then
-                bIgnore = True
-                Exit For
-            End If
-        Next
+    '    sPhrases = App.GetSettingsString("WhiteList").Split(vbCrLf)
+    '    For Each sWord As String In sPhrases
+    '        If sWord = "*" Then
+    '            bWhite = True
+    '            'bIgnore = False
+    '        ElseIf sWord.Substring(1, 2).ToLower = "f:" Then
 
-        sPhrases = App.GetSettingsString("WhiteList").Split(vbCrLf)
-        For Each sWord In sPhrases
-            If sWord = "*" Then
-                bWhite = True
-                'bIgnore = False
-            Else
-                If App.TestNodeMatch(sWord, sTitle, sTmp) Then
-                    bIgnore = False
-                    bWhite = True
-                    Exit For
-                End If
-            End If
-        Next
-
-        NodeToIgnore = bIgnore
-        If bIgnore Then Exit Function
-
-        If bWhite And App.GetSettingsBool("NotifyWhite") Then
-            App.MakeToast(oNode.SelectSingleNode("title").InnerText)
-        End If
-
-    End Function
-
-    Private Async Function AddFeedItems(sUrl As String, sender As Object) As Task(Of String)
-        Dim sGuidsValueName, sGuids As String
-        Dim sTmp As String = ""
-
-        If sender IsNot Nothing Then tbLastRead.Text = sUrl
-
-        ' pobierz aktualna liste ostatnio widzianych w feed GUIDów
-        sGuidsValueName = sUrl.Replace("/", "")
-        sGuidsValueName = sGuidsValueName.Replace("?", "")
-        sGuidsValueName = sGuidsValueName.Replace(":", "")
-        sGuids = App.GetSettingsString(sGuidsValueName)
-
-        Dim oHttp As New HttpClient()
-        oHttp.Timeout = TimeSpan.FromSeconds(20)
-        Dim bErr = False
-        Try
-            sTmp = Await oHttp.GetStringAsync(sUrl)
-        Catch ex As Exception
-            bErr = True
-        End Try
-        If bErr Then Return ""
-
-        Dim iInd As Integer
-        iInd = sTmp.IndexOf("<rss")
-        sTmp = sTmp.Substring(iInd)
-
-        Dim oFeedItems As New XmlDocument
-        Try
-            oFeedItems.LoadXml(sTmp)
-        Catch ex As Exception
-            bErr = True
-        End Try
-        If bErr Then Return ""
-
-        ' *TODO* konwersja - dodanie do kazdego Item wlasnych atrybutow
-        ' feedURL, unread ?
-
-        Dim sResult As String = ""
-
-        Dim oNodes1 As XmlNodeList = oFeedItems.SelectNodes("//item")
-        ' jesli rss sciagniety via http jest pusty - wracaj bez dalszego procedowania
-        If oNodes1.Count < 1 Then Return ""
-
-        Dim iCurrId As Integer
-        'Dim bSkip As Boolean
-        Dim bSeen As Boolean
-
-        bSeen = False
-
-        For Each oNode In oNodes1
-            'bSkip = False
-            If sUrl.IndexOf("devil-torrents") > 0 Then
-                sTmp = oNode.SelectSingleNode("guid").InnerText
-                iInd = sTmp.LastIndexOf("/")
-                iCurrId = CInt(sTmp.Substring(iInd + 1))
-                miLastRssGuid = Math.Max(miLastRssGuid, iCurrId)
-                'If iCurrId < iLastRssGuid - 200 Then bSkip = True
-                If iCurrId < miLastRssGuid - 200 Then
-                    bSeen = True
-                    Exit For
-                End If
-            End If
-
-            'If Not bSkip And Not NodeToIgnore(oNode, sUrl) Then
-            If Not NodeToIgnore(oNode, sUrl) Then
-                If sGuids.IndexOf(oNode.SelectSingleNode("guid").InnerText & "|") < 0 Then
-                    sResult = sResult & vbCrLf & oNode.GetXml
-                    sGuids = sGuids & oNode.SelectSingleNode("guid").InnerText & "|"
-                End If
-            End If
-        Next
-
-        ' jesli nic nie ma dodania (wszystko jest ignore), to wracaj bez zmian
-        If sResult = "" Then Return ""
-
-        'mReadErrors: jesli nie wszystko moze pokazac
-        ' ale to teraz chyba nie da sie zrobic, bo bSeen reaguje przy duzym odstepie GUID
-
-        sTmp = oAllItems.GetXml
-        sTmp = sTmp.Replace("<root>", "")
-        sTmp = sTmp.Replace("</root>", "")
-        sResult = "<root>" & sResult & sTmp & "</root>"
-        oAllItems.LoadXml(sResult)
-
-        App.SetSettingsBool("ChangedXML", True)     ' zaznacz ze jest zmiana
-
-        ' zapisz do nastepnego uruchomienia (okolo 100 torrentow)
-        If sGuids.Length > 3900 Then
-            ' limit 8K - ale bajtow
-            sGuids = sGuids.Substring(sGuids.Length - 3900)
-            iInd = sGuids.IndexOf("|")
-            sGuids = sGuids.Substring(iInd)
-        End If
-        App.SetSettingsString(sGuidsValueName, sGuids)
+    '        Else
+    '            If App.TestNodeMatch(sWord, sTitle, sDesc, sRssFeed) Then
+    '                bIgnore = False
+    '                bWhite = True
+    '                Exit For
+    '            End If
+    '        End If
+    '    Next
 
 
-        Return ""
-    End Function
+    '    NodeToIgnoreSyndic = bIgnore
+    '    If bIgnore Then Exit Function
 
+    '    If bWhite And App.GetSettingsBool("NotifyWhite") Then
+    '        App.MakeToast(oNode.Id, oNode.Title.Text, sRssFeed)
+    '    End If
+
+    'End Function
+
+    'Private Shared Function NodeToIgnore(oNode As IXmlNode, sFeedUrl As String) As Boolean
+    '    Dim sTitle As String = oNode.SelectSingleNode("title").InnerText
+    '    Dim sTmp As String = oNode.GetXml
+
+    '    Dim bIgnore As Boolean = False
+    '    Dim bWhite As Boolean = False
+
+    '    Dim sPhrases As String()
+    '    sPhrases = App.GetSettingsString("BlackList").Split(vbCrLf)
+    '    For Each sWord As String In sPhrases
+    '        If App.TestNodeMatch(sWord, sTitle, sTmp) Then
+    '            bIgnore = True
+    '            Exit For
+    '        End If
+    '    Next
+
+    '    sPhrases = App.GetSettingsString("WhiteList").Split(vbCrLf)
+    '    For Each sWord As String In sPhrases
+    '        If sWord = "*" Then
+    '            bWhite = True
+    '            'bIgnore = False
+    '        Else
+    '            If App.TestNodeMatch(sWord, sTitle, sTmp) Then
+    '                bIgnore = False
+    '                bWhite = True
+    '                Exit For
+    '            End If
+    '        End If
+    '    Next
+
+    '    NodeToIgnore = bIgnore
+    '    If bIgnore Then Exit Function
+
+    '    If bWhite And App.GetSettingsBool("NotifyWhite") Then
+    '        App.MakeToast(oNode.SelectSingleNode("title").InnerText)
+    '    End If
+
+    'End Function
+
+    'Private Async Function AddFeedItemsSyndic(sUrl As String, sender As Object) As Task(Of String)
+    '    ' przerobiona funkcja AddFeedItemsOwn, na wykorzystującą klienta Rss
+
+    '    Dim sGuidsValueName, sGuids As String
+    '    Dim sTmp As String = ""
+
+    '    If sender IsNot Nothing Then
+    '        sTmp = sUrl
+    '        ' zabezpieczenie numer 2 (poza ustalaniem szerokości w Form_Resize)
+    '        If sTmp.Length > 64 Then sTmp = sTmp.Substring(0, 64)
+    '        tbLastRead.Text = sTmp
+    '    End If
+
+    '    ' pobierz aktualna liste ostatnio widzianych w feed GUIDów
+    '    'sGuidsValueName = sUrl.Replace("/", "")
+    '    'sGuidsValueName = sGuidsValueName.Replace("?", "")
+    '    'sGuidsValueName = sGuidsValueName.Replace(":", "")
+    '    sGuidsValueName = App.Url2VarName(sUrl)
+    '    sGuids = App.GetSettingsString(sGuidsValueName)
+
+
+    '    Dim oRssClnt As SyndicationClient = New SyndicationClient
+    '    Dim oRssFeed As SyndicationFeed = Nothing
+    '    Dim bErr As Boolean = False
+    '    Try
+    '        oRssFeed = Await oRssClnt.RetrieveFeedAsync(New Uri(sUrl))
+    '    Catch ex As Exception
+    '        bErr = True
+    '    End Try
+    '    If bErr Then
+    '        If Not App.GetSettingsBool("autoRead") Then App.DialogBox("Unrecognized or no response from" & vbCrLf & sUrl)
+    '        Return ""
+    '    End If
+
+    '    ' *TODO* konwersja - dodanie do kazdego Item wlasnych atrybutow
+    '    ' feedURL, unread ?
+
+    '    ' Dim sResult As String = ""
+
+    '    If oRssFeed.Items.Count < 1 Then Return ""
+
+    '    Dim iInd As Integer
+    '    Dim iCurrId As Integer
+    '    Dim bChanged As Boolean = False
+    '    Dim bSeen As Boolean
+    '    bSeen = False
+
+    '    For Each oNode As SyndicationItem In oRssFeed.Items
+
+    '        ' wiekszosc to Rss2.0
+    '        ' oldmovies to Atom1 - i dlatego przerabiam na wersje z Syndication
+
+    '        ' sGuid: <guid>http://devil-torrents.pl/torrent/145394</guid>
+    '        '   lub <link>
+    '        ' 
+
+    '        'bSkip = False
+    '        If sUrl.IndexOf("devil-torrents") > 0 Then
+    '            sTmp = oNode.Id
+    '            iInd = sTmp.LastIndexOf("/")
+    '            iCurrId = CInt(sTmp.Substring(iInd + 1))
+    '            miLastRssGuid = Math.Max(miLastRssGuid, iCurrId)
+    '            'If iCurrId < iLastRssGuid - 200 Then bSkip = True
+    '            If iCurrId < miLastRssGuid - 200 Then
+    '                bSeen = True
+    '                Exit For
+    '            End If
+    '        End If
+
+    '        Dim sGuid As String
+    '        sGuid = oNode.Id
+    '        If sGuid = "" Then
+    '            ' blogi Microsoft są RSS, nie mają GUID - użyj link do tego
+    '            sGuid = oNode.Links.Item(0).NodeValue
+    '            oNode.Id = sGuid
+    '        End If
+
+    '        ' dla takich co nie mają guid jako http, np. OnlyOldMovies (atom)
+    '        ' efekt: kliknięcie na itemie pokazuje "select app to open link", bo link jest robiony z .guid
+    '        If sGuid.Substring(0, 4) <> "http" Then
+    '            Dim bMam As Boolean = False
+    '            For Each oLink As SyndicationLink In oNode.Links
+    '                If oLink.Relationship = "alternate" Then
+    '                    sGuid = oLink.Uri.ToString
+    '                    bMam = True
+    '                    Exit For
+    '                End If
+
+    '                ' ostateczny fallback - tak, by webviewer uruchomiło OnNavStart
+    '                If Not bMam Then sGuid = "http://host.com/app?" & Net.WebUtility.HtmlEncode(sGuid)
+    '            Next
+    '        End If
+
+    '        If sGuids.IndexOf(sGuid & "|") < 0 Then
+    '            'If Not bSkip And Not NodeToIgnore(oNode, sUrl) Then
+    '            Dim sFeedTitle As String
+    '            sFeedTitle = App.GetSettingsString("FeedName_" & App.Url2VarName(sUrl))
+    '            If sFeedTitle = "" Then sFeedTitle = oRssFeed.Title.Text
+
+    '            If Not NodeToIgnoreSyndic(oNode, sFeedTitle) Then
+    '                ' sResult = sResult & vbCrLf & Net.WebUtility.HtmlDecode(oNode.GetXmlDocument(SyndicationFormat.Rss20).GetXml)
+    '                App.oAllItems.Items.Insert(0, oNode)
+    '                sGuids = sGuids & sGuid & "|"
+    '                bChanged = True
+    '            End If
+    '        End If
+
+    '    Next
+
+    '    ' jesli nic nie ma dodania (wszystko jest ignore), to wracaj bez zmian
+    '    If Not bChanged Then Return ""
+
+
+    '    App.SetSettingsBool("ChangedXML", True)     ' zaznacz ze jest zmiana
+
+    '    ' zapisz do nastepnego uruchomienia (okolo 100 torrentow)
+    '    If sGuids.Length > 3900 Then
+    '        ' limit 8K - ale bajtow
+    '        sGuids = sGuids.Substring(sGuids.Length - 3900)
+    '        iInd = sGuids.IndexOf("|")
+    '        sGuids = sGuids.Substring(iInd)
+    '    End If
+    '    App.SetSettingsString(sGuidsValueName, sGuids)
+
+
+    '    Return ""
+    'End Function
 
     Private Sub uiListaNavStart(sender As WebView, args As WebViewNavigationStartingEventArgs) Handles uiLista.NavigationStarting
 
@@ -259,63 +414,61 @@ Public NotInheritable Class MainPage
 
     End Sub
 
-    Private Sub ShowTorrentData(sGuid As String)
+    Public Sub ShowTorrentData(sGuid As String)
         Dim sTmp As String
 
-        Dim oRoot1 As XmlElement = oAllItems.DocumentElement
-        Dim oNode As XmlElement = oRoot1.SelectSingleNode("//item[guid='" & sGuid & "']")
-        Dim sResult As String
+        For Each oNode As SyndicationItem In App.oAllItems.Items
+            If oNode.Id = sGuid Then
 
-        sResult = "<html><body><h1>" & oNode.SelectSingleNode("title").InnerText & "</h1>" ' ItemHdrTable(oNode, uiPost.ActualWidth, "h1")
-        sResult = sResult & "<p><small>Posted: " & oNode.SelectSingleNode("pubDate").InnerText & "</small></p>"
+                Dim sResult As String
 
-        sTmp = oNode.SelectSingleNode("description").InnerText
-        If App.GetSettingsBool("LinksActive") Then
-            Dim iInd, iPrev, iIndStart, iIndEnd As Integer
-            Dim sLink As String
-            iPrev = 15
+                sResult = "<html><body><h1>" & oNode.Title.Text & "</h1>" ' ItemHdrTable(oNode, uiPost.ActualWidth, "h1")
+                sResult = sResult & "<p><small>Posted: " & oNode.PublishedDate.ToString & "</small></p>"
 
-            Dim sEndChars As String = " " & vbTab & vbCr & vbLf
-            iInd = sTmp.IndexOf("://", iPrev) ' moze byc http i https!
-            While iInd > 1
-                iPrev = iInd + 2
-                sLink = sTmp.Substring(iInd - 12, 10)
-                If sLink.IndexOf("href=") < 1 And sLink.IndexOf("src=") < 1 Then
-                    iIndStart = sTmp.LastIndexOf("http", iInd)  ' moze byc http i https!
-                    iIndEnd = sTmp.IndexOfAny(sEndChars.ToCharArray, iInd)
-                    sLink = sTmp.Substring(iIndStart, iIndEnd - iIndStart)
-                    sTmp = sTmp.Substring(0, iIndStart) & "<a href='" & sLink & "'>" & sLink & "</a>" & sTmp.Substring(iIndEnd)
-                    iPrev = iInd + 2 * sLink.Length
+                sTmp = oNode.Summary.Text
+                If sTmp = "" Then sTmp = oNode.Content.Text     ' dla onlyoldmovies
+
+                If App.GetSettingsBool("LinksActive") Then
+                    Dim iInd, iPrev, iIndStart, iIndEnd As Integer
+                    Dim sLink As String
+                    iPrev = 15
+
+                    Dim sEndChars As String = " " & vbTab & vbCr & vbLf
+                    iInd = sTmp.IndexOf("://", iPrev) ' moze byc http i https!
+                    While iInd > 1
+                        iPrev = iInd + 2
+                        sLink = sTmp.Substring(iInd - 12, 10)
+                        If sLink.IndexOf("href=") < 1 And sLink.IndexOf("src=") < 1 Then
+                            iIndStart = sTmp.LastIndexOf("http", iInd)  ' moze byc http i https!
+                            iIndEnd = sTmp.IndexOfAny(sEndChars.ToCharArray, iInd)
+                            sLink = sTmp.Substring(iIndStart, iIndEnd - iIndStart)
+                            sTmp = sTmp.Substring(0, iIndStart) & "<a href='" & sLink & "'>" & sLink & "</a>" & sTmp.Substring(iIndEnd)
+                            iPrev = iInd + 2 * sLink.Length
+                        End If
+                        iInd = sTmp.IndexOf("://", iPrev)
+                    End While
+                    ' *TODO* konwersja linkow
                 End If
-                iInd = sTmp.IndexOf("://", iPrev)
-            End While
-            ' *TODO* konwersja linkow
-        End If
-        sResult = sResult & sTmp
-        ' sResult = sResult & "<p>More: <a href='" & oNode.SelectSingleNode("link").InnerText & "'> link</a></p>"
-        sResult = sResult & "</body></html>"
-        uiPost.NavigateToString(sResult)
-        sResult = oNode.SelectSingleNode("link").InnerText
-        uiBLink.NavigateUri = New Uri(sResult)
-        If sResult.Length > 30 Then
-            Dim iInd, iInd1 As Integer
-            iInd = sResult.IndexOf("/", 10)
-            iInd1 = sResult.LastIndexOf("/")
-            sResult = sResult.Substring(0, iInd + 1) & "..." & sResult.Substring(iInd1)
-        End If
-        uiBLink.Content = sResult
-        sLastId = oNode.SelectSingleNode("guid").InnerText
+                sResult = sResult & sTmp
+                ' sResult = sResult & "<p>More: <a href='" & oNode.SelectSingleNode("link").InnerText & "'> link</a></p>"
+                sResult = sResult & "</body></html>"
+                uiPost.NavigateToString(sResult)
+                sResult = oNode.Links.Item(0).NodeValue
+                uiBLink.NavigateUri = New Uri(sResult)
+                If sResult.Length > 30 Then
+                    Dim iInd, iInd1 As Integer
+                    iInd = sResult.IndexOf("/", 10)
+                    iInd1 = sResult.LastIndexOf("/")
+                    sResult = sResult.Substring(0, iInd + 1) & "..." & sResult.Substring(iInd1)
+                End If
+                uiBLink.Content = sResult
 
-    End Sub
+                App.SetSettingsString("sLastId", oNode.Id)
 
 
-    Public Async Sub CalledFromBackground(sTaskname As String)
-        Select Case sTaskname
-            Case "FilteredRSStimer"
-                If App.GetSettingsBool("autoRead") Then bReadFeed(Nothing, Nothing)
-            Case "FilteredRSSservCompl"
-                Await App.RegisterTriggers()
-        End Select
+            End If
+        Next
+
 
     End Sub
 
@@ -323,12 +476,19 @@ Public NotInheritable Class MainPage
     Private Async Sub MainPage_Loaded(sender As Object, e As RoutedEventArgs)
         AppResuming()   ' wczytaj listę RSSów
         Await App.RegisterTriggers()
+
+        ' poniewaz nie dziala językowanie w tle, to trzeba teraz przepisac
+        App.SetSettingsString("resDelete", App.GetLangString("resDelete"))
+        App.SetSettingsString("resOpen", App.GetLangString("resOpen"))
+        App.SetSettingsString("resBrowser", App.GetLangString("resBrowser"))
+
     End Sub
     Private Sub Form_Resized(sender As Object, e As SizeChangedEventArgs)
         uiLista.Width = uiNaList.ActualWidth - 20
         uiPost.Width = uiNaPost.ActualWidth - 20
         uiLista.Height = uiNaViews.ActualHeight - 20
         uiPost.Height = uiNaViews.ActualHeight - 20
+        tbLastRead.Width = uiNaViews.ActualWidth / 2    ' nie wiecej niż pół szerokości
     End Sub
 
 
@@ -345,7 +505,7 @@ Public NotInheritable Class MainPage
             ' jesli strona jest pusta, jest Exception
         End Try
 
-        If sHtml.IndexOf("<!-- FilteredRSS -->") < 1 Or App.GetSettingsBool("ChangedXML") Then ShowPostsList(sender)
+        If sHtml.IndexOf("<!-- FilteredRSS -->") < 1 Or App.GetSettingsBool("ChangedXML") Then ShowPostsList()
 
         tbLastRead.Text = App.GetSettingsString("lastRead")
 
@@ -353,37 +513,14 @@ Public NotInheritable Class MainPage
 
     ' obsluga guzikow
     Public Async Sub bReadFeed(sender As Object, e As RoutedEventArgs)
-        Dim sTmp As String
+        Dim sTmp As String = Await App.ReadFeed(tbLastRead)
 
-        miLastRssGuid = App.GetSettingsInt("iLastRssGuid")
-
-        mReadErrors = "" ' tu bedzie suma bledow wczytywania
-
-        If oAllItems.GetXml = "" Then oAllItems.LoadXml("<root></root>")
-
-        Dim aFeeds() As String
-        aFeeds = App.GetSettingsString("KnownFeeds").Split(vbCrLf)
-
-        For Each sFeed In aFeeds
-            ' bez pustych linii
-            If sFeed.Length > 10 Then sTmp = Await AddFeedItems(sFeed, sender)
-        Next
-
-        sTmp = "Last read: " & Date.Now().ToString
-        App.SetSettingsString("lastRead", sTmp)
-
-        If mReadErrors <> "" Then
-            ' ddoaj Entry do oAllItems - read report
-        End If
-
-        If sender IsNot Nothing Then
+        Try
             tbLastRead.Text = sTmp
-            ShowPostsList(sender)
-        End If
+            ShowPostsList()
+        Catch ex As Exception
+        End Try
 
-        ' specjane dla DevilTorrents; musi byc po wczytaniu wszystkich
-        App.SetSettingsInt("iLastRssGuid", miLastRssGuid)
-        ' AppSuspending() ' ewentualnie zapisz dane także tu (na wypadek crash programu)
     End Sub
     Private Sub uiClockRead_Click(sender As Object, e As RoutedEventArgs) Handles uiClockRead.Click
         App.SetSettingsBool("autoRead", uiClockRead.IsChecked)
@@ -394,31 +531,32 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Sub bDelOnePost_Click(sender As Object, e As RoutedEventArgs)
-        If sLastId = "" Then Exit Sub
 
-        Dim oNode As XmlElement = oAllItems.DocumentElement.SelectSingleNode("//item[guid='" & sLastId & "']")
-        If oNode Is Nothing Then Exit Sub
+        Dim sGuid As String = App.GetSettingsString("sLastId")
+        If sGuid = "" Then Exit Sub
+
         ' 20171101: ponieważ czasem seria kasowania powoduje crash - może dlatego że nie skończy poprzedniego kasowania jak zaczyna następne?
         uiDelPost.IsEnabled = False
 
-        Dim oNext = oNode.NextSibling
-        If oNext?.NodeName = "#text" Then oNext = oNext.NextSibling
-        Dim sNextGuid = oNext?.SelectSingleNode("guid")?.InnerText
+        Dim sNextGuid As String = App.DelOnePost(sGuid)
 
         Try
-            oAllItems.DocumentElement.RemoveChild(oNode)
-            ShowPostsList(sender)
+            ShowPostsList()
         Catch ex As Exception
-            'sLastId = sLastId + 0
         End Try
-        If sNextGuid IsNot Nothing Then ShowTorrentData(sNextGuid)
+
+        If sNextGuid <> "" Then ShowTorrentData(sNextGuid)
+
         uiDelPost.IsEnabled = True
 
     End Sub
     Private Sub bDelAllPosts_Click(sender As Object, e As RoutedEventArgs)
-        sLastId = ""
-        oAllItems.LoadXml("<root></root>")
-        ShowPostsList(sender)
+        App.SetSettingsString("sLastId", "")
+
+        ToastNotificationManager.History.Clear()
+
+        App.oAllItems.Items.Clear()
+        ShowPostsList()
     End Sub
 
 
@@ -434,27 +572,14 @@ Public NotInheritable Class MainPage
 
     Public Async Sub AppSuspending()
         ' tu kiedys było, wedle DeveloperDashboard, fail with FileNotFound (= zła nazwa) ???
-        Dim sampleFile As StorageFile = Await ApplicationData.Current.LocalCacheFolder.CreateFileAsync(
-            "oAllItems.xml", CreationCollisionOption.ReplaceExisting)
-        Await FileIO.WriteTextAsync(sampleFile, oAllItems.GetXml)
-
+        'Dim sampleFile As StorageFile = Await ApplicationData.Current.LocalCacheFolder.CreateFileAsync(
+        '    "oAllItems.xml", CreationCollisionOption.ReplaceExisting)
+        'Await App.oAllItems.GetXmlDocument(SyndicationFormat.Rss20).SaveToFileAsync(sampleFile)
+        Await App.SaveIndex(True)
     End Sub
 
     Public Async Sub AppResuming()
-        Dim sTxt As String
-
-        ' 20171101: omijamy wczytywanie gdy zmienna nie jest wyczyszczona
-        sTxt = oAllItems.GetXml
-        If sTxt.Length > 100 Then Exit Sub
-
-        Try
-            Dim oFile As StorageFile
-            oFile = ApplicationData.Current.LocalCacheFolder.GetFileAsync("oAllItems.xml")
-            sTxt = Await FileIO.ReadTextAsync(oFile)
-            oAllItems.LoadXml(sTxt)
-        Catch ex As Exception
-            ' zapewne ze filesa nie ma - ignorujemy
-        End Try
+        Await App.LoadIndex()
     End Sub
 
     Private Sub bInfo_Click(sender As Object, e As RoutedEventArgs)
@@ -465,7 +590,9 @@ Public NotInheritable Class MainPage
         If args.Uri Is Nothing Then Exit Sub
 
         args.Cancel = True
+#Disable Warning BC42358 ' Because this call is not awaited, execution of the current method continues before the call is completed
         Windows.System.Launcher.LaunchUriAsync(args.Uri)
+#Enable Warning BC42358
 
     End Sub
 End Class

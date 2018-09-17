@@ -117,7 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="String1" xml:space="preserve">
+  <data name="_lang" xml:space="preserve">
     <value>English</value>
   </data>
   <data name="resSettings.Text" xml:space="preserve">
@@ -221,5 +221,35 @@
   </data>
   <data name="resTRtext3.PlaceholderText" xml:space="preserve">
     <value>(enter some phrase)</value>
+  </data>
+  <data name="resMaxDays.Header" xml:space="preserve">
+    <value>Limit oldest</value>
+  </data>
+  <data name="resMaxDays30.Content" xml:space="preserve">
+    <value>month</value>
+  </data>
+  <data name="resMaxDays365.Content" xml:space="preserve">
+    <value>year</value>
+  </data>
+  <data name="resMaxDays7.Content" xml:space="preserve">
+    <value>week</value>
+  </data>
+  <data name="resBrowser" xml:space="preserve">
+    <value>Browser</value>
+  </data>
+  <data name="resDelete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="resOpen" xml:space="preserve">
+    <value>Show</value>
+  </data>
+  <data name="resErrorReadingXML" xml:space="preserve">
+    <value>Error reading XML data</value>
+  </data>
+  <data name="resRenameFeed.Label" xml:space="preserve">
+    <value>Feed names</value>
+  </data>
+  <data name="resRenameTitle" xml:space="preserve">
+    <value>Names for feeds</value>
   </data>
 </root>

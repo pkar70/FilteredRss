@@ -7,7 +7,7 @@ Imports Windows.Storage
 Public NotInheritable Class Setup
     Inherits Page
 
-    Private Async Sub bSetupOk_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub bSetupOk_Click(sender As Object, e As RoutedEventArgs)
         Dim iPkarInit As Boolean = False
 
         If uiFeeds.Text = "PKAR_init" Then
@@ -27,7 +27,17 @@ Public NotInheritable Class Setup
             "http://korwin-mikke.pl/blog/rss" & vbCrLf &
             "http://zikit.krakow.pl/feeds/rss/komunikaty/1794" & vbCrLf &
             "http://zikit.krakow.pl/feeds/rss/komunikaty/1829" & vbCrLf &
-            "http://zikit.krakow.pl/feeds/rss/komunikaty/1787"
+            "http://zikit.krakow.pl/feeds/rss/komunikaty/1787" & vbCrLf &
+            "http://onlyoldmovies.blogspot.com/feeds/posts/default" & vbCrLf &
+            "https://blogs.technet.microsoft.com/sysinternals/feed/" & vbCrLf &
+            "http://owl.phy.queensu.ca/~phil/exiftool/rss.xml" & vbCrLf &
+            "https://support.microsoft.com/app/content/api/content/feeds/sap/en-sg/6ae59d69-36fc-8e4d-23dd-631d98bf74a9/rss" & vbCrLf &
+            "https://support.microsoft.com/app/content/api/content/feeds/sap/en-sg/2f11206b-c490-cd6f-e033-661968ad085c/rss" & vbCrLf &
+            "https://support.microsoft.com/app/content/api/content/feeds/sap/en-sg/e9323f40-7ca8-4ecd-621d-fcf6c96a2eb0/rss" & vbCrLf &
+            "https://support.microsoft.com/app/content/api/content/feeds/sap/en-sg/f3753f34-a410-4d2a-bbda-72c4abfe87d7/rss" & vbCrLf &
+            "https://support.microsoft.com/app/content/api/content/feeds/sap/en-sg/73b77d93-c44a-7bf3-295c-b729cf00eb82/rss" & vbCrLf &
+            "https://support.microsoft.com/app/content/api/content/feeds/sap/en-sg/7ebec7c8-1b8a-c547-bea4-cd285c103fd3/rss"
+
             iPkarInit = True
         End If
 
@@ -54,7 +64,22 @@ Public NotInheritable Class Setup
         sTxt = uiInterval.SelectionBoxItem.ToString
         sTxt = sTxt.Replace(" min", "")
         App.SetSettingsInt("TimerInterval", CInt(sTxt))
-        Await App.RegisterTriggers() ' i zrob triggery
+
+        Dim iInd As Integer = uiMaxDays.SelectedIndex
+        Select Case iInd
+            Case 0
+                iInd = 7
+            Case 1
+                iInd = 30
+            Case 2
+                iInd = 365
+            Case Else   ' nie powinno sie zdarzyc...
+                iInd = 30
+        End Select
+        App.SetSettingsInt("MaxDays", iInd)
+
+        ' Await App.RegisterTriggers() ' i zrob triggery
+        ' bedzie, bo w MainPage_Loaded jest register
         Me.Frame.GoBack()
     End Sub
 
@@ -62,7 +87,10 @@ Public NotInheritable Class Setup
         uiFeeds.Text = App.GetSettingsString("KnownFeeds", "")
         uiWhitelist.Text = App.GetSettingsString("WhiteList")
         uiBlacklist.Text = App.GetSettingsString("BlackList")
+
         uiNotifyWhite.IsOn = App.GetSettingsBool("NotifyWhite")
+        uiRenameFeed.IsEnabled = App.GetSettingsBool("NotifyWhite")
+
         uiLinksActive.IsOn = App.GetSettingsBool("LinksActive")
         Select Case App.GetSettingsInt("TimerInterval", 30)
             Case 15
@@ -77,9 +105,28 @@ Public NotInheritable Class Setup
                 uiInterval.SelectedIndex = 1
         End Select
 
+        Select Case App.GetSettingsInt("MaxDays", 30)
+            Case 7
+                uiMaxDays.SelectedIndex = 0
+            Case 30
+                uiMaxDays.SelectedIndex = 1
+            Case 365
+                uiMaxDays.SelectedIndex = 2
+            Case Else
+                uiMaxDays.SelectedIndex = 1
+        End Select
+
     End Sub
 
     Private Sub bRegExpTest_Click(sender As Object, e As RoutedEventArgs)
         Me.Frame.Navigate(GetType(TestRegExp))
+    End Sub
+
+    Private Sub bRenameFeed_Click(sender As Object, e As RoutedEventArgs)
+        Me.Frame.Navigate(GetType(RenameFeed))
+    End Sub
+
+    Private Sub uiNotifyWhite_Toggled(sender As Object, e As RoutedEventArgs) Handles uiNotifyWhite.Toggled
+        uiRenameFeed.IsEnabled = uiNotifyWhite.IsOn
     End Sub
 End Class

@@ -34,7 +34,12 @@
                         <ComboBoxItem Content="30 min"/>
                         <ComboBoxItem Content="60 min"/>
                         <ComboBoxItem Content="90 min"/>
-                    </ComboBox> 
+                    </ComboBox>
+                    <ComboBox x:Uid="resMaxDays" x:Name="uiMaxDays" Margin="30,0,30,0" Header="Limit oldest">
+                        <ComboBoxItem x:Uid="resMaxDays7" Content="week"/>
+                        <ComboBoxItem x:Uid="resMaxDays30" Content="month"/>
+                        <ComboBoxItem x:Uid="resMaxDays365" Content="year"/>
+                    </ComboBox>
                 </StackPanel>
             </Grid>
             <Button x:Uid="resSettOk" Margin="0,40,0,10" Width="100" HorizontalAlignment="Center" Content="Ok" Click="bSetupOk_Click"  />
@@ -44,6 +49,7 @@
         <CommandBar>
             <AppBarButton Icon="Accept" Label="Ok" Click="bSetupOk_Click"/>
             <AppBarSeparator/>
+            <AppBarButton x:Uid="resRenameFeed" x:Name="uiRenameFeed" Icon="Rename" Label="Rename" Click="bRenameFeed_Click"/>
             <AppBarButton x:Uid="resSettRegExp" Icon="Character" Label ="test regexp" Click="bRegExpTest_Click"  />
         </CommandBar>
 
