@@ -252,4 +252,34 @@
   <data name="resRenameTitle" xml:space="preserve">
     <value>Nazwy feed</value>
   </data>
+  <data name="msgCacheCleared" xml:space="preserve">
+    <value>Cache wyczyszczony</value>
+  </data>
+  <data name="resClearCache.Label" xml:space="preserve">
+    <value>Czyść cache</value>
+  </data>
+  <data name="msgDelAllFromThisFeed" xml:space="preserve">
+    <value>Usunąć wszystko z tego feed?</value>
+  </data>
+  <data name="msgSubjectToRemove" xml:space="preserve">
+    <value>Podaj fragment Tytułu do usuwania</value>
+  </data>
+  <data name="resDlgCancel" xml:space="preserve">
+    <value>Jednak nie</value>
+  </data>
+  <data name="resDlgContinue" xml:space="preserve">
+    <value>Wykonaj</value>
+  </data>
+  <data name="resDlgNo" xml:space="preserve">
+    <value>Nie</value>
+  </data>
+  <data name="resDlgYes" xml:space="preserve">
+    <value>Tak</value>
+  </data>
+  <data name="msgKillFile14days" xml:space="preserve">
+    <value>Filtr (wyrażenie regularne), ważne 14 dni:</value>
+  </data>
+  <data name="uiKillFile.Text" xml:space="preserve">
+    <value>Dodaj do filtrów</value>
+  </data>
 </root>

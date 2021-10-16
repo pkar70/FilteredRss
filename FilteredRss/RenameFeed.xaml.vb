@@ -19,7 +19,7 @@ Public NotInheritable Class RenameFeed
 
     Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
         mlFeedNames = New Collection(Of OneFeedName)
-        'Dim sXml As String = App.GetSettingsString("RenameFeeds", "")
+        'Dim sXml As String = GetSettingsString("RenameFeeds", "")
         'Dim oSer As XmlSerializer = New XmlSerializer(GetType(ObservableCollection(Of OneFeedName)))
         'Dim oStream As Stream = New MemoryStream
         'Dim oWrt As StreamWriter = New StreamWriter(oStream)
@@ -33,17 +33,17 @@ Public NotInheritable Class RenameFeed
         '    bError = True
         'End Try
         'If bError Then
-        '    App.DialogBoxRes("resErrorReadingXML")
+        '    DialogBoxRes("resErrorReadingXML")
         'End If
 
-        Dim sTmp As String = App.GetSettingsString("KnownFeeds", "")
+        Dim sTmp As String = GetSettingsString("KnownFeeds", "")
         Dim aFeeds As String() = sTmp.Split(vbCrLf)
         For Each sFeed As String In aFeeds
             ' bez pustych linii
             If sFeed.Length > 10 Then
                 Dim oNew As OneFeedName = New OneFeedName
                 oNew.sUrl = sFeed
-                oNew.sName = App.GetSettingsString("FeedName_" & App.Url2VarName(sFeed))
+                oNew.sName = GetSettingsString("FeedName_" & App.Url2VarName(sFeed))
                 oNew.sOldName = oNew.sName
                 mlFeedNames.Add(oNew)
             End If
@@ -55,7 +55,7 @@ Public NotInheritable Class RenameFeed
 
     Private Sub uiOk_Click(sender As Object, e As RoutedEventArgs)
 
-        'Dim sXml As String = App.GetSettingsString("RenameFeeds", "")
+        'Dim sXml As String = GetSettingsString("RenameFeeds", "")
         'Dim oSer As XmlSerializer = New XmlSerializer(GetType(ObservableCollection(Of OneFeedName)))
         'Dim oStream As Stream = New MemoryStream
         'Dim oWrt As StreamWriter = New StreamWriter(oStream)
@@ -65,7 +65,7 @@ Public NotInheritable Class RenameFeed
         For Each oItem As OneFeedName In mlFeedNames
             If oItem.sName <> oItem.sOldName Then
                 ' tylko wtedy cos zapisujemy, gdy nowa nazwa inna niz stara
-                App.SetSettingsString("FeedName_" & App.Url2VarName(oItem.sUrl), oItem.sName, uiRoam.IsOn)
+                SetSettingsString("FeedName_" & App.Url2VarName(oItem.sUrl), oItem.sName, uiRoam.IsOn)
             End If
         Next
 

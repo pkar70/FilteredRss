@@ -10,6 +10,7 @@
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <StackPanel Loaded="Setup_Loaded" >
             <TextBlock x:Uid="resSettings"  Margin="0,10,0,10" HorizontalAlignment="Center" Text="Settings" FontSize="20"/>
+            <TextBlock x:Name="uiVers" HorizontalAlignment="Center" FontSize="10" />
             <TextBox x:Uid="resFeeds" x:Name="uiFeeds" TextWrapping="Wrap" Height="200" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Header="Feeds:" PlaceholderText="(enter feeds, one feed per line)" MaxLength="3900"/>
             <ToggleSwitch x:Uid="resFeedsRoam" x:Name="uiFeedsRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />
             <Grid>
@@ -48,6 +49,8 @@
     <Page.BottomAppBar>
         <CommandBar>
             <AppBarButton Icon="Accept" Label="Ok" Click="bSetupOk_Click"/>
+            <AppBarSeparator/>
+            <AppBarButton Icon="Delete" x:Name="uiClearCache" x:Uid="resClearCache" Label="Clear cache" Click="uiClearCache_Click" />
             <AppBarSeparator/>
             <AppBarButton x:Uid="resRenameFeed" x:Name="uiRenameFeed" Icon="Rename" Label="Rename" Click="bRenameFeed_Click"/>
             <AppBarButton x:Uid="resSettRegExp" Icon="Character" Label ="test regexp" Click="bRegExpTest_Click"  />

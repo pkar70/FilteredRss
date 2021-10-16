@@ -252,4 +252,34 @@
   <data name="resRenameTitle" xml:space="preserve">
     <value>Names for feeds</value>
   </data>
+  <data name="msgCacheCleared" xml:space="preserve">
+    <value>Cache was cleared</value>
+  </data>
+  <data name="resClearCache.Label" xml:space="preserve">
+    <value>Clear cache</value>
+  </data>
+  <data name="msgDelAllFromThisFeed" xml:space="preserve">
+    <value>Remove all items from this feed?</value>
+  </data>
+  <data name="msgSubjectToRemove" xml:space="preserve">
+    <value>Enter item Title to be removed</value>
+  </data>
+  <data name="resDlgCancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="resDlgContinue" xml:space="preserve">
+    <value>Continue</value>
+  </data>
+  <data name="resDlgNo" xml:space="preserve">
+    <value>No</value>
+  </data>
+  <data name="resDlgYes" xml:space="preserve">
+    <value>Yes</value>
+  </data>
+  <data name="msgKillFile14days" xml:space="preserve">
+    <value>Filter (regular expression), valid for 14 days:</value>
+  </data>
+  <data name="uiKillFile.Text" xml:space="preserve">
+    <value>Add to Kill file</value>
+  </data>
 </root>

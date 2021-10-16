@@ -1,6 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" IgnorableNamespaces="uap mp">
-  <Identity Name="622PKar.FilteredRSS" Publisher="CN=B2AF14E8-43FD-463C-83BA-4CEC47122EA2" Version="3.0.0.0" />
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+         xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" 
+         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+           xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+          xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" 
+         IgnorableNamespaces="uap mp  uap3 uap5">
+  <Identity Name="622PKar.FilteredRSS" Publisher="CN=B2AF14E8-43FD-463C-83BA-4CEC47122EA2" Version="4.2004.1.0" />
   <mp:PhoneIdentity PhoneProductId="1ccdebf7-7994-459d-8a94-89f7aa892415" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>FilteredRSS</DisplayName>
@@ -20,6 +25,20 @@
         </uap:DefaultTile>
         <uap:SplashScreen Image="Assets\SplashScreen.png" />
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.appService">
+          <uap:AppService Name="com.microsoft.pkar.FilteredRSS"/>
+        </uap:Extension>
+        <uap5:Extension
+		  Category="windows.appExecutionAlias"
+		  Executable="FilteredRSS.exe"
+		  EntryPoint="FilteredRSS.App">
+          <uap5:AppExecutionAlias>
+            <uap5:ExecutionAlias Alias="FilteredRSS.exe" />
+          </uap5:AppExecutionAlias>
+        </uap5:Extension>
+      </Extensions>
+
     </Application>
   </Applications>
   <Capabilities>
