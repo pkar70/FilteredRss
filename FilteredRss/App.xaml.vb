@@ -55,7 +55,7 @@ NotInheritable Class App
 
             'If aes = ApplicationExecutionState.Terminated Then
             Await LoadIndex()
-            Await KillFileLoad()
+            Await KillFileLoad(False)
             ' TODO: Load state from previously suspended application
             'End If
             ' Place the frame in the current Window
@@ -278,7 +278,7 @@ NotInheritable Class App
 
         Try
             Await LoadIndex()
-            Await KillFileLoad()
+            Await KillFileLoad(False)
 
             Select Case oTask.Task.Name     '  sTaskname
                 Case "FilteredRSStimer"
@@ -1573,15 +1573,31 @@ NotInheritable Class App
         Await oFile.AppendLineAsync(sLine)
     End Function
 
-    Private Shared Async Function KillFileLoadMain() As Task(Of String)
-        DebugOut(0, "KillFileLoadMain")
+    Private Shared Async Function KillFileLoadMain(bMsg As Boolean) As Task(Of String)
+        DumpCurrMethod()
         Dim oFile As Windows.Storage.StorageFile = Await KillFileGetFile()
         If oFile Is Nothing Then
-            DebugOut(1, "KillFileLoadMain - file is empty")
+            DumpMessage("KillFileLoadMain - file is empty")
             Return ""
         End If
 
-        Return Await oFile.ReadAllTextAsync
+        ' 2021.10.18: jako że zgłaszał błąd przekodowywania z Unicode na multibyte, zabezpieczam się - choć niby powinno pokazać error msg
+        Dim sRet As String
+        Dim sErr As String = ""
+        Try
+            sRet = Await oFile.ReadAllTextAsync
+        Catch ex As Exception
+            sRet = ""
+            sErr = ex.Message
+        End Try
+
+        If sErr <> "" Then
+            DumpMessage("Error loading KillFile: " & sErr)
+            Await DialogBoxAsync("Error loading KillFile:" & vbCrLf & sErr)
+        End If
+
+        Return sRet
+
     End Function
 
     Private Shared Async Function KillFileSaveMain(sContent As String) As Task
@@ -1591,9 +1607,9 @@ NotInheritable Class App
         Await oFile.WriteAllTextAsync(sContent)
     End Function
 
-    Public Shared Async Function KillFileLoad() As Task
+    Public Shared Async Function KillFileLoad(bMsg As Boolean) As Task
         DebugOut(0, "KillFileLoad")
-        Dim sWpisy As String = Await KillFileLoadMain()
+        Dim sWpisy As String = Await KillFileLoadMain(bMsg)
         DebugOut(1, "read len: " & sWpisy.Length)
         If sWpisy = "" Then Return
         Dim sDataLimit As String = DateTime.Now.AddDays(-30).ToString("yyyyMMdd")

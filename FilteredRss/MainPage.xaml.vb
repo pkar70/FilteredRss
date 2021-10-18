@@ -1,4 +1,9 @@
-﻿' 2021.06.15
+﻿
+' 2021.10.18
+' * podczas KillFileLoad, zabezpieczenie przed throw (typu brak przekodowania z Unicode do CodePage)
+' * i ta jedna funkcja z DebugOut na Dump
+
+' 2021.06.15
 ' * KILLFILE: 30 dni pamiętane entries
 
 ' 2021.06.08
@@ -280,7 +285,7 @@ Public NotInheritable Class MainPage
 
     Public Async Sub AppResuming()
         Await App.LoadIndex()
-        Await App.KillFileLoad
+        Await App.KillFileLoad(False)
         ShowPostsList()
     End Sub
 
