@@ -15,7 +15,7 @@ Public NotInheritable Class TestRegExp
 
 
     Private Sub uiTb1_TextChange(sender As Object, e As TextChangedEventArgs) Handles uiTRtext1.TextChanged
-        If App.RegExp(uiTRtext1.Text, uiTRregExp.Text) = 1 Then
+        If VBlib.App.RegExp(uiTRtext1.Text, uiTRregExp.Text) = 1 Then
             uiTRtext1.BorderThickness = moThickSel
             uiTRtext1.BorderBrush = moBrushG
         Else
@@ -26,7 +26,7 @@ Public NotInheritable Class TestRegExp
     End Sub
 
     Private Sub uiTb2_TextChange(sender As Object, e As TextChangedEventArgs) Handles uiTRtext2.TextChanged
-        If App.RegExp(uiTRtext2.Text, uiTRregExp.Text) = 1 Then
+        If VBlib.App.RegExp(uiTRtext2.Text, uiTRregExp.Text) = 1 Then
             uiTRtext2.BorderThickness = moThickSel
             uiTRtext2.BorderBrush = moBrushG
         Else
@@ -37,7 +37,7 @@ Public NotInheritable Class TestRegExp
     End Sub
 
     Private Sub uiTb3_TextChange(sender As Object, e As TextChangedEventArgs) Handles uiTRtext3.TextChanged
-        If App.RegExp(uiTRtext3.Text, uiTRregExp.Text) = 1 Then
+        If VBlib.App.RegExp(uiTRtext3.Text, uiTRregExp.Text) = 1 Then
             uiTRtext3.BorderThickness = moThickSel
             uiTRtext3.BorderBrush = moBrushG
         Else
@@ -50,7 +50,7 @@ Public NotInheritable Class TestRegExp
 
         If uiTRregExp.Text.Length < 1 Then Exit Sub
 
-        If App.RegExp("alamakota", uiTRregExp.Text) > 1 Then
+        If VBlib.App.RegExp("alamakota", uiTRregExp.Text) > 1 Then
             uiTRregExp.BorderThickness = moThickSel
             uiTRregExp.BorderBrush = moBrushR
             Exit Sub

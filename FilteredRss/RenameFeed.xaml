@@ -34,8 +34,8 @@
                         </Grid.RowDefinitions>
 
                         <!-- <TextBlock Grid.Row="0" Text="{Binding sUrl, Mode=OneWay }"  /> -->
-                        <HyperlinkButton Grid.Row="0" Content="{Binding sUrl, Mode=OneWay }" NavigateUri="{Binding sUrl, Mode=OneWay }"/>
-                        <TextBox Grid.Row="1" Text="{Binding sName, Mode=TwoWay }" Margin="0,0,0,5"/>
+                        <HyperlinkButton Grid.Row="0" Content="{Binding sUri, Mode=OneWay }" NavigateUri="{Binding sUrl, Mode=OneWay }"/>
+                        <TextBox Grid.Row="1" Text="{Binding sName2, Mode=TwoWay }" Margin="0,0,0,5"/>
 
                     </Grid>
                 </DataTemplate>

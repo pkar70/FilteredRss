@@ -282,4 +282,67 @@
   <data name="uiKillFile.Text" xml:space="preserve">
     <value>Add to Kill file</value>
   </data>
+  <data name="resNewFeed" xml:space="preserve">
+    <value>Enter URI of new feed</value>
+  </data>
+  <data name="resToastType0" xml:space="preserve">
+    <value>No toast</value>
+  </data>
+  <data name="resToastType1" xml:space="preserve">
+    <value>New items exists</value>
+  </data>
+  <data name="resToastType2" xml:space="preserve">
+    <value>List items</value>
+  </data>
+  <data name="resToastType3" xml:space="preserve">
+    <value>Separate</value>
+  </data>
+  <data name="uiCBtypToastu0.Text" xml:space="preserve">
+    <value>No toast</value>
+  </data>
+  <data name="uiCBtypToastu1.Text" xml:space="preserve">
+    <value>New items exists</value>
+  </data>
+  <data name="uiCBtypToastu2.Text" xml:space="preserve">
+    <value>List items</value>
+  </data>
+  <data name="uiCBtypToastu3.Text" xml:space="preserve">
+    <value>Separate</value>
+  </data>
+  <data name="resNewItemsInFeed" xml:space="preserve">
+    <value>New items in feed</value>
+  </data>
+  <data name="resNewItemsList" xml:space="preserve">
+    <value>List of new items</value>
+  </data>
+  <data name="uiEditGlobalWhiteBlack.Content" xml:space="preserve">
+    <value>Edit global white/black list</value>
+  </data>
+  <data name="uiEditWhiteBlack.Text" xml:space="preserve">
+    <value>Edit white/black list</value>
+  </data>
+  <data name="msgWhiteBlackChanged" xml:space="preserve">
+    <value>White/Black list changed, save?</value>
+  </data>
+  <data name="uiGoWeb.Text" xml:space="preserve">
+    <value>Open Feed in browser</value>
+  </data>
+  <data name="uiResetSeen.Text" xml:space="preserve">
+    <value>Reset 'seen'</value>
+  </data>
+  <data name="resSetMaxDays30.Text" xml:space="preserve">
+    <value>Set as a month</value>
+  </data>
+  <data name="resSetMaxDays365.Text" xml:space="preserve">
+    <value>Set as a year</value>
+  </data>
+  <data name="resSetMaxDays7.Text" xml:space="preserve">
+    <value>Set as a week</value>
+  </data>
+  <data name="uiLastBylError.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Error occured on last try</value>
+  </data>
+  <data name="uiToastType.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Toast notification type</value>
+  </data>
 </root>

@@ -1,7 +1,6 @@
-﻿' The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+﻿
+' strona nie do końca zmieniona pod nowy układ - bo jednak nie będzie jako osobna strona, tylko w ramach Setup raczej
 
-
-Imports System.Xml.Serialization
 
 Public Class OneFeedName
     Public Property sUrl As String
@@ -9,65 +8,36 @@ Public Class OneFeedName
     Public Property sOldName As String
 End Class
 
-''' <summary>
-''' An empty page that can be used on its own or navigated to within a Frame.
-''' </summary>
+
 Public NotInheritable Class RenameFeed
     Inherits Page
 
-    Dim mlFeedNames As Collection(Of OneFeedName)
+    'Dim mlFeedNames As Collection(Of OneFeedName)
 
     Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
-        mlFeedNames = New Collection(Of OneFeedName)
-        'Dim sXml As String = GetSettingsString("RenameFeeds", "")
-        'Dim oSer As XmlSerializer = New XmlSerializer(GetType(ObservableCollection(Of OneFeedName)))
-        'Dim oStream As Stream = New MemoryStream
-        'Dim oWrt As StreamWriter = New StreamWriter(oStream)
-        'oWrt.Write(sXml)
-        'oWrt.Flush()
 
-        'Dim bError As Boolean = False
-        'Try
-        '    mlFeedNames = TryCast(oSer.Deserialize(oStream), ObservableCollection(Of OneFeedName))
-        'Catch ex As Exception
-        '    bError = True
-        'End Try
-        'If bError Then
-        '    DialogBoxRes("resErrorReadingXML")
-        'End If
+        feeds.FeedsLoad()
 
-        Dim sTmp As String = GetSettingsString("KnownFeeds", "")
-        Dim aFeeds As String() = sTmp.Split(vbCrLf)
-        For Each sFeed As String In aFeeds
-            ' bez pustych linii
-            If sFeed.Length > 10 Then
-                Dim oNew As OneFeedName = New OneFeedName
-                oNew.sUrl = sFeed
-                oNew.sName = GetSettingsString("FeedName_" & App.Url2VarName(sFeed))
-                oNew.sOldName = oNew.sName
-                mlFeedNames.Add(oNew)
-            End If
+        For Each oFeed As VBlib.JedenFeed In VBlib.Feeds.glFeeds
+            oFeed.sName2 = oFeed.sName
         Next
 
-
-        uiListItems.ItemsSource = mlFeedNames
+        uiListItems.ItemsSource = VBlib.Feeds.glFeeds
     End Sub
 
     Private Sub uiOk_Click(sender As Object, e As RoutedEventArgs)
 
-        'Dim sXml As String = GetSettingsString("RenameFeeds", "")
-        'Dim oSer As XmlSerializer = New XmlSerializer(GetType(ObservableCollection(Of OneFeedName)))
-        'Dim oStream As Stream = New MemoryStream
-        'Dim oWrt As StreamWriter = New StreamWriter(oStream)
-        'oWrt.Write(sXml)
-        'oWrt.Flush()
-
-        For Each oItem As OneFeedName In mlFeedNames
-            If oItem.sName <> oItem.sOldName Then
+        Dim bZmiany As Boolean = False
+        For Each oItem As VBlib.JedenFeed In VBlib.Feeds.glFeeds
+            If oItem.sName <> oItem.sName2 Then
                 ' tylko wtedy cos zapisujemy, gdy nowa nazwa inna niz stara
-                SetSettingsString("FeedName_" & App.Url2VarName(oItem.sUrl), oItem.sName, uiRoam.IsOn)
+                oItem.sName = oItem.sName2
+                oItem.iNameType = VBlib.FeedNameType.UserDefined
+                bZmiany = True
             End If
         Next
+
+        If bZmiany Then feeds.FeedsSave(False)
 
         Me.Frame.GoBack()
     End Sub

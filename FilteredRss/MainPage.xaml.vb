@@ -1,4 +1,46 @@
 ﻿
+' 2022.02.04-06
+' * VBlib
+' * zmiana Nuget .NetCore.UniwersalWindows z 5.4.0 na 6.2.13 (security vulnerabilities)
+' * z Windows.Web.Syndication.SyndicationClient na ServiceModel.Syndication.SyndicationFeed
+' * przeniesienie skracania linku z wczytywania RSS do pokazywania go w MainPage
+' * MainPage:Link do pełnej treści, dodałem tooltip z pełnym linkiem
+' * dodawanie Feedów, próbuje ściągnąć title dla Facebook oraz Twitter (setup.xaml.lib.vb)
+' * w Setup, na liście Feeds
+'       * pojawia się czerwony wykrzyknik gdy był błąd ostatnio w danym feed
+'       * w ContextMenu jest 'openweb' (w przeglądarce)
+'       * w ContextMenu, Reset Seen list
+' Settings->oFeed: TIMExxx -> .sLastOKdate, NotifyWhite -> iNotifyWhite, xxx -> oItem.sLastGuids, MaxDays -> iMaxDays
+' NIE! W ogóle bez NotifyWhite, przecież sterowanie Toastami jest indywidualne
+' Settings per feed: iMaxDays (ale było ładne Combo, 7 dni, 30 dni, 365 dni, teraz jest NumberBox - czyli zmiana stylu ikonek
+' Settings: button Add ze zwykłego "+" jest SymbolIcon.Add
+' Settings:prawy guzik na MaxDays, ustawianie: week/month/year (odpowiednik combo, tyle ze z right mouse)
+' *TODO* sprawdzic Twittera czy sie da
+' *TODO* sprawdzic facebook czy sie da - chyba TAK! niestety nie.
+
+' STORE 2112
+
+' 2021.12.30
+' * zablokowanie SmallSetup (było dla width<700) - nie chce mi się tego zmieniać
+'       ostatnie 30 dni, to 147 moich sesji (z Polski w każdym razie) i 5 z Wietnamu
+
+' 2021.12.21
+' * obsługa black/white list per feed (aktualna staje się global)
+' * Toast przy pomocy Builder zamiast własnego
+
+' 2021.12.15
+' * lista Feeds w JSON a nie zmiennej; przerobienie Setup, Rename, etc.
+' * każdy feed ma własny typ toastu dla niego
+' * oraz własne black/white list
+' * przy wczytywaniu listy feedów robi konwersję z dotychczasowej wersji (zmiennej) wraz z rename'ami
+' *TODO* zmiana w SmallSetup (dla małych ekranów)
+' * inicjalizacja PKAR_init (lista feedów oraz blacklist) jest teraz w pliku pswd.vb
+' * gdy pokazuje listę itemów, kasuje znacznik że lista zmieniona (dla GotFocus)
+' * KillFile Save - reset długości pliku
+
+' 2021.12.05
+' KillFileLoadMain, brakowało warunku przed DlgBox - że nie z timera
+
 ' 2021.10.18
 ' * podczas KillFileLoad, zabezpieczenie przed throw (typu brak przekodowania z Unicode do CodePage)
 ' * i ta jedna funkcja z DebugOut na Dump
@@ -85,47 +127,65 @@ Public NotInheritable Class MainPage
     Inherits Page
 
     Public Sub ShowPostsList()
+        VBlib.DumpCurrMethod()
         ' wczytuje z sAllFeeds, przerabia to na krotka liste do lewego WebView
 
-        uiCount.Text = App.glItems.Count & " items"
-        SetBadgeNo(App.glItems.Count)
+        uiCount.Text = VBlib.App.glItems.Count & " items"
+        SetBadgeNo(VBlib.App.glItems.Count)
 
-        '        SetSettingsBool("ChangedXML", False)
-        uiListItems.ItemsSource = From c In App.glItems
+        App.bChangedXML = False
+        uiListItems.ItemsSource = From c In VBlib.App.glItems
     End Sub
 
     Private Sub uiLista_Click(sender As Object, e As TappedRoutedEventArgs)
-        Dim oItem As JedenItem = TryCast(sender, Grid).DataContext
+        Dim oItem As VBlib.JedenItem = TryCast(sender, Grid).DataContext
         ShowTorrentData(oItem)
     End Sub
 
 
-    Public Sub ShowTorrentData(oItem As JedenItem)
-        Dim sResult As String
-        sResult = "<html><body><h1>" & oItem.sTitle & "</h1>"
-        If oItem.sDate <> "" Then sResult = sResult & "<p><small>Posted: " & oItem.sDate & "</small></p>"
-        sResult = sResult & oItem.sItemHtmlData
-        sResult = sResult & "</body></html>"
-        uiPost.NavigateToString(sResult)
+    Public Sub ShowTorrentData(oItem As VBlib.JedenItem)
+        Dim sTmp As String
+        sTmp = "<html><body><h1>" & oItem.sTitle & "</h1>"
+        If oItem.sDate <> "" Then sTmp = sTmp & "<p><small>Posted: " & oItem.sDate & "</small></p>"
+        sTmp = sTmp & oItem.sItemHtmlData
+        sTmp = sTmp & "</body></html>"
+        uiPost.NavigateToString(sTmp)
 
         If oItem.sLinkToDescr IsNot Nothing AndAlso oItem.sLinkToDescr.Contains("http") Then
             uiBLink.NavigateUri = New Uri(oItem.sLinkToDescr)
-            sResult = oItem.sLinkToDescr
-            If sResult.Length > 30 Then
-                Dim iInd, iInd1 As Integer
-                iInd = sResult.IndexOf("/", 10)
-                iInd1 = sResult.LastIndexOf("/")
-                sResult = sResult.Substring(0, iInd + 1) & "..." & sResult.Substring(iInd1)
-                If sResult.Length > 30 Then
-                    ' jeszcze jedna próba (pod kątem obrazków Instagram
-                    iInd = sResult.IndexOf("?")
-                    If iInd > 0 Then sResult = sResult.Substring(0, iInd)
-                End If
+            sTmp = oItem.sLinkToDescr
+            ToolTipService.SetToolTip(uiBLink, sTmp)
+
+            'teraz różne wersje skracania pokazywanego linku
+            ' (2022.02.04: tutaj dopiero zmiana, w gItems jest pełnej długości, nie ma wcześniej skracania)
+
+            Dim iInd As Integer
+
+            ' próba 1: ucinamy po ?xxxx (m.in. obrazki instagram w ten sposób są traktowane)
+            If sTmp.Length > 30 Then
+                iInd = sTmp.IndexOf("?")
+                If iInd > 1 Then sTmp = sTmp.Substring(0, iInd)
             End If
-            uiBLink.Content = sResult
+
+            ' próba 2: ucięcie ścieżki w ramach serwera
+            If sTmp.Length > 30 Then
+                ' gdy link jest za długi, kasujemy ścieżkę w ramach serwera
+                Dim iInd1 As Integer
+                iInd = sTmp.IndexOf("/", 10)
+                iInd1 = sTmp.LastIndexOf("/")
+                sTmp = sTmp.Substring(0, iInd + 1) & "..." & sTmp.Substring(iInd1)
+            End If
+
+            ' próba 3: gdy sama filename jest długa
+            If sTmp.Length > 30 Then
+                iInd = sTmp.LastIndexOf("/")
+                If sTmp.Length - iInd > 20 Then sTmp = sTmp.Substring(0, iInd + 15) & "..."
+            End If
+            uiBLink.Content = sTmp
         Else
             uiBLink.NavigateUri = New Uri("http://127.0.0.1/")
             uiBLink.Content = "<error>"
+            ToolTipService.SetToolTip(uiBLink, "")
         End If
 
         SetSettingsString("sLastId", oItem.sGuid)
@@ -135,14 +195,16 @@ Public NotInheritable Class MainPage
     Public Sub ShowTorrentData(sGuid As String)
         'Dim sTmp As String
 
-        If App.glItems Is Nothing Then
+        If VBlib.App.glItems Is Nothing Then
             DialogBox("IMPOSSIBLE, ShowTorrentData and oAllItems null")
             Exit Sub
         End If
 
+        If sGuid = "" Then Return   ' gdy byl pusty GUID (zbiorcze Toasty)
+
         'DialogBox("ShowTorrentData(" & sGuid)
 
-        For Each oItem In App.glItems
+        For Each oItem In VBlib.App.glItems
             If oItem.sGuid = sGuid Then
                 ShowTorrentData(oItem)
                 Exit Sub
@@ -156,7 +218,12 @@ Public NotInheritable Class MainPage
 
 
     ' obsluga zdarzen formatki
-    Private Async Sub MainPage_Loaded(sender As Object, e As RoutedEventArgs)
+    Private Async Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
+
+        VBlib.pkarlibmodule.InitSettings(AddressOf pkar.SetSettingsString, AddressOf pkar.SetSettingsInt, AddressOf pkar.SetSettingsBool, AddressOf pkar.GetSettingsString, AddressOf pkar.GetSettingsInt, AddressOf pkar.GetSettingsBool)
+        VBlib.pkarlibmodule.InitDialogBox(AddressOf pkar.DialogBoxAsync, AddressOf pkar.DialogBoxYNAsync, AddressOf pkar.DialogBoxInputAllDirectAsync)
+        VBlib.pkarlibmodule.InitDump(GetSettingsInt("debugLogLevel", 0), Windows.Storage.ApplicationData.Current.TemporaryFolder.Path)
+
         CrashMessageInit()
         Await CrashMessageShowAsync()   ' jesli cos bylo, to pokaze tresc
 
@@ -167,6 +234,8 @@ Public NotInheritable Class MainPage
         SetSettingsString("resDelete", GetLangString("resDelete"))
         SetSettingsString("resOpen", GetLangString("resOpen"))
         SetSettingsString("resBrowser", GetLangString("resBrowser"))
+        SetSettingsString("resNewItemsInFeed", GetLangString("resNewItemsInFeed"))
+        SetSettingsString("resNewItemsList", GetLangString("resNewItemsList"))
 
     End Sub
     Private Sub Form_Resized(sender As Object, e As SizeChangedEventArgs)
@@ -193,7 +262,7 @@ Public NotInheritable Class MainPage
 
 
     Private Sub Page_GotFocus(sender As Object, e As RoutedEventArgs)
-
+        VBlib.DumpCurrMethod()
         uiClockRead.IsChecked = GetSettingsBool("autoRead")
 
         ' 20171101: jeśli w środku jest moje, to nie rób reload
@@ -206,7 +275,7 @@ Public NotInheritable Class MainPage
         'End Try
 
         'If sHtml.IndexOf("<!-- FilteredRSS -->") < 1 Or GetSettingsBool("ChangedXML") Then ShowPostsList()
-        If GetSettingsBool("ChangedXML") Then ShowPostsList()
+        If App.bChangedXML Then ShowPostsList()
 
         tbLastRead.Text = GetSettingsString("lastRead")
 
@@ -214,6 +283,8 @@ Public NotInheritable Class MainPage
 
     ' obsluga guzikow
     Public Async Sub bReadFeed_Click(sender As Object, e As RoutedEventArgs)
+        VBlib.DumpCurrMethod()
+
         Dim sTmp As String = Await App.ReadFeed(tbLastRead)
 
         Try
@@ -225,17 +296,19 @@ Public NotInheritable Class MainPage
     End Sub
     Private Sub uiClockRead_Click(sender As Object, e As RoutedEventArgs) Handles uiClockRead.Click
         SetSettingsBool("autoRead", uiClockRead.IsChecked)
+        If uiClockRead.IsChecked AndAlso Not IsTriggersRegistered("FilteredRSStimer") Then App.RegisterTriggers()
     End Sub
 
     Private Sub bSetup_Click(sender As Object, e As RoutedEventArgs)
-        If uiNaViews.ActualWidth < 700 Then
-            Me.Frame.Navigate(GetType(SmallSetup))
-        Else
-            Me.Frame.Navigate(GetType(Setup))
-        End If
+        'If uiNaViews.ActualWidth < 700 Then
+        '    Me.Frame.Navigate(GetType(SmallSetup))
+        'Else
+        Me.Frame.Navigate(GetType(Setup))
+        'End If
     End Sub
 
     Private Sub bDelOnePost_Click(sender As Object, e As RoutedEventArgs)
+        VBlib.DumpCurrMethod()
 
         Dim sGuid As String = GetSettingsString("sLastId")
         If sGuid = "" Then Exit Sub
@@ -256,11 +329,13 @@ Public NotInheritable Class MainPage
 
     End Sub
     Private Sub bDelAllPosts_Click(sender As Object, e As RoutedEventArgs)
+        VBlib.DumpCurrMethod()
+
         SetSettingsString("sLastId", "")
 
         Windows.UI.Notifications.ToastNotificationManager.History.Clear()
 
-        App.glItems.Clear()
+        VBlib.App.glItems.Clear()
         ShowPostsList()
     End Sub
 
@@ -275,17 +350,14 @@ Public NotInheritable Class MainPage
         AddHandler Application.Current.Resuming, AddressOf AppResuming
     End Sub
 
-    Public Async Sub AppSuspending()
-        ' tu kiedys było, wedle DeveloperDashboard, fail with FileNotFound (= zła nazwa) ???
-        'Dim sampleFile As StorageFile = Await ApplicationData.Current.LocalCacheFolder.CreateFileAsync(
-        '    "oAllItems.xml", CreationCollisionOption.ReplaceExisting)
-        'Await App.oAllItems.GetXmlDocument(SyndicationFormat.Rss20).SaveToFileAsync(sampleFile)
-        Await App.SaveIndex(True)
+    Public Sub AppSuspending()
+        VBlib.DumpCurrMethod()
+        App.SaveIndex(True)
     End Sub
 
-    Public Async Sub AppResuming()
-        Await App.LoadIndex()
-        Await App.KillFileLoad(False)
+    Public Sub AppResuming()
+        App.LoadIndex()
+        App.KillFileLoad(False)
         ShowPostsList()
     End Sub
 
@@ -308,38 +380,11 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Async Sub DeleteFromContextMenu(oMFI As MenuFlyoutItem, iMode As Integer)
-        If oMFI Is Nothing Then Return
-        Dim oItem As JedenItem = TryCast(oMFI.DataContext, JedenItem)
+        VBlib.DumpCurrMethod()
+        Dim oItem As VBlib.JedenItem = TryCast(oMFI?.DataContext, VBlib.JedenItem)
         If oItem Is Nothing Then Return
 
-
-        Select Case iMode
-            Case 1  ' jeden post
-                App.glItems.Remove(oItem)
-            Case 2  ' wedle tematu - ask!
-                Dim sSubj As String = Await DialogBoxInputResAsync("msgSubjectToRemove", oItem.sTitle)
-                If sSubj = "" Then Return
-
-                For iLoop As Integer = App.glItems.Count - 1 To 0 Step -1
-                    If App.glItems.Item(iLoop).sTitle.Contains(sSubj) Then App.glItems.RemoveAt(iLoop)
-                Next
-
-            Case 3  ' all from feed - askYN
-                If Not Await DialogBoxResYNAsync("msgDelAllFromThisFeed") Then Return
-                For iLoop As Integer = App.glItems.Count - 1 To 0 Step -1
-                    If oItem.sFeedName = App.glItems.Item(iLoop).sFeedName Then App.glItems.RemoveAt(iLoop)
-                Next
-            Case 4  ' kill file
-                Dim sKill As String = Await DialogBoxInputDirectAsync(GetLangString("msgKillFile14days"), oItem.sTitle)
-                If String.IsNullOrEmpty(sKill) Then Return
-                For iLoop As Integer = App.glItems.Count - 1 To 0 Step -1
-                    If App.RegExpOrInstr(App.glItems.Item(iLoop).sTitle, sKill) Then App.glItems.RemoveAt(iLoop)
-                Next
-                Await App.KillFileAdd(sKill)
-
-            Case Else
-                Return
-        End Select
+        Await VBlib.MainPage.DeleteFromContextMenu(oItem, iMode)
 
         Try
             ShowPostsList()
