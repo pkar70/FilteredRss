@@ -236,7 +236,8 @@ Public NotInheritable Class Setup
         Dim oDFE As FrameworkElement = sender
         Dim oItem As VBlib.JedenFeed = TryCast(oDFE.DataContext, VBlib.JedenFeed)
         If oItem Is Nothing Then Return
-        SetSettingsString(VBlib.App.Url2VarName(oItem.sUri), "")
+        oItem.sLastGuid = ""
+        oItem.sLastGuids = ""
     End Sub
 
     Private Sub uiSetMaxDays_Click(sender As Object, e As RoutedEventArgs)

@@ -74,11 +74,65 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Remove all items from this feed?.
+        '''</summary>
+        Friend Shared ReadOnly Property msgDelAllFromThisFeed() As String
+            Get
+                Return ResourceManager.GetString("msgDelAllFromThisFeed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Filter (regular expression), valid for 14 days:.
+        '''</summary>
+        Friend Shared ReadOnly Property msgKillFile14days() As String
+            Get
+                Return ResourceManager.GetString("msgKillFile14days", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enter item Title to be removed.
+        '''</summary>
+        Friend Shared ReadOnly Property msgSubjectToRemove() As String
+            Get
+                Return ResourceManager.GetString("msgSubjectToRemove", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Yes.
         '''</summary>
         Friend Shared ReadOnly Property msgYes() As String
             Get
                 Return ResourceManager.GetString("msgYes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Cancel.
+        '''</summary>
+        Friend Shared ReadOnly Property resDlgCancel() As String
+            Get
+                Return ResourceManager.GetString("resDlgCancel", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Continue.
+        '''</summary>
+        Friend Shared ReadOnly Property resDlgContinue() As String
+            Get
+                Return ResourceManager.GetString("resDlgContinue", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to No.
+        '''</summary>
+        Friend Shared ReadOnly Property resDlgNo() As String
+            Get
+                Return ResourceManager.GetString("resDlgNo", resourceCulture)
             End Get
         End Property
     End Class

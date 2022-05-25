@@ -74,7 +74,7 @@ Partial Public Class Feeds
         IO.File.WriteAllText(sFilePathname, sTxt)
     End Sub
 
-    Public Shared Function FeedsCreateNew(sUri As String, Optional sName As String = "") As VBlib.JedenFeed
+    Public Shared Function FeedsCreateNew(sUri As String, Optional sName As String = "", Optional iMaxDays As Integer = 7, Optional iToastType As FeedToastType = FeedToastType.Separate) As VBlib.JedenFeed
 
         For Each oItem As VBlib.JedenFeed In glFeeds
             If oItem.sUri = sUri Then Return Nothing ' already exist
@@ -82,6 +82,8 @@ Partial Public Class Feeds
 
         Dim oNew As New VBlib.JedenFeed
         oNew.sUri = sUri
+        oNew.iMaxDays = iMaxDays
+        oNew.iToastType = iToastType
 
         If sName <> "" Then
             oNew.sName = sName
@@ -97,8 +99,8 @@ Partial Public Class Feeds
         Return oNew
     End Function
 
-    Public Shared Sub FeedsTryAddNew(sUri As String, Optional sName As String = "")
-        Dim oNew As VBlib.JedenFeed = FeedsCreateNew(sUri, sName)
+    Public Shared Sub FeedsTryAddNew(sUri As String, Optional sName As String = "", Optional iMaxDays As Integer = 7, Optional iToastType As FeedToastType = FeedToastType.Separate)
+        Dim oNew As VBlib.JedenFeed = FeedsCreateNew(sUri, sName, iMaxDays, iToastType)
         If oNew IsNot Nothing Then glFeeds.Add(oNew)
     End Sub
 

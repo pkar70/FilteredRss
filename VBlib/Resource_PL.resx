@@ -117,8 +117,26 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="msgDelAllFromThisFeed" xml:space="preserve">
+    <value>Usunąć wszystko z tego feed?</value>
+  </data>
+  <data name="msgKillFile14days" xml:space="preserve">
+    <value>Filtr (wyrażenie regularne), ważne 14 dni:</value>
+  </data>
+  <data name="msgSubjectToRemove" xml:space="preserve">
+    <value>Podaj fragment Tytułu do usuwania</value>
+  </data>
   <data name="msgYes" xml:space="preserve">
     <value>Tak</value>
+  </data>
+  <data name="resDlgCancel" xml:space="preserve">
+    <value>Jednak nie</value>
+  </data>
+  <data name="resDlgContinue" xml:space="preserve">
+    <value>Wykonaj</value>
+  </data>
+  <data name="resDlgNo" xml:space="preserve">
+    <value>Nie</value>
   </data>
   <data name="_lang" xml:space="preserve">
     <value>PL</value>

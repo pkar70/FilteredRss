@@ -1,4 +1,38 @@
 ﻿
+' STORE 2202.11
+
+' 2022.02.19
+' * chyba już mam co trzeba wpisać do Default.rd.xml:
+'   <Type Name="System.ServiceModel.Syndication.SyndicationFeedFormatter">
+'	<Method Name = "DefaultUriParser" Dynamic="Required" />
+'	</Type>
+'	<Namespace Name = "System.ServiceModel.Syndication" Dynamic="Required All" />
+' * poprawka - skracanie GUID dla LoveKraków (a przez to skracanie Tag)
+' * poprawka: używa skróconego sGuid do sTag zamiast sGuid :)
+
+' 2022.02.18
+' * przełącznik #define dla używania RSS w VBlib (.Net) lub w App.vb (UWP)
+
+' 2022.02.11
+' * z powrotem na UWP.RSS, bo .Net.RSS nie działa w trybie RELEASE:
+'System.Reflection.MissingRuntimeArtifactException
+'HResult = 0x8013151A
+'  Message = Cannot retrieve a MethodInfo For this Delegate because the method it targeted (System.ServiceModel.Syndication.SyndicationFeedFormatter.DefaultUriParser(XmlUriData, Uri&)) was Not enabled For metadata Using the Dynamic attribute. For more information, please visit http://go.microsoft.com/fwlink/?LinkID=616868
+'  Source = <Cannot evaluate the exception source>
+'  StackTrace:
+'<Cannot evaluate the exception stack trace>
+' (na linii oRssFeed = ServiceModel.Syndication.SyndicationFeed.Load(oReader))
+' czyli musiałem czytanie Rss przywrócić z VBlib.App do App.
+
+
+' STORE 2202.09
+' 2022.02.09
+' * ERROR od Aśki: poprzednia wersja zrobiła XML len=0, i na tym wylatywało przy wczytywaniu (LoadIndex XML catch, no root element)
+' * nie robi czytania XML gdy jest len<10, a MainPage:ShowPostsList nie robi błędu przy null
+
+
+' STORE 2202
+
 ' 2022.02.04-06
 ' * VBlib
 ' * zmiana Nuget .NetCore.UniwersalWindows z 5.4.0 na 6.2.13 (security vulnerabilities)
@@ -129,6 +163,8 @@ Public NotInheritable Class MainPage
     Public Sub ShowPostsList()
         VBlib.DumpCurrMethod()
         ' wczytuje z sAllFeeds, przerabia to na krotka liste do lewego WebView
+
+        If VBlib.App.glItems Is Nothing Then Return
 
         uiCount.Text = VBlib.App.glItems.Count & " items"
         SetBadgeNo(VBlib.App.glItems.Count)
@@ -379,12 +415,24 @@ Public NotInheritable Class MainPage
         OpenBrowser(uiBLink.NavigateUri, True)
     End Sub
 
+    Public Function UsunToast(sGuid As String) As Boolean
+
+        Dim sTag As String = VBlib.App.ConvertGuidToTag(sGuid)
+        If sTag = "" Then Return False
+        Try
+            Windows.UI.Notifications.ToastNotificationManager.History.Remove(sTag)
+        Catch ex As Exception
+            ' chyba jeśli nie ma takowego - więc już usunięty jest
+        End Try
+        Return True
+    End Function
+
     Private Async Sub DeleteFromContextMenu(oMFI As MenuFlyoutItem, iMode As Integer)
         VBlib.DumpCurrMethod()
         Dim oItem As VBlib.JedenItem = TryCast(oMFI?.DataContext, VBlib.JedenItem)
         If oItem Is Nothing Then Return
 
-        Await VBlib.MainPage.DeleteFromContextMenu(oItem, iMode)
+        Await VBlib.MainPage.DeleteFromContextMenu(oItem, iMode, AddressOf UsunToast)
 
         Try
             ShowPostsList()

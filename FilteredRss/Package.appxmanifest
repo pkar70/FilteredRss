@@ -5,7 +5,7 @@
            xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
           xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" 
          IgnorableNamespaces="uap mp  uap3 uap5">
-  <Identity Name="622PKar.FilteredRSS" Publisher="CN=B2AF14E8-43FD-463C-83BA-4CEC47122EA2" Version="6.2202.7.0" />
+  <Identity Name="622PKar.FilteredRSS" Publisher="CN=B2AF14E8-43FD-463C-83BA-4CEC47122EA2" Version="6.2202.18.0" />
   <mp:PhoneIdentity PhoneProductId="1ccdebf7-7994-459d-8a94-89f7aa892415" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>FilteredRSS</DisplayName>

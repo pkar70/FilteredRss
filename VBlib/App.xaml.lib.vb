@@ -7,6 +7,9 @@
 'Imports Windows.Web.Syndication
 'Imports System.Linq.Expressions
 'Imports Newtonsoft.Json.Serialization
+
+' gdy True, to Release będzie miał błąd 
+
 '''' <summary>
 '''' Provides application-specific behavior to supplement the default Application class.
 '''' </summary>
@@ -104,7 +107,8 @@ Public Class App
     'End Function
 
 
-    Private Shared Function ActivateLinks(sInput As String) As String
+    ' public, bo z App.Xaml.vb, przy przejściu z powrotem na Windows.Rss
+    Public Shared Function ActivateLinks(sInput As String) As String
         Dim sTmp As String
 
         sTmp = sInput
@@ -289,6 +293,8 @@ Public Class App
         ' dziala też https://www.tomshardware.com/news/moje,38051.html
         ' skrócenie powoduje oszczędność SettingString, i mieści się więcej
         If oFeed.sUri.ToLower.Contains("tomshardware") Then
+            iInd = sGuid.IndexOf("#")
+            If iInd > 0 Then sGuid = sGuid.Substring(0, iInd)
             sGuid = sGuid.Replace("#xtor=RSS-5", "")    ' skracamy końcówkę
             iInd = sGuid.IndexOf("/", "https://www.tomshardware.com/n".Length) ' to nie musi być news!
             sTmp = sGuid.Substring(0, iInd + 1)   ' https://www.tomshardware.com/(news|reviews|...)
@@ -350,6 +356,31 @@ Public Class App
             If sGuid = "" Then sGuid = oNode.Links.Item(0).Uri.ToString
         End If
 
+        If sGuid.Contains("lovekrakow") Then
+            ' LoveKraków nie ma GUID, więc mamy link tylko
+            ' http://lovekrakow.pl/aktualnosci/rzecznik-jednego-z-instytutow-uj-napisal-o-robieniu-farszu-z-plodow_44887.html
+            iInd = sGuid.LastIndexOf("/")
+            Dim iInd1 As Integer = sGuid.LastIndexOf("_")
+            ' pierwsza litera, bo nie mozna zacząć linku od underscore... choć i tak tu nie kwestia linku
+            sGuid = sGuid.Substring(0, iInd + 2) + sGuid.Substring(iInd1)
+        End If
+
+        ' 2018.11.10, dla TomsHardware ktory ma długie ID
+        ' https://www.tomshardware.com/news/sapphire-radeon-rx-590-nitro-special-edition-specs,38051.html#xtor=RSS-5
+        ' dziala też https://www.tomshardware.com/news/moje,38051.html
+        ' skrócenie powoduje oszczędność SettingString, i mieści się więcej
+        If sGuid.ToLower.Contains("tomshardware") Then
+            iInd = sGuid.IndexOf("#")
+            If iInd > 0 Then sGuid = sGuid.Substring(0, iInd)
+            iInd = sGuid.IndexOf("/", "https://www.tomshardware.com/n".Length) ' to nie musi być news!
+            sTmp = sGuid.Substring(0, iInd + 1)   ' https://www.tomshardware.com/(news|reviews|...)
+            Dim iInd2 = sGuid.LastIndexOf(",")
+            If iInd2 > 0 Then
+                sGuid = sGuid.Substring(0, iInd) & sGuid.Substring(iInd)
+            End If
+        End If
+
+
         Return sGuid
 
     End Function
@@ -380,7 +411,6 @@ Public Class App
     ''' ret NULL gdy empty HttpPage, lub lista nowych
     ''' </summary>
     Private Shared Async Function GetRssFeed(oFeed As JedenFeed) As Task(Of List(Of JedenItem))
-
         Dim oRssFeed As ServiceModel.Syndication.SyndicationFeed = Nothing
 
         Try
@@ -398,6 +428,12 @@ Public Class App
         Catch
             Return Nothing
         End Try
+
+        Return GetRssFeed(oFeed, oRssFeed)
+
+    End Function
+
+    Public Shared Function GetRssFeed(oFeed As JedenFeed, oRssFeed As ServiceModel.Syndication.SyndicationFeed) As List(Of JedenItem)
 
         Dim oRetList As New List(Of JedenItem)
 
@@ -428,16 +464,16 @@ Public Class App
 
         ' dla normalnego RSS, dla twittera tego w ogole nie robi
         If Not oFeed.sUri.ToLower.Contains("twitter.com") Then
-                ' zapisz do nastepnego uruchomienia (okolo 100 torrentow)
-                If oFeed.sLastGuids.Length > 3900 Then
+            ' zapisz do nastepnego uruchomienia (okolo 100 torrentow)
+            If oFeed.sLastGuids.Length > 3900 Then
                 Dim iInd As Integer
                 ' limit 8K - ale bajtow
                 oFeed.sLastGuids = oFeed.sLastGuids.Substring(oFeed.sLastGuids.Length - 3900)
-                    iInd = oFeed.sLastGuids.IndexOf("|")
-                    oFeed.sLastGuids = oFeed.sLastGuids.Substring(iInd)
-                End If
-                oFeed.sLastGuids = oFeed.sLastGuids
+                iInd = oFeed.sLastGuids.IndexOf("|")
+                oFeed.sLastGuids = oFeed.sLastGuids.Substring(iInd)
             End If
+            oFeed.sLastGuids = oFeed.sLastGuids
+        End If
 
         Return oRetList
     End Function
@@ -946,8 +982,8 @@ Public Class App
 
 
 
-
-    Private Shared Function NodeToIgnore(oFeed As JedenFeed, dPublDate As DateTimeOffset, oNew As JedenItem) As Boolean ' sFeedName As String
+    ' public, bo z app.xaml.vb, przy powrocie na Windows.RSS
+    Public Shared Function NodeToIgnore(oFeed As JedenFeed, dPublDate As DateTimeOffset, oNew As JedenItem) As Boolean ' sFeedName As String
 
         DumpCurrMethod("(" & oFeed.sName & ", title=" & oNew.sTitle)
 
@@ -1041,6 +1077,14 @@ Public Class App
 
     End Function
 
+    Public Shared Function ConvertGuidToTag(sGuid As String) As String
+        ' The size of the notification tag is too large.
+        ' tag: 16 chrs, od Creators (14971 ??) jest 64 chrs
+        ' https://docs.microsoft.com/en-us/uwp/api/windows.ui.notifications.toastnotification.tag#Windows_UI_Notifications_ToastNotification_Tag
+        If sGuid.Length > 60 Then sGuid = sGuid.Substring(0, 60)
+        Return sGuid
+    End Function
+
 #Region "RegExpy"
 
     ''' <summary>
@@ -1122,31 +1166,41 @@ Public Class App
     Public Shared Sub LoadIndex(sCacheFolder As String)
 
         ' 20171101: omijamy wczytywanie gdy zmienna nie jest wyczyszczona
-        If glItems IsNot Nothing Then Return
+        If glItems IsNot Nothing Then
+            If glItems.Count > 0 Then Return
+        End If
+
         Dim sFilename As String = IO.Path.Combine(sCacheFolder, INDEX_FILENAME_JSON)
         If IO.File.Exists(sFilename) Then
-
             Try
                 Dim sTxt As String = IO.File.ReadAllText(sFilename)
-                glItems = Newtonsoft.Json.JsonConvert.DeserializeObject(sTxt, GetType(List(Of JedenItem)))
+                If sTxt.Length > 10 Then
+                    glItems = Newtonsoft.Json.JsonConvert.DeserializeObject(sTxt, GetType(List(Of JedenItem)))
+                Else
+                    glItems = New List(Of JedenItem)
+                End If
             Catch ex As Exception
                 CrashMessageAdd("LoadIndex JSON catch", ex)
             End Try
         Else
             sFilename = IO.Path.Combine(sCacheFolder, INDEX_FILENAME_XML)
             If Not IO.File.Exists(sFilename) Then Return
-
             Try
-                Dim oStream As IO.Stream = IO.File.OpenRead(sFilename)
-                Dim oSer As Xml.Serialization.XmlSerializer
-                oSer = New Xml.Serialization.XmlSerializer(GetType(List(Of JedenItem)))
-                glItems = TryCast(oSer.Deserialize(oStream), List(Of JedenItem))
+                Dim sTxt As String = IO.File.ReadAllText(sFilename)
+                If sTxt.Length > 10 Then
+                    ' bez tego był catch że file nie ma root, gdy była len=0
+                    Dim oSer As Xml.Serialization.XmlSerializer
+                    oSer = New Xml.Serialization.XmlSerializer(GetType(List(Of JedenItem)))
+                    glItems = TryCast(oSer.Deserialize(New IO.StringReader(sTxt)), List(Of JedenItem))
+                Else
+                    glItems = New List(Of JedenItem)
+                End If
 
             Catch ex As Exception
                 CrashMessageAdd("LoadIndex XML catch", ex)
-            End Try
+                End Try
 
-        End If
+            End If
 
     End Sub
 #End Region
