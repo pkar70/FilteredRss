@@ -1,41 +1,24 @@
-﻿' The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
+﻿
 
-Imports Windows.System
-''' <summary>
-''' An empty page that can be used on its own or navigated to within a Frame.
-''' </summary>
 Public NotInheritable Class Info
     Inherits Page
 
-    Private Async Sub bRateIt_Click(sender As Object, e As RoutedEventArgs)
-
-        Dim sUri As New Uri("ms-windows-store://review/?PFN=" & Package.Current.Id.FamilyName)
-        Await Launcher.LaunchUriAsync(sUri)
-
+    Private Sub bRateIt_Click(sender As Object, e As RoutedEventArgs)
+        App.OpenRateIt()
     End Sub
 
     Private Sub bAboutOk_Click(sender As Object, e As RoutedEventArgs)
-        Me.Frame.Navigate(GetType(MainPage))
-    End Sub
-
-    Private Sub OnSizeChanged(sender As Object, e As SizeChangedEventArgs)
-        'uiWebInfo z uiInfoGrid
-        uiWebInfo.Height = uiInfoGrid.ActualHeight - 40
-        uiWebInfo.Width = uiInfoGrid.ActualWidth - 40
+        Me.GoBack
     End Sub
 
     Private Sub OnLoaded(sender As Object, e As RoutedEventArgs) Handles uiInfoGrid.Loaded
-        Dim oFile As StreamReader
-        Dim sTxt As String
-        sTxt = "Assets\Guide-" & Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName & ".htm"
-        If Not File.Exists(sTxt) Then sTxt = "Assets\Guide-En.htm"
+        Dim sFilename As String
+        sFilename = "Assets\Guide-" & Globalization.CultureInfo.CurrentCulture.TwoLetterISOLanguageName & ".htm"
+        If Not File.Exists(sFilename) Then sFilename = "Assets\Guide-En.htm"
 
-        oFile = File.OpenText(sTxt)
-        sTxt = ""
-        While Not oFile.EndOfStream
-            sTxt = sTxt & oFile.ReadLine
-        End While
-        oFile.Dispose()
-        uiWebInfo.NavigateToString(sTxt)
+        ' błąd, albo np. jesteśmy pod Android :)
+        If Not File.Exists(sFilename) Then Return
+
+        uiWebInfo.NavigateToString(File.ReadAllText(sFilename))
     End Sub
 End Class

@@ -149,6 +149,8 @@ Public Class App
 
 #Region "Rss feed"
     Private Shared Function ExtractPicLink(sContent As String) As String
+        DumpCurrMethod()
+
         Dim sTmp As String = sContent
         Dim iInd As Integer
 
@@ -177,11 +179,13 @@ Public Class App
     End Function
 
     Private Shared Function RssGetFeedName(oFeed As JedenFeed, oNode As ServiceModel.Syndication.SyndicationItem) As String
+        DumpCurrMethod()
         If oFeed.sName <> "" Then Return oFeed.sName
         Return oNode.SourceFeed.Title.Text.Trim
     End Function
 
     Private Shared Function RssGetDate(oNode As ServiceModel.Syndication.SyndicationItem) As String
+        DumpCurrMethod()
         ' 2018.11.10, TomsHardware Atom ma Update nie ma Published
 
         Try
@@ -197,6 +201,8 @@ Public Class App
     End Function
 
     Private Shared Function RssGetTitle(oNode As ServiceModel.Syndication.SyndicationItem) As String
+        DumpCurrMethod()
+
         Dim sTmp As String
 
         If oNode.Title Is Nothing Then
@@ -212,6 +218,7 @@ Public Class App
     End Function
 
     Private Shared Function RssGetPicLink(oNode As ServiceModel.Syndication.SyndicationItem) As String
+        DumpCurrMethod()
         ' https://social.msdn.microsoft.com/Forums/en-US/8b6a4d60-b286-41fc-997b-9fde81d0f14a/how-to-get-content-from-syndicationitem
 
         Dim sTmp As String = ""
@@ -226,6 +233,8 @@ Public Class App
     End Function
 
     Private Shared Function RssGetHtmlData(oNode As ServiceModel.Syndication.SyndicationItem, iConvertLinks As Integer) As String
+        DumpCurrMethod()
+
         Dim sTmp As String = ""
         If oNode.Summary IsNot Nothing Then sTmp = oNode.Summary.Text
         If sTmp = "" AndAlso oNode.Content IsNot Nothing Then
@@ -239,6 +248,8 @@ Public Class App
         Return sTmp
     End Function
     Private Shared Function RssGetDescLink(oNode As ServiceModel.Syndication.SyndicationItem, oFeed As JedenFeed) As String
+        DumpCurrMethod()
+
         Dim sLinkToDescr As String
 
         If oNode.Links IsNot Nothing AndAlso oNode.Links.Count > 0 Then
@@ -264,6 +275,8 @@ Public Class App
     End Function
 
     Private Shared Function RssGetGuid(oNode As ServiceModel.Syndication.SyndicationItem, oFeed As JedenFeed) As String
+        DumpCurrMethod()
+
         ' sGuid: <guid>http://devil-torrents.pl/torrent/145394</guid>
         '   lub <link>
         ' skraca GUIDy, by więcej się zmieściło w zmiennej "seen"
@@ -288,21 +301,22 @@ Public Class App
             sGuid = "DEVIL-" & iCurrId
         End If
 
-        ' 2018.11.10, dla TomsHardware ktory ma długie ID
-        ' https://www.tomshardware.com/news/sapphire-radeon-rx-590-nitro-special-edition-specs,38051.html#xtor=RSS-5
-        ' dziala też https://www.tomshardware.com/news/moje,38051.html
-        ' skrócenie powoduje oszczędność SettingString, i mieści się więcej
-        If oFeed.sUri.ToLower.Contains("tomshardware") Then
-            iInd = sGuid.IndexOf("#")
-            If iInd > 0 Then sGuid = sGuid.Substring(0, iInd)
-            sGuid = sGuid.Replace("#xtor=RSS-5", "")    ' skracamy końcówkę
-            iInd = sGuid.IndexOf("/", "https://www.tomshardware.com/n".Length) ' to nie musi być news!
-            sTmp = sGuid.Substring(0, iInd + 1)   ' https://www.tomshardware.com/(news|reviews|...)
-            iInd = sGuid.LastIndexOf(",")
-            If iInd > 0 Then
-                sGuid = sGuid.Substring(iInd)
-            End If
-        End If
+        ' 2022.06.07, GUID jest teraz krótki <guid isPermaLink="false">H8j8FJesm47HqhyoP9jdR9</guid>
+        '' 2018.11.10, dla TomsHardware ktory ma długie ID
+        '' https://www.tomshardware.com/news/sapphire-radeon-rx-590-nitro-special-edition-specs,38051.html#xtor=RSS-5
+        '' dziala też https://www.tomshardware.com/news/moje,38051.html
+        '' skrócenie powoduje oszczędność SettingString, i mieści się więcej
+        'If oFeed.sUri.ToLower.Contains("tomshardware") Then
+        '    iInd = sGuid.IndexOf("#")
+        '    If iInd > 0 Then sGuid = sGuid.Substring(0, iInd)
+        '    sGuid = sGuid.Replace("#xtor=RSS-5", "")    ' skracamy końcówkę
+        '    iInd = sGuid.IndexOf("/", "https://www.tomshardware.com/n".Length) ' to nie musi być news!
+        '    sTmp = sGuid.Substring(0, iInd + 1)   ' https://www.tomshardware.com/(news|reviews|...)
+        '    iInd = sGuid.LastIndexOf(",")
+        '    If iInd > 0 Then
+        '        sGuid = sGuid.Substring(iInd)
+        '    End If
+        'End If
 
         ' 2019.03.13, z Microsoftu malutki GUID robimy
         ' formalnie: https://support.microsoft.com/help/4343889
@@ -386,6 +400,7 @@ Public Class App
     End Function
 
     Private Shared Function ConvertRssItemToJedenItem(oFeed As JedenFeed, oNode As ServiceModel.Syndication.SyndicationItem) As JedenItem
+        DumpCurrMethod()
 
         Dim oNew As JedenItem = New JedenItem
 
@@ -399,6 +414,7 @@ Public Class App
         oNew.sGuid = RssGetGuid(oNode, oFeed)
         If oNew.sGuid = "" Then
             ' znaczy do pominięcia, zbyt daleko w historii Devila
+            DumpMessage("sGuid empty")
             Return Nothing
         End If
 
@@ -411,13 +427,18 @@ Public Class App
     ''' ret NULL gdy empty HttpPage, lub lista nowych
     ''' </summary>
     Private Shared Async Function GetRssFeed(oFeed As JedenFeed) As Task(Of List(Of JedenItem))
+        DumpCurrMethod("feed=" & oFeed.sName)
+
         Dim oRssFeed As ServiceModel.Syndication.SyndicationFeed = Nothing
 
         Try
 
             HttpPageSetAgent("FilteredRSS") '  konieczne dla LoveKrakow było w Windows.Web.Syndication.SyndicationClient, więc niech będzie
-            Dim sPage As String = Await VBlib.HttpPageAsync(oFeed.sUri)
-            If sPage = "" Then Return Nothing
+            Dim sPage As String = Await VBlib.HttpPageAsync(New Uri(oFeed.sUri))
+            If sPage = "" Then
+                DumpMessage("empty sPage")
+                Return Nothing
+            End If
             ' wycięcie z DevilTorrents, do znaku "<"
             sPage = sPage.TrimBefore("<")
             sPage = sPage.Replace("CET</pubDate>", "</pubDate>") ' przykład nie ma strefy czasowej, więc wedle https://docs.microsoft.com/en-us/dotnet/api/system.servicemodel.syndication.syndicationitem.publishdate?f1url=%3FappId%3DDev16IDEF1%26l%3DEN-US%26k%3Dk(System.ServiceModel.Syndication.SyndicationItem.PublishDate);k(DevLang-VB)%26rd%3Dtrue&view=dotnet-plat-ext-6.0
@@ -425,7 +446,8 @@ Public Class App
             Using oReader As Xml.XmlReader = Xml.XmlReader.Create(New IO.StringReader(sPage))
                 oRssFeed = ServiceModel.Syndication.SyndicationFeed.Load(oReader)
             End Using
-        Catch
+        Catch ex As Exception
+            DumpMessage("FAIL: " & ex.Message)
             Return Nothing
         End Try
 
@@ -434,29 +456,40 @@ Public Class App
     End Function
 
     Public Shared Function GetRssFeed(oFeed As JedenFeed, oRssFeed As ServiceModel.Syndication.SyndicationFeed) As List(Of JedenItem)
+        DumpCurrMethod("oFeed=" & oFeed.sName & ", oRssFeed.Count=" & oRssFeed.Items.Count)
 
         Dim oRetList As New List(Of JedenItem)
 
         For Each oNode As ServiceModel.Syndication.SyndicationItem In oRssFeed.Items
+            Dim oNew As VBlib.JedenItem = App.ConvertRssItemToJedenItem(oFeed, oNode)
+
             Try
                 oNode.SourceFeed = oRssFeed ' bo niestety sam tego nie robi
-                Dim oNew As VBlib.JedenItem = App.ConvertRssItemToJedenItem(oFeed, oNode)
-
+                oNew = App.ConvertRssItemToJedenItem(oFeed, oNode)
                 If oNew Is Nothing Then
                     ' z Devila, za daleko w historii - koniec pętli
+                    DumpMessage("oNew is NULL")
                     Exit For
                 End If
+            Catch
+                DumpMessage("CATCH przy konwersji itemu")
+            End Try
 
+            Try
                 ' warunek dla normalnego - wcześniej go nie było widać; dla twittera zawsze spełniony (tam nie ma "|")
-                If Not oFeed.sLastGuids.Contains(oNew.sGuid & "|") Then
-                    If Not NodeToIgnore(oFeed, oNode.PublishDate, oNew) Then
+                If oFeed.sLastGuids.Contains(oNew.sGuid & "|") Then
+                    DumpMessage("node in sLastGuids")
+                Else
+                    If NodeToIgnore(oFeed, oNode.PublishDate, oNew) Then
+                        DumpMessage("node to be ignored")
+                    Else
                         oFeed.sLastGuids = oFeed.sLastGuids & oNew.sGuid & "|"
                         If oNew.sGuid > oFeed.sLastGuid Then oFeed.sLastGuid = oNew.sGuid
                         oRetList.Add(oNew)
                     End If
                 End If
             Catch
-                'w razie błędu przy konwersji itemu, próbuj następne
+                DumpMessage("CATCH przy tescie dla ignore")
             End Try
         Next
 
@@ -637,7 +670,7 @@ Public Class App
             Dim sUrl As String = oFeed.sUri
             ' sUrl = sUrl.Replace("//twitter.com/", "//mobile.twitter.com/")  ' przejscie na wersje normalniejszą
             sUrl = sUrl.Replace("/mobile.", "/")
-            Dim sPage As String = Await VBlib.HttpPageAsync(sUrl, "", False)
+            Dim sPage As String = Await VBlib.HttpPageAsync(New Uri(sUrl), "", False)
             If sPage = "" Then Return Nothing
 
             Dim sProfilePhoto As String = TwittGetPicture(sPage, True)
@@ -962,8 +995,8 @@ Public Class App
     ''' <summary>
     ''' ret NULL gdy empty HttpPage, lub lista nowych
     ''' </summary>
-    Public Shared Async Function GetAnyFeed(oFeed As VBlib.JedenFeed) As Task(Of List(Of JedenItem))
-
+    Private Shared Async Function GetAnyFeed(oFeed As VBlib.JedenFeed) As Task(Of List(Of JedenItem))
+        DumpCurrMethod("feed = " & oFeed.sName)
         Try
             If oFeed.sUri.ToLower.Contains("twitter.com") Then Return Await GetTwitterFeed(oFeed)
             'If oFeed.sUri.ToLower.Contains("facebook.com") Then Return Await GetTwarzetnikFeed(oFeed)
@@ -979,8 +1012,127 @@ Public Class App
         Return Nothing
     End Function
 
+    Public Delegate Sub UISetTextBox(sTxt As String)
+    Public Delegate Sub UISaveIndex()
+    Public Delegate Sub UIMakeToast(sGuid As String, sMsg As String, sFeed As String)
+    Public Shared bChangedXML As Boolean = False
 
+    Private Shared Sub ZrobToasty(oMakeToast As UIMakeToast, oFeed As VBlib.JedenFeed, oNewList As List(Of VBlib.JedenItem))
+        DumpCurrMethod()
 
+        ' zrobienie Toastów
+        ' przeniesione z GetRssFeed:NodeToIgnore
+
+        If oFeed.iToastType = FeedToastType.NoToast Then Return
+
+        Dim iToastCnt As Integer = 0
+        Dim sToastString As String = ""
+
+        For Each oItem As JedenItem In oNewList
+
+            ' 2021.12.15
+            ' Toast w kilku sytuacjach, wedle oFeed.iToastType , istnienia na WhiteList, oraz GetSettingsBool("NotifyWhite")
+
+            iToastCnt += 1
+
+            Select Case oFeed.iToastType
+                Case FeedToastType.NoToast
+                    ' wtedy nic nie pokazujemy
+
+                Case FeedToastType.NewExist
+                    ' pokaże dopiero później
+
+                Case FeedToastType.ListItems
+                    sToastString = sToastString & vbCrLf & oItem.sTitle
+
+                Case FeedToastType.Separate
+                    oMakeToast(oItem.sGuid, oItem.sTitle, oFeed.sName)
+
+            End Select
+
+        Next
+
+        ' i teraz podsumowanie toastów
+
+        Select Case oFeed.iToastType
+            Case VBlib.FeedToastType.ListItems
+                If sToastString <> "" Then
+                    Try
+                        oMakeToast("", GetLangString("resNewItemsList") & " (" & iToastCnt & ")" & vbCrLf & sToastString, oFeed.sName)
+                    Catch ex As Exception
+                        ' too big (np. lista 88 sztuk)
+                        oMakeToast("", GetLangString("resNewItemsList") & " (" & iToastCnt & ")", oFeed.sName)
+                    End Try
+                End If
+            Case VBlib.FeedToastType.NewExist
+                If iToastCnt > 0 Then
+                    oMakeToast("", GetLangString("resNewItemsInFeed") & " (" & iToastCnt & ")", oFeed.sName)
+                End If
+        End Select
+
+    End Sub
+
+    Public Shared Async Function ReadFeeds(oSetTBox As UISetTextBox, oSaveIndex As UISaveIndex, oMakeToast As UIMakeToast) As Task(Of String)
+        DumpCurrMethod()
+
+        ' Poprzednia sekwencja: ReadFeed -> AddFeedItemsSyndic -> GetRssFeed
+
+        Try
+            Dim sTmp As String
+
+            For Each oFeed As JedenFeed In Feeds.glFeeds
+                oFeed.bLastError = False
+
+                ' przeniesione z AddFeedItemsSyndic
+                If oSetTBox IsNot Nothing Then
+                    sTmp = oFeed.sUri
+                    ' zabezpieczenie numer 2 (poza ustalaniem szerokości w Form_Resize)
+                    If sTmp.Length > 64 Then sTmp = sTmp.Substring(0, 64)
+                    oSetTBox(sTmp)
+                End If
+
+                Dim oNewList As List(Of JedenItem) = Await GetAnyFeed(oFeed)
+
+                ' przeniesione z GetRssFeed
+                If oNewList Is Nothing Then
+                    ' był błąd
+                    If oSetTBox IsNot Nothing Then Await DialogBoxAsync("Bad response from " & oFeed.sName)
+                    Continue For
+                End If
+
+                If oNewList IsNot Nothing Then oSaveIndex() ' local, nie Roaming
+
+                ' przeniesione z GetRssFeed
+                If oNewList.Count < 1 Then
+                    ' nic nie ma... sprawdz czy to nie error! (czy nie za dlugo nie ma)
+                    If VBlib.App.ShouldShowEmptyFeedWarning(oFeed.sLastOkDate) Then
+                        If oSetTBox IsNot Nothing Then Await DialogBoxAsync("Seems like feed " & oFeed.sName & " is dead?")
+                    End If
+                    Continue For
+                End If
+
+                bChangedXML = True
+
+                glItems = glItems.Concat(oNewList).ToList
+
+                ' zrobienie Toastów
+                ' przeniesione z GetRssFeed:NodeToIgnore
+                If oFeed.iToastType <> VBlib.FeedToastType.NoToast Then ZrobToasty(oMakeToast, oFeed, oNewList)
+            Next
+
+            sTmp = "Last read: " & Date.Now().ToString
+            SetSettingsString("lastRead", sTmp)
+
+            ' specjane dla DevilTorrents; musi byc po wczytaniu wszystkich
+            ' AppSuspending() ' ewentualnie zapisz dane także tu (na wypadek crash programu)
+
+            Return sTmp
+        Catch ex As Exception
+            CrashMessageAdd("ReadFeed catch", ex)
+        End Try
+
+        Return "ERROR"
+    End Function
 
     ' public, bo z app.xaml.vb, przy powrocie na Windows.RSS
     Public Shared Function NodeToIgnore(oFeed As JedenFeed, dPublDate As DateTimeOffset, oNew As JedenItem) As Boolean ' sFeedName As String
@@ -1084,6 +1236,21 @@ Public Class App
         If sGuid.Length > 60 Then sGuid = sGuid.Substring(0, 60)
         Return sGuid
     End Function
+
+    Public Shared Function ShouldShowEmptyFeedWarning(sLastOkTimeStamp As String) As Boolean
+        DumpCurrMethod("sLastOkTimeStamp=" & sLastOkTimeStamp)
+
+        ' nic nie ma... sprawdz czy to nie error! (czy nie za dlugo nie ma)
+        Dim sCurrDate As String = Date.Now.ToString("yyMMdd")
+        If sLastOkTimeStamp = "" Then Return False
+
+        Dim iCurrDate As Integer = Integer.Parse(sCurrDate)
+        Dim iLastItem As Integer = Integer.Parse(sLastOkTimeStamp)
+        If iLastItem + GetSettingsInt("MaxDays") < iCurrDate Then Return True
+
+        Return False
+    End Function
+
 
 #Region "RegExpy"
 
@@ -1238,28 +1405,29 @@ Public Class App
     End Function
 
     Public Shared Sub KillFileLoad(bMsg As Boolean, sKillFileDirPathname As String)
+        DumpCurrMethod("sKillFileDirPathname=" & sKillFileDirPathname)
         mKillFilePathname = IO.Path.Combine(sKillFileDirPathname, "killfile.txt")
 
         Dim sWpisy As String = KillFileLoadMain(bMsg)
-        DebugOut(1, "read len: " & sWpisy.Length)
+        DumpMessage("read len: " & sWpisy.Length)
         If sWpisy = "" Then Return
         Dim sDataLimit As String = DateTime.Now.AddDays(-30).ToString("yyyyMMdd")
-        DebugOut(1, "sDataLimit: " & sDataLimit)
+        DumpMessage("sDataLimit: " & sDataLimit)
         Dim bUsunieto As Boolean = False
 
         mKillFileContent = ""
         For Each sLine In sWpisy.Split(vbCrLf)
             sLine = sLine.Replace(vbCr, "").Replace(vbLf, "").Trim
-            DebugOut(3, "kill line: " & sLine)
+            DumpMessage("kill line: " & sLine, 2)
             If sLine.Length < 10 Then
-                DebugOut(5, "kill line too short, ignoring")
+                DumpMessage("kill line too short, ignoring", 2)
                 Continue For
             End If
             If sLine > sDataLimit Then
-                DebugOut(5, "added to kill memory kill file")
+                DumpMessage("added to kill memory kill file", 2)
                 mKillFileContent = mKillFileContent & sLine & vbCrLf
             Else
-                DebugOut(5, "too old - ignoring")
+                DumpMessage("too old - ignoring", 2)
                 bUsunieto = True
             End If
         Next

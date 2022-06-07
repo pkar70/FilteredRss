@@ -13,6 +13,7 @@
         <!--<local:KonwersjaTypuToastu x:Key="KonwersjaTypuToastu"/>
         <local:KonwerterToastTypeWidth x:Key="KonwerterToastTypeWidth" />-->
         <local:KonwerterWasError x:Key="KonwerterWasError" />
+        <local:KonwerterToastType x:Key="KonwerterToastType" />
     </UserControl.Resources>
 
     <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="2,2,2,2">
@@ -62,7 +63,7 @@
                                 </MenuFlyout>
                             </muxc:NumberBox.ContextFlyout>
                         </muxc:NumberBox>
-                        <TextBlock Grid.Column="3" Text="{Binding sToastType, Mode=OneWay }" ToolTipService.ToolTip="toast" x:Uid="uiToastType"> <!-- Width="{Binding sToastType, Converter={StaticResource KonwerterToastTypeWidth}}" -->
+                        <TextBlock Grid.Column="3" Text="{Binding iToastType, Mode=OneWay }" ToolTipService.ToolTip="toast" x:Uid="uiToastType"> <!-- Width="{Binding sToastType, Converter={StaticResource KonwerterToastTypeWidth}}" -->
                             <!--<TextBlock.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem x:Uid="uiCBtypToastu0" Name="uiCBtypToastu0" Click="uiSetToastType_Click"  />
@@ -113,15 +114,15 @@
                     <ColumnDefinition />
                     <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <TextBox x:Uid="resBlackList" x:Name="uiBlacklist" TextWrapping="Wrap" Height="200" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Header="Blacklist:" MaxLength="3900"/>
-                    <ToggleSwitch x:Uid="resBlackRoam" x:Name="uiBlackRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />
-                </StackPanel>
-                <StackPanel Grid.Column="1">
-                    <TextBox x:Uid="resWhiteList" x:Name="uiWhitelist" TextWrapping="Wrap" Height="200" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Header="Whitelist:" MaxLength="3900"/>
-                    <ToggleSwitch x:Uid="resWhiteRoam" x:Name="uiWhiteRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />
-                </StackPanel>
-                <StackPanel Grid.Column="2" Margin="30,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBox Grid.Column="0" Grid.Row="0" x:Uid="resBlackList" x:Name="uiBlacklist" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Header="Blacklist:" MaxLength="3900"/>
+            <ToggleSwitch Grid.Column="0" Grid.Row="1" x:Uid="resBlackRoam" x:Name="uiBlackRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />
+            <TextBox Grid.Column="1" Grid.Row="0" x:Uid="resWhiteList" x:Name="uiWhitelist" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Header="Whitelist:" MaxLength="3900"/>
+            <ToggleSwitch Grid.Column="1" Grid.Row="1" x:Uid="resWhiteRoam" x:Name="uiWhiteRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />
+                <StackPanel Grid.Column="2" Grid.RowSpan="2" Margin="30,0,0,0">
                     <ToggleSwitch x:Uid="resLinksActive" x:Name="uiLinksActive" OffContent="don't extract links" OnContent="Convert http:// to links" Header="Other settings:"/>
                 <!-- <ToggleSwitch x:Uid="resNotifyWhite" x:Name="uiNotifyWhite" OffContent="notifications off" OnContent="Notify about whitelisted posts" /> -->
                 <ComboBox x:Uid="resTimeInterval" x:Name="uiInterval" Header="Timer interval">
@@ -135,10 +136,10 @@
                         <ComboBoxItem x:Uid="resMaxDays30" Content="month"/>
                         <ComboBoxItem x:Uid="resMaxDays365" Content="year"/>
                     </ComboBox>-->
-                <ToggleButton x:Uid="uiEditGlobalWhiteBlack" Name="uiEditGlobalWhiteBlack" />
+                <ToggleButton x:Uid="uiEditGlobalWhiteBlack" Name="uiEditGlobalWhiteBlack" Content="EditGlobal"/>
             </StackPanel>
             </Grid>
-        <Button Grid.Row="6" x:Uid="resSettOk" Margin="0,40,0,10" Width="100" HorizontalAlignment="Center" Content="Ok" Click="bSetupOk_Click"  />
+        <Button Grid.Row="6" x:Uid="resSettOk" Margin="0,30,0,10" Width="100" HorizontalAlignment="Center" Content="Ok" Click="bSetupOk_Click"  />
 
         <!--</StackPanel>-->
     </Grid>

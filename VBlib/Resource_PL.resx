@@ -117,17 +117,38 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="msgCacheCleared" xml:space="preserve">
+    <value>Cache wyczyszczony</value>
+  </data>
   <data name="msgDelAllFromThisFeed" xml:space="preserve">
+    <value>Usunąć wszystko z tego feed?</value>
+  </data>
+  <data name="msgDelAllFromThisFeed1" xml:space="preserve">
     <value>Usunąć wszystko z tego feed?</value>
   </data>
   <data name="msgKillFile14days" xml:space="preserve">
     <value>Filtr (wyrażenie regularne), ważne 14 dni:</value>
   </data>
+  <data name="msgKillFile14days1" xml:space="preserve">
+    <value>Filtr (wyrażenie regularne), ważne 14 dni:</value>
+  </data>
   <data name="msgSubjectToRemove" xml:space="preserve">
     <value>Podaj fragment Tytułu do usuwania</value>
   </data>
+  <data name="msgSubjectToRemove1" xml:space="preserve">
+    <value>Podaj fragment Tytułu do usuwania</value>
+  </data>
+  <data name="msgWhiteBlackChanged" xml:space="preserve">
+    <value>Zmieniono White/BlackList, zapisać je?</value>
+  </data>
   <data name="msgYes" xml:space="preserve">
     <value>Tak</value>
+  </data>
+  <data name="resBrowser" xml:space="preserve">
+    <value>Browser</value>
+  </data>
+  <data name="resDelete" xml:space="preserve">
+    <value>Usuń</value>
   </data>
   <data name="resDlgCancel" xml:space="preserve">
     <value>Jednak nie</value>
@@ -137,6 +158,39 @@
   </data>
   <data name="resDlgNo" xml:space="preserve">
     <value>Nie</value>
+  </data>
+  <data name="resDlgYes" xml:space="preserve">
+    <value>Tak</value>
+  </data>
+  <data name="resErrorReadingXML" xml:space="preserve">
+    <value>Błąd wczytywania danych XML</value>
+  </data>
+  <data name="resNewFeed" xml:space="preserve">
+    <value>Podaj Uri nowego feed</value>
+  </data>
+  <data name="resNewItemsInFeed" xml:space="preserve">
+    <value>Nowe elementy w feed</value>
+  </data>
+  <data name="resNewItemsList" xml:space="preserve">
+    <value>Lista nowych</value>
+  </data>
+  <data name="resOpen" xml:space="preserve">
+    <value>Pokaż</value>
+  </data>
+  <data name="resRenameTitle" xml:space="preserve">
+    <value>Nazwy feed</value>
+  </data>
+  <data name="resToastType0" xml:space="preserve">
+    <value>Bez toast</value>
+  </data>
+  <data name="resToastType1" xml:space="preserve">
+    <value>Info że coś jest</value>
+  </data>
+  <data name="resToastType2" xml:space="preserve">
+    <value>Lista nowych</value>
+  </data>
+  <data name="resToastType3" xml:space="preserve">
+    <value>Oddzielne</value>
   </data>
   <data name="_lang" xml:space="preserve">
     <value>PL</value>

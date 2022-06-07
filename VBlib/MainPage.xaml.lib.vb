@@ -6,9 +6,14 @@
 Public Class MainPage
 
     Public Delegate Function UsunToast(sGuid As String) As Boolean
+    Private oUsunToast As UsunToast
+
+    Public Sub New(oMetoda As UsunToast)
+        oUsunToast = oMetoda
+    End Sub
 
 
-    Public Shared Async Function DeleteFromContextMenu(oItem As JedenItem, iMode As Integer, oMetoda As UsunToast) As Task
+    Public Async Function DeleteFromContextMenu(oItem As JedenItem, iMode As Integer) As Task
         DumpCurrMethod()
         If oItem Is Nothing Then Return
 
@@ -21,7 +26,7 @@ Public Class MainPage
 
                 For iLoop As Integer = App.glItems.Count - 1 To 0 Step -1
                     If App.glItems.Item(iLoop).sTitle.Contains(sSubj) Then
-                        oMetoda(App.glItems.Item(iLoop).sGuid)
+                        oUsunToast(App.glItems.Item(iLoop).sGuid)
                         App.glItems.RemoveAt(iLoop)
                     End If
                 Next
@@ -30,7 +35,7 @@ Public Class MainPage
                 If Not Await DialogBoxResYNAsync("msgDelAllFromThisFeed") Then Return
                 For iLoop As Integer = App.glItems.Count - 1 To 0 Step -1
                     If oItem.sFeedName = App.glItems.Item(iLoop).sFeedName Then
-                        oMetoda(App.glItems.Item(iLoop).sGuid)
+                        oUsunToast(App.glItems.Item(iLoop).sGuid)
                         App.glItems.RemoveAt(iLoop)
                     End If
                 Next
@@ -39,11 +44,16 @@ Public Class MainPage
                 If String.IsNullOrEmpty(sKill) Then Return
                 For iLoop As Integer = App.glItems.Count - 1 To 0 Step -1
                     If App.RegExpOrInstr(App.glItems.Item(iLoop).sTitle, sKill) Then
-                        oMetoda(App.glItems.Item(iLoop).sGuid)
+                        oUsunToast(App.glItems.Item(iLoop).sGuid)
                         App.glItems.RemoveAt(iLoop)
                     End If
                 Next
                 App.KillFileAddEntry(sKill)
+
+            Case 5  ' usunięcie do tego (wszystkie poprzednie)
+                While App.glItems.Count > 0 AndAlso App.glItems(0).sGuid <> oItem.sGuid
+                    App.glItems.RemoveAt(0)
+                End While
 
             Case Else
                 Return

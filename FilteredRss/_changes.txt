@@ -1,0 +1,172 @@
+
+
+STORE UWP
+
+2022.06.07
+* poprawki do RssGetGuid(TomsHardware) - usuniêcie special case, bo wywala³o z b³êdem konwersji itema (index out of range)
+
+2022.05.25
+* Setup.Xaml, na ni¿szym ekranie ucina³o dolne prze³¹czniki Roam/Local (Row Height=*, ale TextBox.Height w œrodku =200, za du¿y)
+* dodanie do VBlib deflang, bez czego nie by³o w Release GetLang w ogóle!
+* migracja GetLang do Vblib
+* MainPage:item.context: nowa opcja, usuwanie poprzednich itemów (do wykorzystania w d³ugich listach)
+* MainPage:item.context: nie wszystkie opcje by³y w Strings
+* InfoAbout: wykorzystuje pkarmodule.OpenRateIt
+* InfoAbout: jest webView Margin zamiast OnSizeChanged
+* ReadFeed przeniesiony z App.xaml do App.lib (z Delegate)
+
+' STORE 2202.11
+
+' 2022.02.19
+' * chyba ju¿ mam co trzeba wpisaæ do Default.rd.xml:
+'   <Type Name="System.ServiceModel.Syndication.SyndicationFeedFormatter">
+'	<Method Name = "DefaultUriParser" Dynamic="Required" />
+'	</Type>
+'	<Namespace Name = "System.ServiceModel.Syndication" Dynamic="Required All" />
+' * poprawka - skracanie GUID dla LoveKraków (a przez to skracanie Tag)
+' * poprawka: u¿ywa skróconego sGuid do sTag zamiast sGuid :)
+
+' 2022.02.18
+' * prze³¹cznik #define dla u¿ywania RSS w VBlib (.Net) lub w App.vb (UWP)
+
+' 2022.02.11
+' * z powrotem na UWP.RSS, bo .Net.RSS nie dzia³a w trybie RELEASE:
+'System.Reflection.MissingRuntimeArtifactException
+'HResult = 0x8013151A
+'  Message = Cannot retrieve a MethodInfo For this Delegate because the method it targeted (System.ServiceModel.Syndication.SyndicationFeedFormatter.DefaultUriParser(XmlUriData, Uri&)) was Not enabled For metadata Using the Dynamic attribute. For more information, please visit http://go.microsoft.com/fwlink/?LinkID=616868
+'  Source = <Cannot evaluate the exception source>
+'  StackTrace:
+'<Cannot evaluate the exception stack trace>
+' (na linii oRssFeed = ServiceModel.Syndication.SyndicationFeed.Load(oReader))
+' czyli musia³em czytanie Rss przywróciæ z VBlib.App do App.
+
+
+' STORE 2202.09
+' 2022.02.09
+' * ERROR od Aœki: poprzednia wersja zrobi³a XML len=0, i na tym wylatywa³o przy wczytywaniu (LoadIndex XML catch, no root element)
+' * nie robi czytania XML gdy jest len<10, a MainPage:ShowPostsList nie robi b³êdu przy null
+
+
+' STORE 2202
+
+' 2022.02.04-06
+' * VBlib
+' * zmiana Nuget .NetCore.UniwersalWindows z 5.4.0 na 6.2.13 (security vulnerabilities)
+' * z Windows.Web.Syndication.SyndicationClient na ServiceModel.Syndication.SyndicationFeed
+' * przeniesienie skracania linku z wczytywania RSS do pokazywania go w MainPage
+' * MainPage:Link do pe³nej treœci, doda³em tooltip z pe³nym linkiem
+' * dodawanie Feedów, próbuje œci¹gn¹æ title dla Facebook oraz Twitter (setup.xaml.lib.vb)
+' * w Setup, na liœcie Feeds
+'       * pojawia siê czerwony wykrzyknik gdy by³ b³¹d ostatnio w danym feed
+'       * w ContextMenu jest 'openweb' (w przegl¹darce)
+'       * w ContextMenu, Reset Seen list
+' Settings->oFeed: TIMExxx -> .sLastOKdate, NotifyWhite -> iNotifyWhite, xxx -> oItem.sLastGuids, MaxDays -> iMaxDays
+' NIE! W ogóle bez NotifyWhite, przecie¿ sterowanie Toastami jest indywidualne
+' Settings per feed: iMaxDays (ale by³o ³adne Combo, 7 dni, 30 dni, 365 dni, teraz jest NumberBox - czyli zmiana stylu ikonek
+' Settings: button Add ze zwyk³ego "+" jest SymbolIcon.Add
+' Settings:prawy guzik na MaxDays, ustawianie: week/month/year (odpowiednik combo, tyle ze z right mouse)
+' *TODO* sprawdzic Twittera czy sie da
+' *TODO* sprawdzic facebook czy sie da - chyba TAK! niestety nie.
+
+' STORE 2112
+
+' 2021.12.30
+' * zablokowanie SmallSetup (by³o dla width<700) - nie chce mi siê tego zmieniaæ
+'       ostatnie 30 dni, to 147 moich sesji (z Polski w ka¿dym razie) i 5 z Wietnamu
+
+' 2021.12.21
+' * obs³uga black/white list per feed (aktualna staje siê global)
+' * Toast przy pomocy Builder zamiast w³asnego
+
+' 2021.12.15
+' * lista Feeds w JSON a nie zmiennej; przerobienie Setup, Rename, etc.
+' * ka¿dy feed ma w³asny typ toastu dla niego
+' * oraz w³asne black/white list
+' * przy wczytywaniu listy feedów robi konwersjê z dotychczasowej wersji (zmiennej) wraz z rename'ami
+' *TODO* zmiana w SmallSetup (dla ma³ych ekranów)
+' * inicjalizacja PKAR_init (lista feedów oraz blacklist) jest teraz w pliku pswd.vb
+' * gdy pokazuje listê itemów, kasuje znacznik ¿e lista zmieniona (dla GotFocus)
+' * KillFile Save - reset d³ugoœci pliku
+
+' 2021.12.05
+' KillFileLoadMain, brakowa³o warunku przed DlgBox - ¿e nie z timera
+
+' 2021.10.18
+' * podczas KillFileLoad, zabezpieczenie przed throw (typu brak przekodowania z Unicode do CodePage)
+' * i ta jedna funkcja z DebugOut na Dump
+
+' 2021.06.15
+' * KILLFILE: 30 dni pamiêtane entries
+
+' 2021.06.08
+' * aktualizacja pkarModule, a wiêc RemSys i CmdLine
+
+' 2020.11.08
+' * gdy InTimer, to DelPost nie robi zapisu indeksu (zeby nie narazac sie na rownolegly FileWrite)
+
+' 2020.11.07
+' * poprawka - usuwanie ostatniego Toastu nie wylatuje z b³êdem (w jego efekcie: toast znika³, ale element zostawa³ w liœcie)
+
+' 2020.11.06
+' * przejscie na "globalny" pkarmodule (w tym tak¿e Triggers z biblioteki)
+' * Twitter, FaceBook - try/catch w nich, z MakeToast jak bêdzie Exception - bo coœ wylatuje z b³êdem nie wiem czemu
+
+' 2020.10.16
+' * poprawka do FaceBook - wylatywa³o z b³êdem (Giertych), teraz b³¹d obs³uguje. Bez aktualizji STORE - bo obs³uga FaceBook nie jest oficjalna.
+
+' 2020.04.22
+' * facebook: poprawka linku 'czytaj dalej' (gdy jest do oddzielnej strony, a nie tylko rozwiniêcie?)
+' * setup: odœwie¿enie listy feed w PKAR_init 
+
+' WERSJA STORE 2004
+
+' 2020.04.14 
+' * obs³uga Facebook
+' * dla ma³ych rozdzielczoœci (width <500 px) inny setup (rozbity na podstrony), "mama.jaga.init" wstawia Tuska i Giertycha
+' * na stronie Setup (pe³nej, oraz g³ównej ma³ej) podawany jest numer wersji
+' * BackButton (brakowa³o AddHandler, funkcje by³y!)
+' 2020.04.15
+' * obs³uga Instagram
+' * kolejna mo¿liwoœæ skracania linku pokazywanego na ekranie
+' 2020.04.14 
+' * obs³uga Twittera
+' * wydzielone dwie funkcje (ShouldShowEmptyFeedWarning, ExtractPicLink) z AddFeedItemsSyndic (uczytelnienie kodu)
+' * dodajê UserAgent = FilteredRSS, z UserAgent=NULL by³ b³¹d w LoveKraków
+' 2020.01.24 TomsHardware - uwzglêdnienie (przy skracaniu linków) ¿e to nie musi byæ /news/, mo¿e byæ np. /reviews/
+
+' wersja 1912
+' 2019.08.07 gdy oNode.Title jest Nothing, nie wylatuje z b³êdem tylko "(no title)" - przypadek Korwina
+
+' wersja 1908
+' 2019.07.01 dodaje pkarmodule, wiêc i BackButton (niepelna likwidacja z App powtorek)
+' 2019.07.01 MainPage:lista postów:contextMenu: usuwanie postu, feed, oraz postów wedle tytu³u
+
+' TODO: czasem znika, z utrat¹ zawartosci cache!
+
+' ZMIANY 2019.03.20
+'   - przerobienie listy postów z WebView do ListView
+'   - pokazuje drobnym druczkiem z jakiego feed pochodzi post
+
+' ZMIANY 2019.03.13
+' support.microsoft
+'   - krótsze ID robi, wiêc powinno wiêcej pamiêtaæ
+'   - podobnie jak do Devil-Torrents, id nie mo¿e byæ 200 do ty³u
+' onlyoldmovies - zmiana node.id, teraz powinno byc klikalne
+
+' v4.1904 (zmiana stylu numerowania):
+' Inny mechanizm prezentowania listy wpisów (ListView, zamiast WebView); teraz ka¿dy wpis ma tak¿e etykietkê nazwy feed.
+
+' Wersja 3.0.0:
+' 1. Umie ju¿ obs³ugiwaæ Atom (poprzednio umia³a jedynie RSS)
+'2. Ca³kowicie przebudowana obs³uga powiadomieñ (toast), teraz s¹ one pogrupowane wedle feed, oraz mo¿na z nich wykonaæ podstawowe akcje (np. skasowaæ pozycjê z listy, otworzyæ w przegl¹darce)
+'3. Podczas definiowania whitelist, mo¿na u¿yæ prefiksu f: z nazw¹ feed
+'4. Mo¿na zmieniæ nazwê feed na coœ bardziej znacz¹cego
+
+'Wersja 2.1.0:
+'1. Obs³uga wyra¿eñ regularnych (regexp)
+'2. Mniejsze "migotanie" przy prze³¹czaniu aktywnych okien
+'2. Lepsza obs³uga pracy w tle
+
+' Wersja 1.1.3:
+' 1. poprawione kasowanie pojedynczego postu;
+' 2. link z GUID jest skracany, tak by siê zmieœci³ na ekranie (np. blog Korwina-Mikke czy krakowski ZIKiT maj¹ d³ugie linki)

@@ -345,4 +345,16 @@
   <data name="uiToastType.ToolTipService.ToolTip" xml:space="preserve">
     <value>Toast notification type</value>
   </data>
+  <data name="uiDelDoTego.Text" xml:space="preserve">
+    <value>delete items above</value>
+  </data>
+  <data name="uiDelFeed.Text" xml:space="preserve">
+    <value>delete from Feed</value>
+  </data>
+  <data name="uiDelSubject.Text" xml:space="preserve">
+    <value>delete by subject</value>
+  </data>
+  <data name="uiDelThis.Text" xml:space="preserve">
+    <value>delete this items</value>
+  </data>
 </root>

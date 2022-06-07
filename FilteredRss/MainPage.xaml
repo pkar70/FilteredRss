@@ -49,6 +49,7 @@
                             <Grid.ContextFlyout>
                                 <MenuFlyout>
                                     <MenuFlyoutItem x:Uid="uiDelThis" Text="delete post" Click="uiDelThis_Click" />
+                                    <MenuFlyoutItem x:Uid="uiDelDoTego" Text="delete previous" Click="uiDelDoTego_Click" />
                                     <MenuFlyoutItem x:Uid="uiDelSubject" Text="delete by subject" Click="uiDelSubject_Click" />
                                     <MenuFlyoutItem x:Uid="uiDelFeed" Text="delete from feed" Click="uiDelFeed_Click" />
                                     <MenuFlyoutItem x:Uid="uiKillFile" Text="add to kill file" Click="uiKillFile_Click" />

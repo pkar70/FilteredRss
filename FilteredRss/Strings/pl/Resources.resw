@@ -345,4 +345,16 @@
   <data name="uiToastType.ToolTipService.ToolTip" xml:space="preserve">
     <value>Typ powiadomienia Toast</value>
   </data>
+  <data name="uiDelDoTego.Text" xml:space="preserve">
+    <value>Usuń powyższe</value>
+  </data>
+  <data name="uiDelFeed.Text" xml:space="preserve">
+    <value>Usuń z tego feed</value>
+  </data>
+  <data name="uiDelSubject.Text" xml:space="preserve">
+    <value>Usuń wg tytułu</value>
+  </data>
+  <data name="uiDelThis.Text" xml:space="preserve">
+    <value>Usuń ten</value>
+  </data>
 </root>

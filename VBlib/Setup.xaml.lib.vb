@@ -1,7 +1,7 @@
 ﻿
 Public Class Setup
 
-    Public Shared Async Sub GetNewFeed(sUri As String)
+    Public Async Sub GetNewFeed(sUri As String)
 
         If Feeds.TryInitMyDefaultFeeds(sUri) Then Return
 
@@ -10,7 +10,7 @@ Public Class Setup
         ' spróbuj nazwać Feed, niekoniecznie z URLu
 
         If sUri.ToLower.Contains("twitter.com") Then
-            Dim sPage As String = Await HttpPageAsync(sUri)
+            Dim sPage As String = Await HttpPageAsync(New Uri(sUri))
             Dim oDoc As New HtmlAgilityPack.HtmlDocument()
             oDoc.LoadHtml(sPage)
             Dim oTitleList As HtmlAgilityPack.HtmlNodeCollection = oDoc.DocumentNode.SelectNodes("//head/title")
@@ -25,7 +25,7 @@ Public Class Setup
         End If
 
         If sUri.ToLower.Contains("facebook.com") Then
-            Dim sPage As String = Await HttpPageAsync(sUri)
+            Dim sPage As String = Await HttpPageAsync(New Uri(sUri))
             Dim oDoc As New HtmlAgilityPack.HtmlDocument()
             oDoc.LoadHtml(sPage)
             Dim oTitleList As HtmlAgilityPack.HtmlNodeCollection = oDoc.DocumentNode.SelectNodes("//head/title")

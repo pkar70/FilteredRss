@@ -74,11 +74,29 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Cache was cleared.
+        '''</summary>
+        Friend Shared ReadOnly Property msgCacheCleared() As String
+            Get
+                Return ResourceManager.GetString("msgCacheCleared", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Remove all items from this feed?.
         '''</summary>
         Friend Shared ReadOnly Property msgDelAllFromThisFeed() As String
             Get
                 Return ResourceManager.GetString("msgDelAllFromThisFeed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Remove all items from this feed?.
+        '''</summary>
+        Friend Shared ReadOnly Property msgDelAllFromThisFeed1() As String
+            Get
+                Return ResourceManager.GetString("msgDelAllFromThisFeed1", resourceCulture)
             End Get
         End Property
         
@@ -92,6 +110,15 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Filter (regular expression), valid for 14 days:.
+        '''</summary>
+        Friend Shared ReadOnly Property msgKillFile14days1() As String
+            Get
+                Return ResourceManager.GetString("msgKillFile14days1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Enter item Title to be removed.
         '''</summary>
         Friend Shared ReadOnly Property msgSubjectToRemove() As String
@@ -101,11 +128,47 @@ Namespace My.Resources
         End Property
         
         '''<summary>
+        '''  Looks up a localized string similar to Enter item Title to be removed.
+        '''</summary>
+        Friend Shared ReadOnly Property msgSubjectToRemove1() As String
+            Get
+                Return ResourceManager.GetString("msgSubjectToRemove1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to White/Black list changed, save?.
+        '''</summary>
+        Friend Shared ReadOnly Property msgWhiteBlackChanged() As String
+            Get
+                Return ResourceManager.GetString("msgWhiteBlackChanged", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
         '''  Looks up a localized string similar to Yes.
         '''</summary>
         Friend Shared ReadOnly Property msgYes() As String
             Get
                 Return ResourceManager.GetString("msgYes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Browser.
+        '''</summary>
+        Friend Shared ReadOnly Property resBrowser() As String
+            Get
+                Return ResourceManager.GetString("resBrowser", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Delete.
+        '''</summary>
+        Friend Shared ReadOnly Property resDelete() As String
+            Get
+                Return ResourceManager.GetString("resDelete", resourceCulture)
             End Get
         End Property
         
@@ -133,6 +196,105 @@ Namespace My.Resources
         Friend Shared ReadOnly Property resDlgNo() As String
             Get
                 Return ResourceManager.GetString("resDlgNo", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Yes.
+        '''</summary>
+        Friend Shared ReadOnly Property resDlgYes() As String
+            Get
+                Return ResourceManager.GetString("resDlgYes", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Error reading XML data.
+        '''</summary>
+        Friend Shared ReadOnly Property resErrorReadingXML() As String
+            Get
+                Return ResourceManager.GetString("resErrorReadingXML", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Enter URI of new feed.
+        '''</summary>
+        Friend Shared ReadOnly Property resNewFeed() As String
+            Get
+                Return ResourceManager.GetString("resNewFeed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to New items in feed.
+        '''</summary>
+        Friend Shared ReadOnly Property resNewItemsInFeed() As String
+            Get
+                Return ResourceManager.GetString("resNewItemsInFeed", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to List of new items.
+        '''</summary>
+        Friend Shared ReadOnly Property resNewItemsList() As String
+            Get
+                Return ResourceManager.GetString("resNewItemsList", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Show.
+        '''</summary>
+        Friend Shared ReadOnly Property resOpen() As String
+            Get
+                Return ResourceManager.GetString("resOpen", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Names for feeds.
+        '''</summary>
+        Friend Shared ReadOnly Property resRenameTitle() As String
+            Get
+                Return ResourceManager.GetString("resRenameTitle", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to No toast.
+        '''</summary>
+        Friend Shared ReadOnly Property resToastType0() As String
+            Get
+                Return ResourceManager.GetString("resToastType0", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to New items exists.
+        '''</summary>
+        Friend Shared ReadOnly Property resToastType1() As String
+            Get
+                Return ResourceManager.GetString("resToastType1", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to List items.
+        '''</summary>
+        Friend Shared ReadOnly Property resToastType2() As String
+            Get
+                Return ResourceManager.GetString("resToastType2", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Separate.
+        '''</summary>
+        Friend Shared ReadOnly Property resToastType3() As String
+            Get
+                Return ResourceManager.GetString("resToastType3", resourceCulture)
             End Get
         End Property
     End Class
