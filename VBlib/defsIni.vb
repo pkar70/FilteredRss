@@ -16,7 +16,7 @@ key=value # remark
 [app]
 ; lista z app (bez ustawiania)
 DebugOutData=
-autoRead=false
+uiClockRead=false
 lastRead=Date.ToString
 ;resDelete
 ;resOpen
