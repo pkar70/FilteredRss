@@ -1,6 +1,6 @@
 ﻿
 Imports vb14 = VBlib.pkarlibmodule14
-
+Imports pkar.Uwp.Configs
 
 Public NotInheritable Class MainPage
     Inherits Page
@@ -17,7 +17,17 @@ Public NotInheritable Class MainPage
         SetBadgeNo(VBlib.App.glItems.Count)
 
         VBlib.App.bChangedXML = False
-        uiListItems.ItemsSource = From c In VBlib.App.glItems
+
+        Select Case vb14.GetSettingsInt("uiSortOrder")
+            Case 1  ' by name
+                uiListItems.ItemsSource = From c In VBlib.App.glItems Order By c.sTitle
+            Case 2  ' by thread
+                uiListItems.ItemsSource = From c In VBlib.App.glItems Order By c.sFeedName, c.sTitle
+            Case Else ' 0, i nieznane: jak dotychczas
+                uiListItems.ItemsSource = From c In VBlib.App.glItems
+
+        End Select
+
     End Sub
 
     Private Sub uiLista_Click(sender As Object, e As TappedRoutedEventArgs)

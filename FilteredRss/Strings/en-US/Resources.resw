@@ -357,4 +357,16 @@
   <data name="uiDelThis.Text" xml:space="preserve">
     <value>delete this items</value>
   </data>
+  <data name="resSortOrder.Header" xml:space="preserve">
+    <value>Sort items' list</value>
+  </data>
+  <data name="resSortOrderFeed.Content" xml:space="preserve">
+    <value>by feed</value>
+  </data>
+  <data name="resSortOrderNot.Content" xml:space="preserve">
+    <value>no sort</value>
+  </data>
+  <data name="resSortOrderTitle.Content" xml:space="preserve">
+    <value>by title</value>
+  </data>
 </root>

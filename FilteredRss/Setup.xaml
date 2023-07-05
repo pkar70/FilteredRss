@@ -123,7 +123,12 @@
             <TextBox Grid.Column="1" Grid.Row="0" x:Uid="resWhiteList" x:Name="uiWhitelist" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Header="Whitelist:" MaxLength="3900"/>
             <ToggleSwitch Grid.Column="1" Grid.Row="1" x:Uid="resWhiteRoam" x:Name="uiWhiteRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />
                 <StackPanel Grid.Column="2" Grid.RowSpan="2" Margin="30,0,0,0">
-                    <ToggleSwitch x:Uid="resLinksActive" x:Name="uiLinksActive" OffContent="don't extract links" OnContent="Convert http:// to links" Header="Other settings:"/>
+                <ComboBox x:Uid="resSortOrder" Name="uiSortOrder" Header="Sort items by">
+                    <ComboBoxItem Content="no sort" x:Uid="resSortOrderNot"/>
+                    <ComboBoxItem Content="byName" x:Uid="resSortOrderTitle"/>
+                    <ComboBoxItem Content="byFeed" x:Uid="resSortOrderFeed"/>
+                </ComboBox>
+                <ToggleSwitch x:Uid="resLinksActive" x:Name="uiLinksActive" OffContent="don't extract links" OnContent="Convert http:// to links" Header="Other settings:"/>
                 <!-- <ToggleSwitch x:Uid="resNotifyWhite" x:Name="uiNotifyWhite" OffContent="notifications off" OnContent="Notify about whitelisted posts" /> -->
                 <ComboBox x:Uid="resTimeInterval" x:Name="uiInterval" Header="Timer interval">
                         <ComboBoxItem Content="15 min"/>

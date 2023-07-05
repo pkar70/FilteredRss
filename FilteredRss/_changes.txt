@@ -1,4 +1,12 @@
 
+2023.05.27
+* zmiany pod UWP.Configs, ale bez Deploy, bo jednak przesta³o errorowaæ uruchomienie normalne
+
+2023.01.04
+* poprawienie kasowania "wszystkie wy¿ej" - uwzglêdniam teraz na³o¿one sortowanie itemów
+
+2022.12.29
+* zmiana sortowania itemów
 
 STORE UWP
 

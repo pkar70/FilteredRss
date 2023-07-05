@@ -357,4 +357,16 @@
   <data name="uiDelThis.Text" xml:space="preserve">
     <value>Usuń ten</value>
   </data>
+  <data name="resSortOrder.Header" xml:space="preserve">
+    <value>Sortowanie listy wpisów</value>
+  </data>
+  <data name="resSortOrderFeed.Content" xml:space="preserve">
+    <value>wg feed</value>
+  </data>
+  <data name="resSortOrderNot.Content" xml:space="preserve">
+    <value>brak</value>
+  </data>
+  <data name="resSortOrderTitle.Content" xml:space="preserve">
+    <value>wg tytułu</value>
+  </data>
 </root>

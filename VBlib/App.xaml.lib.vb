@@ -8,6 +8,8 @@
 'Imports System.Linq.Expressions
 'Imports Newtonsoft.Json.Serialization
 
+Imports pkar.DotNetExtensions
+
 ' gdy True, to Release będzie miał błąd 
 
 '''' <summary>

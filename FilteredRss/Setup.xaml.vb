@@ -1,6 +1,6 @@
 ﻿
 Imports vb14 = VBlib.pkarlibmodule14
-
+Imports pkar.Uwp.Configs
 
 Public NotInheritable Class Setup
     Inherits Page
@@ -39,6 +39,8 @@ Public NotInheritable Class Setup
             Case Else
                 uiInterval.SelectedIndex = 1
         End Select
+
+        uiSortOrder.GetSettingsInt()
 
         ' teraz jest per Feed
         'Select Case GetSettingsInt("MaxDays", 30)
@@ -96,6 +98,8 @@ Public NotInheritable Class Setup
         sTxt = uiInterval.SelectionBoxItem.ToString
         sTxt = sTxt.Replace(" min", "")
         vb14.SetSettingsInt("TimerInterval", CInt(sTxt))
+
+        uiSortOrder.SetSettingsInt()
 
         ' teraz jest per Feed
         'Dim iInd As Integer = uiMaxDays.SelectedIndex

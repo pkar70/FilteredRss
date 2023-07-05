@@ -14,6 +14,7 @@ Public Class MainPage
 
 
     Public Async Function DeleteFromContextMenu(oItem As JedenItem, iMode As Integer) As Task
+
         DumpCurrMethod()
         If oItem Is Nothing Then Return
 
@@ -51,9 +52,26 @@ Public Class MainPage
                 App.KillFileAddEntry(sKill)
 
             Case 5  ' usunięcie do tego (wszystkie poprzednie)
-                While App.glItems.Count > 0 AndAlso App.glItems(0).sGuid <> oItem.sGuid
-                    App.glItems.RemoveAt(0)
-                End While
+
+                Dim lista As List(Of JedenItem)
+                Select Case GetSettingsInt("uiSortOrder")
+                    Case 1  ' by name
+                        lista = (From c In VBlib.App.glItems Order By c.sTitle).ToList
+                    Case 2  ' by thread
+                        lista = (From c In VBlib.App.glItems Order By c.sFeedName, c.sTitle).ToList
+                    Case Else ' 0, i nieznane: jak dotychczas
+                        lista = (From c In VBlib.App.glItems).ToList
+                End Select
+
+                Dim listaToDel As New List(Of JedenItem)
+                For iLp As Integer = 0 To lista.Count
+                    If lista(iLp).sGuid = oItem.sGuid Then Exit For
+                    listaToDel.Add(lista(iLp))
+                Next
+
+                For Each oDelItem As JedenItem In listaToDel
+                    App.glItems.Remove(oDelItem)
+                Next
 
             Case Else
                 Return
