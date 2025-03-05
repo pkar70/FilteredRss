@@ -1,100 +1,46 @@
-﻿
+﻿Imports pkar
 
 Partial Public Class Feeds
+    'Inherits BaseList(Of JedenFeed)
 
+    'Public Sub New()
+    '    MyBase.New("feeds.json")
+    'End Sub
 
     Private Const msFileName As String = "feeds.json"
-    Public Shared glFeeds As New List(Of JedenFeed)
+    Public Shared glFeeds As BaseList(Of JedenFeed)
 
-    Public Shared Function FeedsImportOld() As Boolean
+    Public Shared Function FeedsLoad(sDirectory1 As String, Optional bForce As Boolean = False) As Boolean
 
-        ' struktura ściągnięta z App:ReadFeed
-        Dim aFeeds() As String
-        Try
-            aFeeds = GetSettingsString("KnownFeeds").Split(vbCrLf)
-        Catch ex As Exception
-            DebugOut("zapewne nie ma InitSettings, więc nie mogę zrobić importu ze zmiennej (migracja do JSON była w 2021.12.15)")
-            Return False
-        End Try
+        If glFeeds IsNot Nothing Then Return True
 
-        Dim iCnt As Integer = 0
-        For Each sFeed As String In aFeeds
-            ' bez pustych linii
-            If sFeed.Length > 10 AndAlso sFeed.Substring(0, 1) <> ";" Then
-                Dim oNew As New VBlib.JedenFeed
-                oNew.sUri = sFeed
-                Dim sTmp As String = GetSettingsString("FeedName_" & App.Url2VarName(sFeed))
-                If sTmp <> "" Then
-                    oNew.sName = sTmp
-                    oNew.iNameType = FeedNameType.UserDefined
-                Else
-                    oNew.sName = sFeed
-                    Dim iInd As Integer = oNew.sName.LastIndexOf("/")
-                    If iInd > 0 Then oNew.sName = oNew.sName.Substring(iInd + 1)
-                    oNew.iNameType = FeedNameType.FromUri
-                End If
-                glFeeds.Add(oNew)
-                iCnt += 1
-            End If
-        Next
+        glFeeds = New BaseList(Of JedenFeed)(sDirectory1, msFileName)
+        glFeeds.Load()
+        'Dim iActiveLinks As Integer = 0
+        'If GetSettingsBool("LinksActive") Then iActiveLinks = 1
+        'Dim iNotifyWhite As Integer = 0
+        'If GetSettingsBool("NotifyWhite") Then iNotifyWhite = 1
 
-        Return iCnt > 0
-    End Function
-    Public Shared Function FeedsLoad(sDirectory1 As String, sDirectory2 As String, Optional bForce As Boolean = False) As Boolean
-        Dim bRet As Boolean = FeedsLoadMain(sDirectory1, sDirectory2, bForce)
-        If Not bRet Then Return False
+        '' przepisanie globalnej zmiennej tam, gdzie nie było ustawienia lokalnego
+        '' oraz zmiennych które były w Settings
+        'For Each oItem As VBlib.JedenFeed In VBlib.Feeds.glFeeds
+        '    Dim sGuidsValueName As String = VBlib.App.Url2VarName(oItem.sUri)
 
-        Dim iActiveLinks As Integer = 0
-        If GetSettingsBool("LinksActive") Then iActiveLinks = 1
-        Dim iNotifyWhite As Integer = 0
-        If GetSettingsBool("NotifyWhite") Then iNotifyWhite = 1
-
-        ' przepisanie globalnej zmiennej tam, gdzie nie było ustawienia lokalnego
-        ' oraz zmiennych które były w Settings
-        For Each oItem As VBlib.JedenFeed In VBlib.Feeds.glFeeds
-            Dim sGuidsValueName As String = VBlib.App.Url2VarName(oItem.sUri)
-
-            If oItem.iLinksActive = -1 Then oItem.iLinksActive = iActiveLinks
-            If oItem.iNotifyWhite = -1 Then oItem.iNotifyWhite = iNotifyWhite
-            If oItem.iMaxDays = -1 Then oItem.iMaxDays = GetSettingsInt("MaxDays")
-            If oItem.sLastOkDate Is Nothing Then    ' dla kontroli czy pokazywać "zdechnięcie" feed
-                oItem.sLastOkDate = GetSettingsString("TIME" & sGuidsValueName)
-            End If
-            If oItem.sUri.Contains("devil-torrent") Then
-                If oItem.sLastGuid = "" Then oItem.sLastGuid = GetSettingsInt("iLastRssGuid")
-            End If
-            If oItem.sLastGuids = "" Then oItem.sLastGuids = GetSettingsString(sGuidsValueName)
-            oItem.sGlobalBlack = GetSettingsString("BlackList")
-            oItem.sGlobalWhite = GetSettingsString("WhiteList")
-        Next
+        '    If oItem.iLinksActive = -1 Then oItem.iLinksActive = iActiveLinks
+        '    If oItem.iNotifyWhite = -1 Then oItem.iNotifyWhite = iNotifyWhite
+        '    If oItem.iMaxDays = -1 Then oItem.iMaxDays = GetSettingsInt("MaxDays")
+        '    If oItem.sLastOkDate Is Nothing Then    ' dla kontroli czy pokazywać "zdechnięcie" feed
+        '        oItem.sLastOkDate = GetSettingsString("TIME" & sGuidsValueName)
+        '    End If
+        '    If oItem.sUri.Contains("devil-torrent") Then
+        '        If oItem.sLastGuid = "" Then oItem.sLastGuid = GetSettingsInt("iLastRssGuid")
+        '    End If
+        '    If oItem.sLastGuids = "" Then oItem.sLastGuids = GetSettingsString(sGuidsValueName)
+        '    oItem.sGlobalBlack = GetSettingsString("BlackList")
+        '    oItem.sGlobalWhite = GetSettingsString("WhiteList")
+        'Next
 
         Return True
-
-    End Function
-
-    Private Shared Function FeedsLoadMain(sDirectory1 As String, sDirectory2 As String, Optional bForce As Boolean = False) As Boolean
-
-        If Not bForce Then
-            If glFeeds.Count > 0 Then Return True
-        End If
-
-        Dim sFilePathname As String = IO.Path.Combine(sDirectory1, msFileName)
-        If Not IO.File.Exists(sFilePathname) Then
-            sFilePathname = IO.Path.Combine(sDirectory2, msFileName)
-            If Not IO.File.Exists(sFilePathname) Then
-                Return FeedsImportOld()
-            End If
-        End If
-
-        Dim sTxt As String = IO.File.ReadAllText(sFilePathname)
-
-        Try
-            glFeeds = Newtonsoft.Json.JsonConvert.DeserializeObject(sTxt, GetType(List(Of VBlib.JedenFeed)))
-        Catch ex As Exception
-            Return False
-        End Try
-
-        Return glFeeds.Count > 0
 
     End Function
 
@@ -106,10 +52,13 @@ Partial Public Class Feeds
     End Sub
 
     Public Shared Function FeedsCreateNew(sUri As String, Optional sName As String = "", Optional iMaxDays As Integer = 7, Optional iToastType As FeedToastType = FeedToastType.Separate) As VBlib.JedenFeed
+        VBlib.DumpCurrMethod($"sUri={sUri}, sName={sName}")
 
-        For Each oItem As VBlib.JedenFeed In glFeeds
-            If oItem.sUri = sUri Then Return Nothing ' already exist
-        Next
+        ' already exist
+        If glFeeds.Any(Function(x) x.sUri = sUri) Then
+            VBlib.DumpMessage("mamy już ten URL")
+            Return Nothing
+        End If
 
         Dim oNew As New VBlib.JedenFeed
         oNew.sUri = sUri
@@ -127,6 +76,7 @@ Partial Public Class Feeds
         End If
         oNew.sName2 = oNew.sName
 
+        VBlib.DumpMessage("mam przygotowany oNew")
         Return oNew
     End Function
 
@@ -143,6 +93,8 @@ Public Enum FeedToastType
     NewExist
     ListItems
     Separate
+    Common
+    DisableFeed
 End Enum
 
 Public Enum FeedNameType
@@ -152,9 +104,11 @@ Public Enum FeedNameType
 End Enum
 
 Public Class JedenFeed
+    Inherits basestruct
+
     Public Property sName As String
     Public Property sUri As String
-    Public Property iToastType As Integer = FeedToastType.Separate
+    Public Property iToastType As FeedToastType = FeedToastType.Separate
     Public Property sBlacklist As String = "" ' niezalezne od Global
     Public Property sWhitelist As String = ""
     Public Property iNameType As FeedNameType

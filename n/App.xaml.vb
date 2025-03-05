@@ -2,9 +2,11 @@
 Imports Windows.ApplicationModel.Background
 Imports Windows.Storage
 Imports Windows.UI.Notifications
+' Imports System.Linq.Expressions
+'Imports 
 Imports vb14 = VBlib.pkarlibmodule14
-Imports pkar.UI.Extensions
 Imports pkar.UI.Triggers
+Imports pkar.UI.Extensions
 Imports pkar.Localize
 
 NotInheritable Class App
@@ -225,6 +227,16 @@ NotInheritable Class App
         End If
     End Sub
 
+    'Private Shared Sub Main_ShowPostsList()
+    '    If gRootFrame Is Nothing Then Exit Sub
+    '    Dim oMain As MainPage = TryCast(gRootFrame.Content, MainPage)
+    '    If oMain IsNot Nothing Then
+    '        Try
+    '            oMain.ShowPostsList()  ' moze czasem sie nie uda?
+    '        Catch ex As Exception
+    '        End Try
+    '    End If
+    'End Sub
 
     ' dla blokady wywołania z dwu różnych ścieżek z CalledFromBackground (np. Timer oraz Toast)
     Private Shared gbInTimer As Boolean = False
@@ -310,11 +322,17 @@ NotInheritable Class App
 
         If Not FeedsLoad() Then Return "NO FEEDS" ' nie ma nic
 
-        Return Await VBlib.App.ReadFeeds(
-            If(oTB Is Nothing, Nothing, Sub(sTxt As String) oTB.Text = sTxt),
+        If oTB Is Nothing Then
+            Return Await VBlib.App.ReadFeeds(
+            Nothing,
             Sub() feeds.FeedsSave(False),
-            Sub(sGuid As String, sMsg As String, sFeed As String) MakeToast(sGuid, sMsg, sFeed)
-            )
+            Sub(sGuid As String, sMsg As String, sFeed As String) MakeToast(sGuid, sMsg, sFeed))
+        Else
+            Return Await VBlib.App.ReadFeeds(
+                    Sub(sTxt As String) oTB.Text = sTxt,
+                    Sub() feeds.FeedsSave(False),
+                Sub(sGuid As String, sMsg As String, sFeed As String) MakeToast(sGuid, sMsg, sFeed))
+        End If
 
     End Function
 
@@ -410,6 +428,7 @@ NotInheritable Class App
 
     Public Shared Sub LoadIndex()
         vb14.DumpCurrMethod()
+
         VBlib.App.LoadIndex(ApplicationData.Current.LocalCacheFolder.Path)
     End Sub
 

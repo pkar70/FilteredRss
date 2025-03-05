@@ -369,4 +369,10 @@
   <data name="resSortOrderTitle.Content" xml:space="preserve">
     <value>by title</value>
   </data>
+  <data name="uiCBtypToastu4.Text" xml:space="preserve">
+    <value>Common toast</value>
+  </data>
+  <data name="uiCBtypToastu5.Text" xml:space="preserve">
+    <value>Disable feed</value>
+  </data>
 </root>

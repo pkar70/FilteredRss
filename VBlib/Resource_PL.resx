@@ -192,6 +192,12 @@
   <data name="resToastType3" xml:space="preserve">
     <value>Oddzielne</value>
   </data>
+  <data name="resToastType4" xml:space="preserve">
+    <value>Wspólny Toast</value>
+  </data>
+  <data name="resToastType5" xml:space="preserve">
+    <value>Feed zablokowany</value>
+  </data>
   <data name="_lang" xml:space="preserve">
     <value>PL</value>
   </data>

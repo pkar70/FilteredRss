@@ -2,7 +2,9 @@
 Public Module feeds
 
     Public Function FeedsLoad(Optional bForce As Boolean = False) As Boolean
-        Dim bRet As Boolean = VBlib.Feeds.FeedsLoad(Windows.Storage.ApplicationData.Current.LocalFolder.Path, bForce)
+        Dim bRet As Boolean = VBlib.Feeds.FeedsLoad(Windows.Storage.ApplicationData.Current.LocalFolder.Path,
+                bForce)
+
         Dim iActiveLinks As Integer = 0
         If VBlib.GetSettingsBool("LinksActive") Then iActiveLinks = 1
         Dim iNotifyWhite As Integer = 0

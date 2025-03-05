@@ -297,5 +297,23 @@ Namespace My.Resources
                 Return ResourceManager.GetString("resToastType3", resourceCulture)
             End Get
         End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Common toast.
+        '''</summary>
+        Friend Shared ReadOnly Property resToastType4() As String
+            Get
+                Return ResourceManager.GetString("resToastType4", resourceCulture)
+            End Get
+        End Property
+        
+        '''<summary>
+        '''  Looks up a localized string similar to Disabled feed.
+        '''</summary>
+        Friend Shared ReadOnly Property resToastType5() As String
+            Get
+                Return ResourceManager.GetString("resToastType5", resourceCulture)
+            End Get
+        End Property
     End Class
 End Namespace

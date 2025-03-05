@@ -1,8 +1,9 @@
 ﻿
 Imports vb14 = VBlib.pkarlibmodule14
 Imports pkar.UI.Configs
-Imports pkar.UI.Extensions
 Imports pkar.UI.Triggers
+Imports pkar.UI.Extensions
+Imports Windows.Security.Authentication.Web.Provider
 
 
 Public NotInheritable Class MainPage
@@ -42,8 +43,8 @@ Public NotInheritable Class MainPage
     Public Async Function ShowTorrentData(oItem As VBlib.JedenItem) As Task
         Dim sTmp As String
         sTmp = "<html><body><h1>" & oItem.sTitle & "</h1>"
-        If oItem.sDate <> "" Then sTmp = sTmp & $"<p><small>Posted: {oItem.sDate}</small></p>"
-        sTmp = sTmp & oItem.sItemHtmlData
+        If oItem.sDate <> "" Then sTmp &= $"<p><small>Posted: {oItem.sDate}</small></p>"
+        sTmp &= oItem.sItemHtmlData
 
         If oItem.sLinkToDescr.Contains("ekai.pl") Then
 
@@ -95,6 +96,7 @@ Public NotInheritable Class MainPage
                 sTmp &= temppage
             End If
         End If
+
 
         sTmp &= "</body></html>"
         uiPost.NavigateToString(sTmp)
@@ -171,10 +173,9 @@ Public NotInheritable Class MainPage
 
         AddHandler TryCast(Application.Current, App).UnhandledException, AddressOf GlobalError
         CrashMessageInit()
-
-        'CrashMessageInit()
         Await CrashMessageShowAsync()   ' jesli cos bylo, to pokaze tresc
 
+        FeedsLoad()
         AppResuming()   ' wczytaj listę RSSów
         Await App.RegisterTriggers()
 
@@ -287,7 +288,6 @@ Public NotInheritable Class MainPage
 
         VBlib.App.glItems.Clear()
         App.SaveIndex(True)
-
         ShowPostsList()
     End Sub
 
@@ -383,7 +383,6 @@ Public NotInheritable Class MainPage
     Private Sub Page_Unloaded(sender As Object, e As RoutedEventArgs)
         App.SaveIndex(False)
     End Sub
-
 
 #End Region
 

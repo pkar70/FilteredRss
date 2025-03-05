@@ -1,7 +1,7 @@
 ﻿
 Public Class Setup
 
-    Public Async Sub GetNewFeed(sUri As String)
+    Public Sub GetNewFeed(sUri As String)
 
         If Feeds.TryInitMyDefaultFeeds(sUri) Then Return
 
@@ -9,36 +9,7 @@ Public Class Setup
         HttpPageSetAgent("FilteredRSS")
         ' spróbuj nazwać Feed, niekoniecznie z URLu
 
-        If sUri.ToLower.Contains("twitter.com") Then
-            Dim sPage As String = Await HttpPageAsync(New Uri(sUri))
-            Dim oDoc As New HtmlAgilityPack.HtmlDocument()
-            oDoc.LoadHtml(sPage)
-            Dim oTitleList As HtmlAgilityPack.HtmlNodeCollection = oDoc.DocumentNode.SelectNodes("//head/title")
-
-            For Each oTitle As HtmlAgilityPack.HtmlNode In oTitleList
-                Dim sTitle As String = oTitle.InnerText
-                Dim iInd As Integer = sTitle.IndexOf("(@")
-                If iInd > 0 Then sTitle = sTitle.Substring(0, iInd)
-                oNew.sName = sTitle
-                oNew.iNameType = FeedNameType.FromFeed
-            Next
-        End If
-
-        If sUri.ToLower.Contains("facebook.com") Then
-            Dim sPage As String = Await HttpPageAsync(New Uri(sUri))
-            Dim oDoc As New HtmlAgilityPack.HtmlDocument()
-            oDoc.LoadHtml(sPage)
-            Dim oTitleList As HtmlAgilityPack.HtmlNodeCollection = oDoc.DocumentNode.SelectNodes("//head/title")
-
-            For Each oTitle As HtmlAgilityPack.HtmlNode In oTitleList
-                Dim sTitle As String = oTitle.InnerText
-                Dim iInd As Integer = sTitle.IndexOf(" - ")
-                If iInd > 0 Then sTitle = sTitle.Substring(0, iInd)
-                oNew.sName = sTitle ' 'prawdziwa'
-                oNew.sName2 = sTitle ' ta, która jest widoczna i edytowalna
-                oNew.iNameType = FeedNameType.FromFeed
-            Next
-        End If
+        VBlib.DumpMessage("nametype: " & oNew.iNameType)
 
         If oNew.iNameType <> FeedNameType.FromFeed Then
 
@@ -56,15 +27,18 @@ Public Class Setup
                         End Using
                     End Using
                 End Using
-
-                oNew.sName = oRssFeed.Title.Text.Trim
-                oNew.iNameType = FeedNameType.FromFeed
+                oNew.sName = oRssFeed.Title?.Text?.Trim
+                If oNew.sName Is Nothing Then oNew.sName = oNew.sName2
             Catch ex As Exception
+                VBlib.CrashMessageAdd("Nieudane dodanie Feedu", ex)
             End Try
+
+            oNew.iNameType = FeedNameType.FromFeed
+
+
         End If
 
         Feeds.glFeeds.Add(oNew)
-
     End Sub
 
 End Class

@@ -3,7 +3,7 @@ Imports vb14 = VBlib.pkarlibmodule14
 Imports pkar.UI.Configs
 Imports pkar.UI.Extensions
 Imports pkar.Localize
-Imports Windows.UI.Core
+Imports VBlib
 
 Public NotInheritable Class Setup
     Inherits Page
@@ -11,7 +11,14 @@ Public NotInheritable Class Setup
     Private inVb As New VBlib.Setup
 
     Private Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
-        Me.ShowAppVers(IsDebug)
+        Me.InitDialogs
+
+#If DEBUG Then
+        Me.ShowAppVers(True)
+#Else
+        Me.ShowAppVers(false)
+#End If
+
 
         'WyliczWidthDlaCombo()
 
@@ -147,18 +154,7 @@ Public NotInheritable Class Setup
         Dim sNewFeed As String = Await Me.InputBoxAsync("res:resNewFeed")
         If sNewFeed = "" Then Return
 
-        Dim oUri As Uri
-
-        Try
-            oUri = New Uri(sNewFeed)
-        Catch
-            Me.MsgBox("To chyba nie jest poprawny URI")
-            Return
-        End Try
-
-        uiListItems.ItemsSource = Nothing
         inVb.GetNewFeed(sNewFeed)
-        uiListItems.ItemsSource = VBlib.Feeds.glFeeds
 
         'RefreshnijListe()
     End Sub
@@ -173,6 +169,7 @@ Public NotInheritable Class Setup
 
         Dim iNum As Integer = oDFE.Name.Substring(oDFE.Name.Length - 1, 1)
         oItem.iToastType = iNum
+
         oItem.NotifyPropChange("iToastType")
         ' oItem.sToastType = vb14.GetLangString("resToastType" & oItem.iToastType) <- jest juz konwerter
         'RefreshnijListe()
@@ -277,7 +274,6 @@ Public NotInheritable Class Setup
         Dim sIleDni As String = oDFE.Name.Replace("uiSetMaxDays", "")   ' 7 / 30 / 365
         oItem.iMaxDays = sIleDni
         oItem.NotifyPropChange("iMaxDays")
-
         'RefreshnijListe()
     End Sub
 End Class
@@ -288,7 +284,9 @@ Public Class KonwerterWasError
 
     Protected Overrides Function Convert(value As Object) As Object
         Dim bWasError As Boolean = CType(value, Boolean)
+
         If Not bWasError Then Return ""
+
         Return "!"
     End Function
 
@@ -301,6 +299,5 @@ Public Class KonwerterToastType
         Dim iTmp As Integer = CType(value, Integer)
         Return GetResManString("resToastType" & iTmp)
     End Function
-
 End Class
 

@@ -1,8 +1,4 @@
 
-STORE UWP
-
-2025.03.05
-* fix: dodawanie nowego feed, gdy link jest niepoprawny
 
 2025.02.27
 * GridSplitter, do zmiany podzia³u miêdzy list¹ a postem
@@ -14,7 +10,7 @@ STORE UWP
 * typ toastu: disabled feed, ¿eby nie trzeba by³o kasowaæ gdy czasowo zablokowany
 
 
-!! dodanie pktrig:AppBarClockTriggerToggleButton automatycznie zmienia AppBarButtony z nowego UI do starszego UI. Czemu? !!
+dodanie pktrig:AppBarClockTriggerToggleButton automatycznie zmienia AppBarButtony z nowego UI do starszego UI. Czemu?
 
 2023.05.27
 * zmiany pod UWP.Configs, ale bez Deploy, bo jednak przesta³o errorowaæ uruchomienie normalne

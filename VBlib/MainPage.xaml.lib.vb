@@ -41,7 +41,7 @@ Public Class MainPage
                     End If
                 Next
             Case 4  ' kill file
-                Dim sKill As String = Await DialogBoxInputDirectAsync(GetLangString("msgKillFile14days"), oItem.sTitle)
+                Dim sKill As String = Await DialogBoxInputDirectAsync(pkar.Localize.GetResManString("msgKillFile14days"), oItem.sTitle)
                 If String.IsNullOrEmpty(sKill) Then Return
                 For iLoop As Integer = App.glItems.Count - 1 To 0 Step -1
                     If App.RegExpOrInstr(App.glItems.Item(iLoop).sTitle, sKill) Then
