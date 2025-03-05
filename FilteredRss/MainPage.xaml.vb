@@ -211,7 +211,7 @@ Public NotInheritable Class MainPage
 
     Private Sub Page_GotFocus(sender As Object, e As RoutedEventArgs)
         vb14.DumpCurrMethod()
-        uiClockRead.IsChecked = vb14.GetSettingsBool("autoRead")
+        uiClockRead.GetSettingsBool() ' vb14.GetSettingsBool("autoRead")
 
         ' 20171101: jeśli w środku jest moje, to nie rób reload
         'Dim sHtml As String = ""

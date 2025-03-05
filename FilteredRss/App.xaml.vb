@@ -239,7 +239,7 @@ NotInheritable Class App
             Select Case oTask.Task.Name     '  sTaskname
                 Case "FilteredRSStimer"
                     gbInTimer = True
-                    If vb14.GetSettingsBool("autoRead") Then Await ReadFeeds(Nothing)
+                    If vb14.GetSettingsBool("uiClockRead") Then Await ReadFeeds(Nothing)
                     gbInTimer = False
                 Case "FilteredRSSservCompl"
                     Await App.RegisterTriggers()
