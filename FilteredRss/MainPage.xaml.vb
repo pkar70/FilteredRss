@@ -58,7 +58,13 @@ Public NotInheritable Class MainPage
             webclnt.DefaultRequestHeaders.UserAgent.Clear()
             webclnt.DefaultRequestHeaders.UserAgent.TryParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0")
             ' System..Client zwraca httpcode 418
-            Dim temppage As String = Await webclnt.GetStringAsync(New Uri(oItem.sLinkToDescr))
+            Dim temppage As String
+
+            Try
+                temppage = Await webclnt.GetStringAsync(New System.Uri(oItem.sLinkToDescr))
+            Catch ex As Exception
+                temppage = ex.Message
+            End Try
             ' Await VBlib.HttpPageAsync(oItem.sLinkToDescr)
             Dim iInd = temppage.IndexOf("<article>")
             If iInd > 1 Then
