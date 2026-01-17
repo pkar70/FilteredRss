@@ -15,10 +15,10 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="pkar.DotNetExts" Version="2.2.8" />
+    <PackageReference Include="pkar.DotNetExts" Version="2.2.10" />
     <PackageReference Include="pkar.Localize" Version="1.0.2" />
-    <PackageReference Include="pkar.NetConfigs" Version="2.0.7" />
-    <PackageReference Include="pkar.StructList" Version="1.8.7" />
+    <PackageReference Include="pkar.NetConfigs" Version="2.0.10" />
+    <PackageReference Include="pkar.StructList" Version="1.9.3" />
     <PackageReference Include="System.ServiceModel.Syndication" Version="6.0.0" />
   </ItemGroup>
 

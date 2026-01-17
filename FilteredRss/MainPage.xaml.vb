@@ -1,8 +1,10 @@
 ﻿
-Imports vb14 = VBlib.pkarlibmodule14
+Imports System.Net.Http
+Imports CommunityToolkit.WinUI
 Imports pkar.UI.Configs
 Imports pkar.UI.Extensions
 Imports pkar.UI.Triggers
+Imports vb14 = VBlib.pkarlibmodule14
 
 
 Public NotInheritable Class MainPage
@@ -34,7 +36,8 @@ Public NotInheritable Class MainPage
     End Sub
 
     Private Async Sub uiLista_Click(sender As Object, e As TappedRoutedEventArgs)
-        Dim oItem As VBlib.JedenItem = TryCast(sender, Grid).DataContext
+        Dim oItem As VBlib.JedenItem = TryCast(sender, Grid)?.DataContext
+        If oItem Is Nothing Then Return
         Await ShowTorrentData(oItem)
     End Sub
 
@@ -45,19 +48,18 @@ Public NotInheritable Class MainPage
         If oItem.sDate <> "" Then sTmp = sTmp & $"<p><small>Posted: {oItem.sDate}</small></p>"
         sTmp = sTmp & oItem.sItemHtmlData
 
+        If oItem.sLinkToDescr.Contains("zdmk.krakow.pl") Then
+            Dim webclnt As Windows.Web.Http.HttpClient = KlientWeb()            ' System..Client zwraca httpcode 418
+            Try
+                sTmp &= Await webclnt.GetStringAsync(New System.Uri(oItem.sLinkToDescr))
+            Catch ex As Exception
+                sTmp &= ex.Message
+            End Try
+        End If
+
         If oItem.sLinkToDescr.Contains("ekai.pl") Then
 
-            Dim webclnt As New Windows.Web.Http.HttpClient
-            webclnt.DefaultRequestHeaders.Accept.Clear()
-            webclnt.DefaultRequestHeaders.Accept.TryParseAdd("text/html")
-            webclnt.DefaultRequestHeaders.Accept.TryParseAdd("application/xhtml+xml")
-            webclnt.DefaultRequestHeaders.Accept.TryParseAdd("text/html")
-            webclnt.DefaultRequestHeaders.Accept.TryParseAdd("text/html")
-            webclnt.DefaultRequestHeaders.AcceptLanguage.Clear()
-            webclnt.DefaultRequestHeaders.AcceptLanguage.TryParseAdd("pl")
-            webclnt.DefaultRequestHeaders.UserAgent.Clear()
-            webclnt.DefaultRequestHeaders.UserAgent.TryParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0")
-            ' System..Client zwraca httpcode 418
+            Dim webclnt As Windows.Web.Http.HttpClient = KlientWeb()            ' System..Client zwraca httpcode 418
             Dim temppage As String
 
             Try
@@ -78,16 +80,8 @@ Public NotInheritable Class MainPage
 
         If oItem.sLinkToDescr.Contains("lovekrakow.pl") Then
 
-            Dim webclnt As New Windows.Web.Http.HttpClient
-            webclnt.DefaultRequestHeaders.Accept.Clear()
-            webclnt.DefaultRequestHeaders.Accept.TryParseAdd("text/html")
-            webclnt.DefaultRequestHeaders.Accept.TryParseAdd("application/xhtml+xml")
-            webclnt.DefaultRequestHeaders.Accept.TryParseAdd("text/html")
-            webclnt.DefaultRequestHeaders.Accept.TryParseAdd("text/html")
-            webclnt.DefaultRequestHeaders.AcceptLanguage.Clear()
-            webclnt.DefaultRequestHeaders.AcceptLanguage.TryParseAdd("pl")
-            webclnt.DefaultRequestHeaders.UserAgent.Clear()
-            webclnt.DefaultRequestHeaders.UserAgent.TryParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0")
+            Dim webclnt As Windows.Web.Http.HttpClient = KlientWeb()
+
             ' System..Client zwraca httpcode 418
             Dim temppage As String = Await webclnt.GetStringAsync(New Uri(oItem.sLinkToDescr))
             ' Await VBlib.HttpPageAsync(oItem.sLinkToDescr)
@@ -146,6 +140,18 @@ Public NotInheritable Class MainPage
 
     End Function
 
+    Private Shared Function KlientWeb() As Windows.Web.Http.HttpClient
+        Dim webclnt As New Windows.Web.Http.HttpClient
+        webclnt.DefaultRequestHeaders.Accept.Clear()
+        webclnt.DefaultRequestHeaders.Accept.TryParseAdd("text/html")
+        webclnt.DefaultRequestHeaders.Accept.TryParseAdd("application/xhtml+xml")
+        webclnt.DefaultRequestHeaders.AcceptLanguage.Clear()
+        webclnt.DefaultRequestHeaders.AcceptLanguage.TryParseAdd("pl")
+        webclnt.DefaultRequestHeaders.UserAgent.Clear()
+        webclnt.DefaultRequestHeaders.UserAgent.TryParseAdd("Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36 Edg/130.0.0.0")
+        Return webclnt
+    End Function
+
     Public Sub ShowTorrentData(sGuid As String)
         'Dim sTmp As String
 
@@ -174,6 +180,7 @@ Public NotInheritable Class MainPage
     ' obsluga zdarzen formatki
     Private Async Sub Page_Loaded(sender As Object, e As RoutedEventArgs)
         Me.InitDialogs
+        Me.ProgRingInit(True, False)
 
         AddHandler TryCast(Application.Current, App).UnhandledException, AddressOf GlobalError
         CrashMessageInit()
@@ -190,6 +197,42 @@ Public NotInheritable Class MainPage
         'SetSettingsString("resBrowser", GetLangString("resBrowser"))
         'SetSettingsString("resNewItemsInFeed", GetLangString("resNewItemsInFeed"))
         'SetSettingsString("resNewItemsList", GetLangString("resNewItemsList"))
+
+
+#If DEBUG Then
+
+        ' bo tylko u mnie
+        If Not Await VBlib.DialogBoxYNAsync("Usunąć te które mają obrazek http 404?") Then Return
+
+        Dim oHttp As New HttpClient
+
+        Dim doUsun As New List(Of VBlib.JedenItem)
+
+        Me.ProgRingShow(True)
+        Dim iCnt As Integer = 0
+        For Each oItem As VBlib.JedenItem In VBlib.App.glItems
+            iCnt += 1
+            Me.ProgRingSetText(doUsun.Count & "/" & iCnt)
+            If Not oItem.sPicLink.StartsWith("https://devil-torrents.pl") Then Continue For
+
+            Dim oResp As HttpResponseMessage = Await oHttp.GetAsync(oItem.sPicLink)
+            If oResp.StatusCode = Net.HttpStatusCode.NotFound Then
+                doUsun.Add(oItem)
+            End If
+
+            Await Task.Delay(50)
+        Next
+
+        For Each oItem As VBlib.JedenItem In doUsun
+            VBlib.App.glItems.Remove(oItem)
+        Next
+        VBlib.App.bChangedXML = True
+
+        Me.ProgRingShow(False)
+
+        VBlib.MsgBox("Usunąłem " & doUsun.Count & " pozycji z obrazkiem 404.")
+        ShowPostsList()
+#End If
 
     End Sub
     Private Sub Form_Resized(sender As Object, e As SizeChangedEventArgs)
@@ -390,6 +433,92 @@ Public NotInheritable Class MainPage
         App.SaveIndex(False)
     End Sub
 
+    Private Sub uiLista_KeyUp(sender As Object, e As KeyRoutedEventArgs)
+        'If e.Key <> Windows.System.VirtualKey.Space Then Exit Sub
+
+        'Dim fokus As ListViewItem = FocusManager.GetFocusedElement
+        'Dim fokCont = fokus.Content
+        'e.Handled = True
+        If e.Key = Windows.System.VirtualKey.Application Then
+
+            Dim lv = CType(sender, ListView)
+            Dim item = lv.SelectedItem
+            If item Is Nothing Then Return
+
+            ' Pobierz kontener ListViewItem
+            Dim container = CType(lv.ContainerFromItem(item), ListViewItem)
+            If container Is Nothing Then Return
+
+            ' Znajdź Grid z DataTemplate
+            Dim rootGrid = FindChild(Of Grid)(container, "Grid")
+            If rootGrid Is Nothing Then Return
+
+            '' Pobierz ten sam Flyout, który jest w XAML
+            'Dim flyout = FlyoutBase.GetAttachedFlyout(rootGrid)
+            'If flyout Is Nothing Then Return
+
+            '' Pokaż w tym samym miejscu co normalnie
+            'flyout.ShowAt(rootGrid)
+            rootGrid.ContextFlyout.ShowAt(rootGrid)
+
+            e.Handled = True
+        End If
+
+    End Sub
+
+    Private Function FindChild(Of T As DependencyObject)(parent As DependencyObject, name As String) As T
+        Dim count = VisualTreeHelper.GetChildrenCount(parent)
+        For i = 0 To count - 1
+            Dim child = VisualTreeHelper.GetChild(parent, i)
+
+            If TypeOf child Is T Then
+                Return CType(child, T)
+            End If
+
+            Dim result = FindChild(Of T)(child, name)
+            If result IsNot Nothing Then Return result
+        Next
+        Return Nothing
+    End Function
+
+
+
+    Private selectionTimer As DispatcherTimer
+    Private lastSelectedItem As VBlib.JedenItem
+
+    Private Sub uiListItems_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+
+        If selectionTimer Is Nothing Then
+            selectionTimer = New DispatcherTimer()
+            AddHandler selectionTimer.Tick, AddressOf OnSelectionTimerTick
+            selectionTimer.Interval = TimeSpan.FromSeconds(2)
+        End If
+
+        Dim lv = CType(sender, ListView)
+
+        ' Jeśli nic nie zaznaczono – zatrzymaj timer
+        If lv.SelectedItem Is Nothing Then
+            selectionTimer.Stop()
+            lastSelectedItem = Nothing
+            Return
+        End If
+
+        ' Zapamiętaj aktualnie zaznaczony element
+        lastSelectedItem = TryCast(lv.SelectedItem, VBlib.JedenItem)
+
+        ' Restart timera
+        selectionTimer.Stop()
+        selectionTimer.Start()
+
+    End Sub
+
+    Private Sub OnSelectionTimerTick(sender As Object, e As Object)
+        selectionTimer.Stop()
+
+        If lastSelectedItem Is Nothing Then Return
+        ' Wywołaj swoją metodę
+        ShowTorrentData(lastSelectedItem)
+    End Sub
 
 #End Region
 
