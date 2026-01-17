@@ -32,9 +32,6 @@ Skoro nie telefon, to możliwy WinUI3 (ale to byłoby bez VB), albo WPF. Nie prz
 
 FUNKCJE - FEATURE REQUESTS - FUNKCJE - FEATURE REQUESTS - FUNKCJE - FEATURE REQUESTS - FUNKCJE - FEATURE REQUESTS - 
 
-* przesuwalna granica między listą a itemem? GridSplitter, ale albo w WPF,albo w community toolkit
-- ew. z comm toolkit wziac source i zrobic to sobie samemu
-
 * może ściąganie części tekstu
  ** (login i sciagniecie) dla devilow 
  ** zdmk
@@ -42,7 +39,6 @@ FUNKCJE - FEATURE REQUESTS - FUNKCJE - FEATURE REQUESTS - FUNKCJE - FEATURE REQU
 * toast "zbiorczy", ze wszystkich (typu "new x items in y feeds")
 
 * może killfile - dodawanie - pole na tekst, ale też calendar (default: 14 dni), i prefiksowanie linijki killfile datą usunięcia stamtąd
-
 
 * ewentualnie jakoś umożliwienie pracy równoległej na dwu instancjach (dom i Anka)
 SHIFT refresh z pytaniem o datę, i na niej ucinanie? tylko ze nie mam pelnego zestawu feed u Anki.

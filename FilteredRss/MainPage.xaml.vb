@@ -402,6 +402,8 @@ Public NotInheritable Class MainPage
 
         Await inVb.DeleteFromContextMenu(oItem, iMode)
 
+        uiListItems.Focus(FocusState.Programmatic)
+
         Try
             ShowPostsList()
         Catch ex As Exception
@@ -518,6 +520,10 @@ Public NotInheritable Class MainPage
         If lastSelectedItem Is Nothing Then Return
         ' Wywołaj swoją metodę
         ShowTorrentData(lastSelectedItem)
+    End Sub
+
+    Private Sub uiBLink_Click(sender As Object, e As RoutedEventArgs)
+        uiListItems.Focus(FocusState.Programmatic)
     End Sub
 
 #End Region
