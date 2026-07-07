@@ -1,0 +1,165 @@
+﻿<Page
+    x:Class="FilteredRss.Setup"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FilteredRss"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d" Loaded="Page_Loaded" >
+
+
+    <UserControl.Resources>
+        <!--<local:KonwersjaTypuToastu x:Key="KonwersjaTypuToastu"/>
+        <local:KonwerterToastTypeWidth x:Key="KonwerterToastTypeWidth" />-->
+        <local:KonwerterWasError x:Key="KonwerterWasError" />
+        <local:KonwerterToastType x:Key="KonwerterToastType" />
+    </UserControl.Resources>
+
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Margin="2,2,2,2">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <TextBlock x:Uid="resSettings"  Margin="0,10,0,0" HorizontalAlignment="Center" Text="Settings" FontSize="20"/>
+        <!-- row=1, version -->
+        <TextBlock Grid.Row="2" Text="Feeds:" HorizontalAlignment="Center" Name="uiListHdr" Margin="0,5,0,0" VerticalAlignment="Bottom"/>
+        <Button Grid.Row="2" HorizontalAlignment="Right" Click="uiAddFeed_Click" Margin="5,0,10,0" >
+            <SymbolIcon Symbol="Add" />
+        </Button>
+
+        <ListView Grid.Row="3" x:Name="uiListItems" Margin="2,5,5,5" HorizontalContentAlignment="Stretch" BorderBrush="Blue" BorderThickness="1" >
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment"  Value="Stretch"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Grid HorizontalAlignment="Stretch" Margin="0,5,0,0" >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2*"  /> <!-- URI -->
+                            <ColumnDefinition Width="*"/> <!-- name-->
+                            <ColumnDefinition Width="50" />  <!-- maxDays -->
+                            <ColumnDefinition Width="70" /> <!-- typ toastu -->
+                            <ColumnDefinition Width="10" /> <!-- ewentualny wykrzyknik błędu -->
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBox Grid.Column="0" Text="{Binding sUri, Mode=TwoWay }" />
+                        <TextBox Grid.Column="1" Text="{Binding sName2, Mode=TwoWay }" Margin="5,0,5,0" />
+                        <muxc:NumberBox Grid.Column="2" Text="{Binding iMaxDays, Mode=TwoWay }" Margin="5,0,5,0" ToolTipService.ToolTip="Max days" SpinButtonPlacementMode="Compact" >
+                            <muxc:NumberBox.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem x:Uid="resSetMaxDays7" Text="week" Name="uiSetMaxDays7" Click="uiSetMaxDays_Click"/>
+                                    <MenuFlyoutItem x:Uid="resSetMaxDays30" Text="month" Name="uiSetMaxDays30" Click="uiSetMaxDays_Click"/>
+                                    <MenuFlyoutItem x:Uid="resSetMaxDays365" Text="year" Name="uiSetMaxDays365" Click="uiSetMaxDays_Click"/>
+                                </MenuFlyout>
+                            </muxc:NumberBox.ContextFlyout>
+                        </muxc:NumberBox>
+                        <TextBlock Grid.Column="3" Text="{Binding iToastType, Mode=OneWay, Converter={StaticResource KonwerterToastType}}" ToolTipService.ToolTip="{Binding iToastType, Mode=OneWay, Converter={StaticResource KonwerterToastType}}" x:Uid="uiToastType"> 
+                            <!--<TextBlock.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem x:Uid="uiCBtypToastu0" Name="uiCBtypToastu0" Click="uiSetToastType_Click"  />
+                                    <MenuFlyoutItem x:Uid="uiCBtypToastu1" Name="uiCBtypToastu1" Click="uiSetToastType_Click"  />
+                                    <MenuFlyoutItem x:Uid="uiCBtypToastu2" Name="uiCBtypToastu2" Click="uiSetToastType_Click"  />
+                                    <MenuFlyoutItem x:Uid="uiCBtypToastu3" Name="uiCBtypToastu3" Click="uiSetToastType_Click"  />
+                                </MenuFlyout>
+                            </TextBlock.ContextFlyout>-->
+                        </TextBlock>
+
+                        <!--<ComboBox Grid.Column="2" SelectedValue="No toast" >
+                            --><!-- ItemsSource="{Binding lTypyToastow}" DisplayMemberPath="sName" --><!--
+                            <ComboBoxItem IsSelected="{Binding iToastType, Mode=OneTime, Converter={StaticResource KonwersjaTypuToastu}, ConverterParameter=0}"><TextBlock x:Uid="uiCBtypToastu0" /></ComboBoxItem>
+                            <ComboBoxItem IsSelected="{Binding iToastType, Mode=OneTime, Converter={StaticResource KonwersjaTypuToastu}, ConverterParameter=1}"><TextBlock x:Uid="uiCBtypToastu1"/></ComboBoxItem>
+                            <ComboBoxItem IsSelected="{Binding iToastType, Mode=OneTime, Converter={StaticResource KonwersjaTypuToastu}, ConverterParameter=2}"><TextBlock x:Uid="uiCBtypToastu2"/></ComboBoxItem>
+                            <ComboBoxItem IsSelected="{Binding iToastType, Mode=OneTime, Converter={StaticResource KonwersjaTypuToastu}, ConverterParameter=3}"><TextBlock x:Uid="uiCBtypToastu3"/></ComboBoxItem>
+                        </ComboBox>-->
+                        <TextBlock Grid.Column="4" Text="{Binding bLastError, Mode=OneTime, Converter={StaticResource KonwerterWasError}}" FontWeight="Bold" Foreground="Red" ToolTipService.ToolTip="Error at last try" x:Uid="uiLastBylError"/>
+                        <Button Grid.Column="5" Content="DEL" Click="uiDelFeed_Click" Margin="5,0,5,0"/>
+                        <Grid.ContextFlyout>
+                            <MenuFlyout>
+                                <MenuFlyoutItem x:Uid="uiCBtypToastu0" Name="uiCBtypToastu0" Click="uiSetToastType_Click"  />
+                                <MenuFlyoutItem x:Uid="uiCBtypToastu1" Name="uiCBtypToastu1" Click="uiSetToastType_Click"  />
+                                <MenuFlyoutItem x:Uid="uiCBtypToastu2" Name="uiCBtypToastu2" Click="uiSetToastType_Click"  />
+                                <MenuFlyoutItem x:Uid="uiCBtypToastu3" Name="uiCBtypToastu3" Click="uiSetToastType_Click"  />
+                                <MenuFlyoutItem x:Uid="uiCBtypToastu4" Name="uiCBtypToastu4" Click="uiSetToastType_Click"  />
+                                <MenuFlyoutItem x:Uid="uiCBtypToastu5" Name="uiCBtypToastu5" Click="uiSetToastType_Click"  />
+                                <MenuFlyoutSeparator/>
+                                <MenuFlyoutItem x:Uid="uiEditWhiteBlack" Click="uiEditWhiteBlack" />
+                                <MenuFlyoutItem x:Uid="uiResetSeen" Click="uiResetSeen" />
+                                <MenuFlyoutSeparator/>
+                                <MenuFlyoutItem x:Uid="uiGoWeb" Click="uiGoWeb" />
+                            </MenuFlyout>
+                        </Grid.ContextFlyout>
+                    </Grid>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <ToggleSwitch Grid.Row="4" x:Uid="resFeedsRoam" x:Name="uiFeedsRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />
+
+        <!--<StackPanel Loaded="Setup_Loaded" >
+            <TextBlock x:Uid="resSettings"  Margin="0,10,0,10" HorizontalAlignment="Center" Text="Settings" FontSize="20"/>
+            <TextBlock x:Name="uiVers" HorizontalAlignment="Center" FontSize="10" />
+            <TextBox x:Uid="resFeeds" x:Name="uiFeeds" TextWrapping="Wrap" Height="200" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Header="Feeds:" PlaceholderText="(enter feeds, one feed per line)" MaxLength="3900"/>
+            <ToggleSwitch x:Uid="resFeedsRoam" x:Name="uiFeedsRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />-->
+            <Grid Grid.Row="5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBox Grid.Column="0" Grid.Row="0" x:Uid="resBlackList" x:Name="uiBlacklist" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Header="Blacklist:" MaxLength="3900"/>
+            <ToggleSwitch Grid.Column="0" Grid.Row="1" x:Uid="resBlackRoam" x:Name="uiBlackRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />
+            <TextBox Grid.Column="1" Grid.Row="0" x:Uid="resWhiteList" x:Name="uiWhitelist" TextWrapping="Wrap" VerticalAlignment="Stretch" Text="" ScrollViewer.VerticalScrollBarVisibility="Auto" AcceptsReturn="True" Header="Whitelist:" MaxLength="3900"/>
+            <ToggleSwitch Grid.Column="1" Grid.Row="1" x:Uid="resWhiteRoam" x:Name="uiWhiteRoam" HorizontalAlignment="Center" OffContent="keep local" OnContent="send to cloud" />
+                <StackPanel Grid.Column="2" Grid.RowSpan="2" Margin="30,0,0,0">
+                <ComboBox x:Uid="resSortOrder" Name="uiSortOrder" Header="Sort items by">
+                    <ComboBoxItem Content="no sort" x:Uid="resSortOrderNot"/>
+                    <ComboBoxItem Content="byName" x:Uid="resSortOrderTitle"/>
+                    <ComboBoxItem Content="byFeed" x:Uid="resSortOrderFeed"/>
+                </ComboBox>
+                <ToggleSwitch x:Uid="resLinksActive" x:Name="uiLinksActive" OffContent="don't extract links" OnContent="Convert http:// to links" Header="Other settings:"/>
+                <!-- <ToggleSwitch x:Uid="resNotifyWhite" x:Name="uiNotifyWhite" OffContent="notifications off" OnContent="Notify about whitelisted posts" /> -->
+                <ComboBox x:Uid="resTimeInterval" x:Name="uiInterval" Header="Timer interval">
+                        <ComboBoxItem Content="15 min"/>
+                        <ComboBoxItem Content="30 min"/>
+                        <ComboBoxItem Content="60 min"/>
+                        <ComboBoxItem Content="90 min"/>
+                    </ComboBox>
+                    <!--<ComboBox x:Uid="resMaxDays" x:Name="uiMaxDays" Header="Limit oldest" Margin="0,5,0,10">
+                        <ComboBoxItem x:Uid="resMaxDays7" Content="week"/>
+                        <ComboBoxItem x:Uid="resMaxDays30" Content="month"/>
+                        <ComboBoxItem x:Uid="resMaxDays365" Content="year"/>
+                    </ComboBox>-->
+                <ToggleButton x:Uid="uiEditGlobalWhiteBlack" Name="uiEditGlobalWhiteBlack" Content="EditGlobal"/>
+            </StackPanel>
+            </Grid>
+        <Button Grid.Row="6" x:Uid="resSettOk" Margin="0,30,0,10" Width="100" HorizontalAlignment="Center" Content="Ok" Click="bSetupOk_Click"  />
+
+        <!--</StackPanel>-->
+    </Grid>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Accept" Label="Ok" Click="bSetupOk_Click"/>
+            <AppBarSeparator/>
+            <AppBarButton Icon="Delete" x:Name="uiClearCache" x:Uid="resClearCache" Label="Clear cache" Click="uiClearCache_Click" />
+            <AppBarSeparator/>
+            <!--<AppBarButton x:Uid="resRenameFeed" x:Name="uiRenameFeed" Icon="Rename" Label="Rename" Click="bRenameFeed_Click"/>-->
+            <AppBarButton x:Uid="resSettRegExp" Icon="Character" Label ="test regexp" Click="bRegExpTest_Click"  />
+        </CommandBar>
+
+    </Page.BottomAppBar>
+
+</Page>
