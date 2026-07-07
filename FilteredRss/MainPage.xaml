@@ -32,7 +32,11 @@
 
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid HorizontalAlignment="Stretch" Margin="0,5,0,0" Tapped="uiLista_Click" >
+                        <Grid HorizontalAlignment="Stretch" Margin="0,5,0,0" Tapped="uiLista_Click" 
+                              PointerPressed="uiLista_PointerPressed"
+                              PointerReleased="uiLista_PointerReleased"
+                              PointerExited="uiLista_PointerExited"
+                              >
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="1*" />
                                 <ColumnDefinition Width="3*" />

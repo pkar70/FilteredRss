@@ -264,7 +264,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VBlib\VBlib2.vbproj">
+    <ProjectReference Include="..\VBlib2\VBlib2.vbproj">
       <Project>{b1f176b0-bc3c-4455-9596-70c9d6214873}</Project>
       <Name>VBlib</Name>
     </ProjectReference>

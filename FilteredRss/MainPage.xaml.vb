@@ -202,9 +202,10 @@ Public NotInheritable Class MainPage
 #If DEBUG Then
 
         ' bo tylko u mnie
+        If VBlib.App.glItems Is Nothing OrElse VBlib.App.glItems.Count < 2 Then Return
         If Not Await VBlib.DialogBoxYNAsync("Usunąć te które mają obrazek http 404?") Then Return
 
-        Dim oHttp As New HttpClient
+            Dim oHttp As New HttpClient
 
         Dim doUsun As New List(Of VBlib.JedenItem)
 
@@ -395,6 +396,61 @@ Public NotInheritable Class MainPage
     End Function
 
 #Region "ItemOnList-contextMenu"
+
+    Private _longPressTimer As DispatcherTimer
+    Private _pressedItem As FrameworkElement
+    Private _longPressTriggered As Boolean = False
+
+    Private Sub uiLista_PointerPressed(sender As Object, e As PointerRoutedEventArgs)
+
+        Dim point = e.GetCurrentPoint(Nothing)
+
+        ' interesuje nas tylko lewy przycisk myszy
+        If Not point.Properties.IsLeftButtonPressed Then Exit Sub
+
+        _pressedItem = TryCast(sender, FrameworkElement)
+        _longPressTriggered = False
+
+        _longPressTimer = New DispatcherTimer()
+        _longPressTimer.Interval = TimeSpan.FromMilliseconds(500) ' długość przytrzymania
+        AddHandler _longPressTimer.Tick, AddressOf LongPressTimer_Tick
+        _longPressTimer.Start()
+
+    End Sub
+
+    Private Sub LongPressTimer_Tick(sender As Object, e As Object)
+
+        _longPressTimer.Stop()
+        _longPressTriggered = True
+
+        If _pressedItem Is Nothing Then Return
+
+        If _pressedItem.ContextFlyout Is Nothing Then Return
+
+        Try
+            _pressedItem.ContextFlyout.ShowAt(_pressedItem)
+            'FlyoutBase.ShowAttachedFlyout(_pressedItem)
+        Catch ex As Exception
+            ' bo chyba nie zawsze działa :)
+        End Try
+    End Sub
+
+    Private Sub uiLista_PointerReleased(sender As Object, e As PointerRoutedEventArgs)
+        _longPressTimer?.Stop()
+
+        ' jeśli był long‑press → NIE wykonujemy normalnego kliknięcia
+        If Not _longPressTriggered Then Return
+        e.Handled = True
+    End Sub
+
+    Private Sub uiLista_PointerExited(sender As Object, e As PointerRoutedEventArgs)
+        ' wyjście kursora = anulowanie long‑press
+        _longPressTimer?.Stop()
+    End Sub
+
+
+
+
     Private Async Sub DeleteFromContextMenu(oMFI As MenuFlyoutItem, iMode As Integer)
         vb14.DumpCurrMethod()
         Dim oItem As VBlib.JedenItem = TryCast(oMFI?.DataContext, VBlib.JedenItem)
