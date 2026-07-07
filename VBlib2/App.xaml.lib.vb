@@ -305,9 +305,10 @@ Public Class App
             ' LoveKraków nie ma GUID, więc mamy link tylko
             ' http://lovekrakow.pl/aktualnosci/rzecznik-jednego-z-instytutow-uj-napisal-o-robieniu-farszu-z-plodow_44887.html
             iInd = sGuid.LastIndexOf("/")
-            Dim iInd1 As Integer = sGuid.LastIndexOf("_")
+            ' 2026.07.06, nie ma już underscore
+            'Dim iInd1 As Integer = sGuid.LastIndexOf("_")
             ' pierwsza litera, bo nie mozna zacząć linku od underscore... choć i tak tu nie kwestia linku
-            sGuid = sGuid.Substring(0, iInd + 2) + sGuid.Substring(iInd1)
+            sGuid = sGuid.Substring(0, iInd + 1) '& sGuid.Substring(iInd1)
         End If
 
         ' 2018.11.10, dla TomsHardware ktory ma długie ID
